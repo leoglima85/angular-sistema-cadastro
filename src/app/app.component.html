@@ -1,19 +1,5 @@
-
 <mat-toolbar color="primary">
   <mat-icon>local_fire_department</mat-icon>
   <span>Sistema de Cadastro</span>
 </mat-toolbar>
-
-<div>
-  <h2>Sign Up</h2>
-  <input type="text" #emailSignup>
-  <input type="text" #passwordSignup>
-  <button (click)="onSignup(emailSignup.value,passwordSignup.value)">Sign Up</button>
-</div>
-<hr>
-<div>
-  <h2>Sign In</h2>
-  <input type="text" #emailSignin>
-  <input type="text" #passwordSignin>
-  <button (click)="onSignin(emailSignin.value,passwordSignin.value)">Sign In</button>
-</div>
+<router-outlet></router-outlet>

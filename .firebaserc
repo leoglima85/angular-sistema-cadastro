@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "angular-sistema-cadastro": {
+      "hosting": {
+        "angular-sistema-cadastro": [
+          "angular-sistema-cadastro"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "angular-sistema-cadastro"
+  }
+}

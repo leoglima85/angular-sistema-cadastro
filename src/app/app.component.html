@@ -1,8 +1,19 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="toolbar mat-elevation-z4">
   <mat-icon>local_fire_department</mat-icon>
   <span>Sistema de Cadastro</span>
   <div class="nav-logout">
+    <span class="example-spacer"></span>
+    <mat-icon class="botoes" matSuffix>account_circle</mat-icon>
     <mat-icon matSuffix>logout</mat-icon>
   </div>
 </mat-toolbar>
-<router-outlet></router-outlet>
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>Drawer content</mat-drawer>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+<mat-toolbar color="primary" class="footer">
+   <span>Desenvolvido por Leonardo Lima</span>
+</mat-toolbar>

@@ -1,4 +1,24 @@
 .nav-logout {
     display: flex;
-    
+    align-items: center;
+    padding-left: 15px; 
+    flex: 1 1 auto;   
+    padding-left: 15px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+.footer span {
+    font-size: 0.8rem;
+    font-weight: 300;   
+}
+
+.botoes{
+    padding-right: 15px;
 }

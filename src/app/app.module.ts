@@ -19,6 +19,8 @@ import { SignupComponent } from './components/signup/signup.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatSidenavModule} from '@angular/material/sidenav';
+
 
 
 @NgModule({
@@ -43,6 +45,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     ReactiveFormsModule,
     MatCardModule,
     MatTabsModule,
+    MatSidenavModule,
   ],
   
   providers: [],

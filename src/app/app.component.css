@@ -3,7 +3,7 @@
     align-items: center;
     padding-left: 15px; 
     flex: 1 1 auto;   
-    padding-left: 15px;
+    
 }
 
 .footer {
@@ -21,4 +21,22 @@
 
 .botoes{
     padding-right: 15px;
+}
+
+.teste{
+    background-color: blue;
+    
+    
+}
+
+.teste1{
+    background-color: yellow;
+    top: 64px;
+    bottom: 64px;
+    position: fixed;
+}
+
+.teste2{
+    background-color: red;
+    
 }

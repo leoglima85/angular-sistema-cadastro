@@ -3,6 +3,7 @@
     align-items: center;
     padding-left: 15px; 
     flex: 1 1 auto;   
+    height: 40px;
     
 }
 
@@ -11,7 +12,7 @@
     bottom: 0;
     display: flex;
     justify-content: flex-end;
-
+    height: 40px;
 }
 
 .footer span {
@@ -40,3 +41,66 @@
     background-color: red;
     
 }
+
+.companyName{
+    font-size: 150%;
+}
+div {
+    overflow: inherit;
+}
+a{
+    text-decoration: none;
+    font-size: 110%;
+    white-space: normal;
+}
+button{
+    font-size: 110%;
+    min-width: min-content;
+}
+.example-icon {
+    padding: 0 14px;
+  }
+
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  .mat-sidenav-content{
+      font-size: 200%;
+      text-align: center;
+  }
+
+
+
+  .example-container {
+    height: 80%;
+    border: 0px solid rgba(0, 0, 0, 0.5);
+  }
+  .example-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  .example-sidenav {
+     user-select: none;
+  }
+  .full-width {
+    width: 100%;
+  }
+  .menu-button {
+    transition: 300ms ease-in-out;
+    transform: rotate(0deg);
+  }
+  .menu-button.rotated {
+    transform: rotate(180deg);
+  }
+  .submenu {
+    overflow-y: hidden;
+    transition: transform 300ms ease;
+    transform: scaleY(0);
+    transform-origin: top;
+    padding-left: 30px;
+  }
+  .submenu.expanded {
+    transform: scaleY(1);
+  }

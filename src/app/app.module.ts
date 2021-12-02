@@ -26,6 +26,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     HomeComponent,
     SigninComponent,
     SignupComponent,
-    ProfileComponent
+    ProfileComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -52,6 +54,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     MatSidenavModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    MatListModule
   ],
   
   providers: [],

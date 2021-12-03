@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import {FormControl, Validators} from '@angular/forms';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
+import { FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,10 +11,15 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.minLength(6)]);
+  
   constructor(private route: Router) { }
 
   ngOnInit(): void {
+    const auth = getAuth();
+    auth.onAuthStateChanged((res) => {console.log('resultado: ',res)}); 
   }
+
+    
 
   getErrorMessage() {
     if (this.email.hasError('required')) {
@@ -31,7 +36,7 @@ export class HomeComponent implements OnInit {
       .then((userCredential) => {
         // Logged in
         const user = userCredential.user;
-        console.log('Conta logada com sucesso')
+        console.log('Conta logada com sucesso!. uid: ', userCredential.user.uid)
         this.route.navigate(['dashboard']);
       })
       .catch((error) => {
@@ -48,6 +53,7 @@ export class HomeComponent implements OnInit {
       .then((userCredential) => {
         // Logged in
         const user = userCredential.user;
+        console.log(userCredential.user.uid);
         console.log('Conta criada com sucesso')
       })
       .catch((error) => {

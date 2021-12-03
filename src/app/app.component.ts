@@ -23,24 +23,7 @@ export class AppComponent {
 
   constructor(){}
 
-  async onSignup(email: string, password:string){
-      console.log('clicado no signup: ' + email +' |-| ' + password );
-      const auth = getAuth();
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          console.log('Conta criada com sucesso')
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // ..
-          console.log(errorCode);
-          console.log(errorMessage);
-        });
-  }
-
+  
   mouseenter() {
     if (!this.isExpanded) {
       this.isShowing = true;

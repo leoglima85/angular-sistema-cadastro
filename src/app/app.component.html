@@ -1,37 +1,32 @@
 <mat-toolbar class="nav-logout" color="primary">
     <div fxShow="true" fxHide.gt-sm="true">
-        <span>Sistema de Cadastro</span>
+        <a mat-button routerLink="/home">Sistema de Cadastro</a>
     </div>
     <span class="example-spacer"></span>
     <div fxShow="true" fxHide.lt-md="true">
         <button mat-icon-button>
             <mat-icon class="botoes" matSuffix>account_circle</mat-icon>
         </button>
-        <button mat-icon-button>
+        <button mat-icon-button routerLink="/home">
             <mat-icon matSuffix>logout</mat-icon>
         </button>
     </div>
 </mat-toolbar>
-<mat-sidenav-container class="example-container" autosize>
-	<mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
-		<mat-nav-list>
-			<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
-				<span class="full-width" *ngIf="isExpanded || isShowing">Parent Menu</span>
-				<mat-icon mat-list-icon>home</mat-icon>
-				<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
-			</mat-list-item>
-			<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-				<a mat-list-item href="...">Submenu Item 1</a>
-				<a mat-list-item href="...">Submenu Item 2</a>
-				<mat-list-item (click)="showSubSubMenu = !showSubSubMenu" class="parent">
-					<span class="full-width" *ngIf="isExpanded || isShowing">Nested Menu</span>
-					<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubSubMenu}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
-				</mat-list-item>
-				<div class="submenu" [ngClass]="{'expanded' : showSubSubMenu}" *ngIf="isShowing || isExpanded">
-					<mat-list-item>SubSubmenu Item 1</mat-list-item>
-					<mat-list-item>SubSubmenu Item 2</mat-list-item>
-				</div>
-			</div>
+<mat-sidenav-container class="container" autosize>
+	<mat-sidenav #sidenav class="sidenav" mode="side" opened="true" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
+		<mat-nav-list class="fontsize">
+			<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent" routerLink="/dashboard">
+				<span class="full-width fontsize" *ngIf="isExpanded || isShowing">Dashboard</span>
+				<mat-icon mat-list-icon >dashboard</mat-icon>
+            </mat-list-item>
+			<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent" routerLink="/cadastro">
+				<span class="full-width fontsize" *ngIf="isExpanded || isShowing">Cadastro</span>
+				<mat-icon mat-list-icon >input</mat-icon>
+            </mat-list-item>
+            <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent" routerLink="/profile">
+				<span class="full-width fontsize" *ngIf="isExpanded || isShowing">conta</span>
+				<mat-icon mat-list-icon>face</mat-icon>
+            </mat-list-item>
 		</mat-nav-list>
     <mat-nav-list>
 </mat-nav-list>

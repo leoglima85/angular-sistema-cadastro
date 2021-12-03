@@ -27,6 +27,9 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import {MatListModule} from '@angular/material/list';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { CadastroComponent } from './components/cadastro/cadastro.component';
+import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,9 @@ import {MatListModule} from '@angular/material/list';
     SigninComponent,
     SignupComponent,
     ProfileComponent,
+    DashboardComponent,
+    CadastroComponent,
+    PagenotfoundComponent,
    
   ],
   imports: [

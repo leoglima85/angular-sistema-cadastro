@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
 import { FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-home',
@@ -11,8 +12,11 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.minLength(6)]);
+
   
-  constructor(private route: Router) { }
+  constructor(private route: Router,
+              private user: AppComponent
+    ) { }
 
   ngOnInit(): void {
     const auth = getAuth();
@@ -37,6 +41,7 @@ export class HomeComponent implements OnInit {
         // Logged in
         const user = userCredential.user;
         console.log('Conta logada com sucesso!. uid: ', userCredential.user.uid)
+        this.user.username = userCredential.user.uid;
         this.route.navigate(['dashboard']);
       })
       .catch((error) => {

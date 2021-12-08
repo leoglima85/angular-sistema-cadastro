@@ -3,7 +3,7 @@
     align-items: center;
     padding-left: 15px; 
     flex: 1 1 auto;   
-    height: 5%;
+    height: 40px;
     
 }
 
@@ -72,7 +72,7 @@ button{
 
 
   .container {
-    height: 90%;
+    height: 100%;
     border: 0px solid rgba(0, 0, 0, 0.5);
     
   }

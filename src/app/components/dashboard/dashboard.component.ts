@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { FireauthservService } from 'src/app/services/fireauthserv.service';
 
 interface Item {
   conta: string;
@@ -19,12 +20,14 @@ export class DashboardComponent implements OnInit {
 
   items: Observable<Item[]>;
 
-  constructor(firestore: AngularFirestore) { 
+  constructor(firestore: AngularFirestore,
+              private fas: FireauthservService) { 
     this.items = firestore.collection<Item>('movimentacoes').valueChanges();
     //console.log(this.items);
    }
 
   ngOnInit(): void {
+    console.log('OnInit dashboard component user:',this.fas.getAuth());
   }
 
 }

@@ -1,5 +1,5 @@
-
 import { Component } from '@angular/core';
+import { FireauthservService } from 'src/app/services/fireauthserv.service';
 
 
 @Component({
@@ -9,8 +9,13 @@ import { Component } from '@angular/core';
 })
 export class ProfileComponent  {
 
-  
+  usuario : any;
 
-  constructor(){ }
+  constructor(private fas: FireauthservService){ 
+    this.usuario =  fas.getUser();
+    console.log('profile usuario', this.usuario)
+  }
+
+
 
 }

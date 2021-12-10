@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { getFirestore, collection, getDocs } from 'firebase/firestore'
 import { FireauthservService } from 'src/app/services/fireauthserv.service';
 
 interface Item {
@@ -17,17 +16,26 @@ interface Item {
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+   db = getFirestore();
+   colRef = collection(this.db,'movimentacoes');
+   movimentacoes: any[] = [];
 
-  items: Observable<Item[]>;
+   //items: Observable<Item[]>;
 
-  constructor(firestore: AngularFirestore,
-              private fas: FireauthservService) { 
-    this.items = firestore.collection<Item>('movimentacoes').valueChanges();
-    //console.log(this.items);
-   }
+  constructor(private fas: FireauthservService) { 
+    this.getDocsFunc();     
+      }
 
   ngOnInit(): void {
     console.log('OnInit dashboard component user:',this.fas.getAuth());
+  }
+
+  async getDocsFunc(){
+    const querySnapshot = await getDocs(collection(this.db, "movimentacoes"));
+    querySnapshot.forEach((doc) => {
+      //console.log('aqui',`${doc.id} => ${doc.data()}`);
+      this.movimentacoes.push({...doc.data(),id: doc.id})
+    });
   }
 
 }

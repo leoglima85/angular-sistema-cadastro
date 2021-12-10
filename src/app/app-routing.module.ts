@@ -10,7 +10,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { AngularFireAuthGuard } from '@angular/fire/compat/auth-guard';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/home', pathMatch:'full' },
+    { path: '', redirectTo: '', pathMatch:'full' },
     { path: 'signin', component: SigninComponent },
     { path: 'signup', component: SignupComponent },
     { path: 'home', component: HomeComponent },

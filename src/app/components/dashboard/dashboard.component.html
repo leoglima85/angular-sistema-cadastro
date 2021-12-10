@@ -1,10 +1,10 @@
 <p>dashboard works!</p>
 <ul>
-    <li *ngFor="let item of items | async">
+    <li  *ngFor="let item of movimentacoes ">
       ID: {{ item.id }} <br>
       Conta: {{ item.conta }}<br>
-      Data: {{ item.mes_ref.toDate() | date:'dd/MM/yyyy' }}<br>
+      Data: {{ item.mes_ref }}<br>
       Tipo: {{ item.tipo }}<br>
       Valor: {{ item.valor }}
     </li>
-  </ul>
+</ul>

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { FireauthservService } from './services/fireauthserv.service';
@@ -11,32 +11,21 @@ import { FireauthservService } from './services/fireauthserv.service';
 })
 export class AppComponent implements OnInit {
   title = 'angular-sistema-cadastro';
+  public username = "Visitante";
+  auth = getAuth();
+  public uid : any;
+
   @ViewChild('sidenav') sidenav: MatSidenav | undefined;
-  isExpanded = false;
-  showSubmenu: boolean = false;
-  isShowing = false;
-  showSubSubMenu: boolean = false;
-  username : string | undefined = "Visitante";
+   
 
   constructor(private route : Router,
-              private fas: FireauthservService ){
+              private fas: FireauthservService,
+               ){
     
   }
-  ngOnInit(): void {
-    this.username = this.fas.getUser();
-  }
-
-  
-  mouseenter() {
-    if (!this.isExpanded) {
-      this.isShowing = true;
-    }
-  }
-
-  mouseleave() {
-    if (!this.isExpanded) {
-      this.isShowing = false;
-    }
+  ngOnInit() {
+    console.log('*** OnInit -> ',this.fas.getAuth());
+    
   }
 
   logout() {

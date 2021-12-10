@@ -13,8 +13,6 @@ export const environment = {
     }
   };
 
-
-
-const app = initializeApp(environment.firebase);
+ initializeApp(environment.firebase);
 
 

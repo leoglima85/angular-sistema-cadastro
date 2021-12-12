@@ -1,3 +1,4 @@
+import { ExtratoComponent } from './components/extrato/extrato.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
     { path: 'profile', canActivate: [AngularFireAuthGuard], component: ProfileComponent },
     { path: 'dashboard',canActivate: [AngularFireAuthGuard], component: DashboardComponent },
     { path: 'cadastro', canActivate: [AngularFireAuthGuard], component: CadastroComponent },
+    { path: 'extrato', canActivate: [AngularFireAuthGuard], component: ExtratoComponent },
     { path: '**', component: PagenotfoundComponent },
 ];
 

@@ -5,5 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class FirestoreService {
 
+  temp = "teste";
+
   constructor() { }
+
+  getTemp (){
+    return this.temp;
+  }
 }

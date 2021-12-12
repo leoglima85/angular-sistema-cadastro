@@ -30,6 +30,7 @@ import {MatListModule} from '@angular/material/list';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
+import { ExtratoComponent } from './components/extrato/extrato.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
     DashboardComponent,
     CadastroComponent,
     PagenotfoundComponent,
+    ExtratoComponent,
    
   ],
   imports: [

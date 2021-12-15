@@ -17,21 +17,19 @@ interface Item {
 })
 export class DashboardComponent implements OnInit {
    db = getFirestore();
-   colRef = collection(this.db,'movimentacoes');
+   //colRef = collection(this.db,'movimentacoes');
    movimentacoes: any[] = [];
 
-   //items: Observable<Item[]>;
-
-  constructor(private fas: FireauthservService) { 
+   constructor(private fas: FireauthservService) { 
     this.getDocsFunc();     
       }
 
   ngOnInit(): void {
-    console.log('OnInit dashboard component user:',this.fas.getAuth());
+    //console.log('OnInit dashboard component user:',this.fas.getAuth());
   }
 
   async getDocsFunc(){
-    const querySnapshot = await getDocs(collection(this.db, "movimentacoes"));
+    const querySnapshot = await getDocs(collection(this.db, "extrato"));
     querySnapshot.forEach((doc) => {
       //console.log('aqui',`${doc.id} => ${doc.data()}`);
       this.movimentacoes.push({...doc.data(),id: doc.id})

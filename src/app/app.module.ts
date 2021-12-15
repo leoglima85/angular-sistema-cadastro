@@ -15,6 +15,10 @@ import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {DatePipe} from '@angular/common';
 
 import { HomeComponent } from './components/home/home.component';
 import { SigninComponent } from './components/signin/signin.component';
@@ -24,8 +28,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+
 import {MatListModule} from '@angular/material/list';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
@@ -62,10 +65,13 @@ import { ExtratoComponent } from './components/extrato/extrato.component';
     MatSidenavModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    MatListModule
+    MatListModule,
+    MatTableModule,
+    MatSortModule,
+    MatCheckboxModule
   ],
   
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

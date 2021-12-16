@@ -1,8 +1,9 @@
 import { FirestoreService } from './../../services/firestore.service';
 import { Component, OnInit } from '@angular/core';
 import { Extrato } from 'src/app/models/extrato';
-import { collection, getFirestore, getDocs } from "firebase/firestore";
+import { collection, getFirestore, getDocs, query, where } from "firebase/firestore";
 import { DatePipe } from '@angular/common';
+import { Condominio } from 'src/app/models/condominio.model';
 
 @Component({
   selector: 'app-extrato',
@@ -12,10 +13,14 @@ import { DatePipe } from '@angular/common';
 export class ExtratoComponent implements OnInit {
 
   public fileString: any;
+  public options2 = [ {"conta": 1, "nome": "a"},{"conta": 2, "nome": "b"} ];
+  public selected2 = this.options2[1].conta;
   tam : number | undefined = 0;
   extrato: Extrato[] = [];
+  condominio: Condominio[] = [];
   db = getFirestore();
   movimentacoes: any[] = [];
+  condominioTemp: any[] = [];
   displayedColumns: string[] = ['conta', 'data_mov', 'nr_doc', 'historico','valor','deb_cred','check','delete'];
   dataSource2 = this.extrato;
   
@@ -27,7 +32,8 @@ export class ExtratoComponent implements OnInit {
                 }
 
   async ngOnInit() {
-     await this.getExtratoDocs();
+     //await this.getExtratoDocs();
+     await this.getCondominioDocs();
   }
 
   changeListener($event: { target: any; }): void {
@@ -86,14 +92,23 @@ export class ExtratoComponent implements OnInit {
   async getExtratoDocs(){
     const querySnapshot = await getDocs(collection(this.db, "extrato"));
     querySnapshot.forEach((doc) => {
-      //console.log('aqui',doc.data().id);
       this.movimentacoes.push({...doc.data(),id: doc.id})
-
     });
-    //console.log(this.movimentacoes)
-    //console.log(this.dataSource)
-    //console.log(this.dataSource2)
     this.extrato = this.movimentacoes;
   }
+
+  async getCondominioDocs(){
+    const q = query(collection(this.db, "condominios"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      //console.log("data",doc.data())// is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+      this.condominioTemp.push({...doc.data(),id: doc.id})
+    });
+    //console.log(q);
+    this.condominio = this.condominioTemp;
+  }
+
+
 
 }

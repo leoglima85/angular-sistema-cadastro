@@ -18,6 +18,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSelectModule} from '@angular/material/select';
+
 import {DatePipe} from '@angular/common';
 
 import { HomeComponent } from './components/home/home.component';
@@ -68,7 +70,8 @@ import { ExtratoComponent } from './components/extrato/extrato.component';
     MatListModule,
     MatTableModule,
     MatSortModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSelectModule
   ],
   
   providers: [DatePipe],

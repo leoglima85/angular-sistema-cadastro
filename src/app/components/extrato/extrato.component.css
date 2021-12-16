@@ -5,3 +5,13 @@ table {
   .mat-row:hover {
     background-color: gray;
   }
+
+  :host {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .teste {
+    display: flex;
+  }

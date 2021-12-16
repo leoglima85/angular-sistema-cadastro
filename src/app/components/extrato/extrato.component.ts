@@ -32,7 +32,7 @@ export class ExtratoComponent implements OnInit {
                 }
 
   async ngOnInit() {
-     //await this.getExtratoDocs();
+     await this.getExtratoDocs();
      await this.getCondominioDocs();
   }
 

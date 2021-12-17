@@ -19,8 +19,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSelectModule} from '@angular/material/select';
-
-import {DatePipe} from '@angular/common';
+import {MatListModule} from '@angular/material/list';
 
 import { HomeComponent } from './components/home/home.component';
 import { SigninComponent } from './components/signin/signin.component';
@@ -31,11 +30,12 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
-import {MatListModule} from '@angular/material/list';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { ExtratoComponent } from './components/extrato/extrato.component';
+
+
 
 @NgModule({
   declarations: [
@@ -74,7 +74,7 @@ import { ExtratoComponent } from './components/extrato/extrato.component';
     MatSelectModule
   ],
   
-  providers: [DatePipe],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,9 +1,10 @@
 import { FirestoreService } from './../../services/firestore.service';
 import { Component, OnInit } from '@angular/core';
 import { Extrato } from 'src/app/models/extrato';
-import { collection, getFirestore, getDocs, query, where } from "firebase/firestore";
-import { DatePipe } from '@angular/common';
+import { collection, getFirestore, getDocs, query, where, orderBy, collectionGroup } from "firebase/firestore";
 import { Condominio } from 'src/app/models/condominio.model';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-extrato',
@@ -12,31 +13,39 @@ import { Condominio } from 'src/app/models/condominio.model';
 })
 export class ExtratoComponent implements OnInit {
 
-  public fileString: any;
-  public options2 = [ {"conta": 1, "nome": "a"},{"conta": 2, "nome": "b"} ];
-  public selected2 = this.options2[1].conta;
-  tam : number | undefined = 0;
-  extrato: Extrato[] = [];
-  condominio: Condominio[] = [];
   db = getFirestore();
+  fileString: any;
+  
+  check_cred = true;
+  check_deb = true;
+  
+  mes : string = "";
+  condominio : number = 0 ;
+  somaTotal : number = 0 ;
+  extrato: Extrato[] = [];
+  condominios: Condominio[] = [];
+  condominiosTemp: any[] = [];
   movimentacoes: any[] = [];
-  condominioTemp: any[] = [];
-  displayedColumns: string[] = ['conta', 'data_mov', 'nr_doc', 'historico','valor','deb_cred','check','delete'];
+  displayedColumns: string[] = ['conta', 'data_mov', 'nr_doc', 'historico','valor','deb_cred','check'];
+  meses = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+  
   dataSource2 = this.extrato;
   
   constructor(private fs: FirestoreService,
-              private datePipe: DatePipe) 
+              fb: FormBuilder) 
   
                 { 
                   this.fileString;
+                 
                 }
 
   async ngOnInit() {
      await this.getExtratoDocs();
      await this.getCondominioDocs();
+      this.filtrar();
   }
 
-  changeListener($event: { target: any; }): void {
+  changeListener($event : any) {
     this.readThis($event.target);
   }
 
@@ -51,7 +60,6 @@ export class ExtratoComponent implements OnInit {
         var texto3 = texto2?.toString().split(';');
         this.fileString = texto3;
         var cont = 6;
-        this.tam = texto3?.length;
         var temp =  true;
         while  ( temp ){
           if (this.fileString[cont] == 0) {
@@ -72,6 +80,7 @@ export class ExtratoComponent implements OnInit {
               deb_cred: this.fileString[cont+5],
               check: false,
             }
+            
             this.fs.addMovimentacaoExtrato(mov);
             cont = cont +6;
             if (this.fileString[cont] == undefined || this.fileString[cont] == 0 ){ 
@@ -92,9 +101,11 @@ export class ExtratoComponent implements OnInit {
   async getExtratoDocs(){
     const querySnapshot = await getDocs(collection(this.db, "extrato"));
     querySnapshot.forEach((doc) => {
+      this.somaTotal = this.somaTotal + doc.data().valor;
       this.movimentacoes.push({...doc.data(),id: doc.id})
     });
     this.extrato = this.movimentacoes;
+    
   }
 
   async getCondominioDocs(){
@@ -102,11 +113,28 @@ export class ExtratoComponent implements OnInit {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       //console.log("data",doc.data())// is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-      this.condominioTemp.push({...doc.data(),id: doc.id})
+      //console.log(doc.id, " => ", doc.data());
+      this.condominiosTemp.push({...doc.data(),id: doc.id})
     });
-    //console.log(q);
-    this.condominio = this.condominioTemp;
+    
+    this.condominios = this.condominiosTemp;
+  }
+
+  async filtrar(){
+    
+    console.log ("cred: ",this.check_cred,"deb: ",this.check_deb, "cond:", this.condominio, "mes:", this.mes );
+    const ref = query(collection(this.db, 'extrato'), where('deb_cred', '==', 'D'));
+    const querySnapshot = await getDocs(ref);
+    querySnapshot.forEach((doc) => {
+        //console.log(doc.id, ' => ', doc.data());
+   });
+
+
+  }
+
+  onChange() {
+    console.log ("cred: ",this.check_cred,"deb: ",this.check_deb, "cond:", this.condominio, "mes:", this.mes );
+    
   }
 
 

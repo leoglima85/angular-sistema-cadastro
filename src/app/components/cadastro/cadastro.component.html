@@ -1,31 +1,238 @@
-<p>cadastro works!</p>
+<mat-card>
+  <h1>Formulários para cadastros</h1>
+  <mat-tab-group>
+    <mat-tab label="Condominio">
+      <form [formGroup]="cadastroForm" class="example-form">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Nome do Condominio</mat-label>
+          <input matInput formControlName="nome" name="nome">
+        </mat-form-field>
 
-<form action="adicionar">
-    <label for="conta">Conta:</label>
-    <input type="text" name="conta" required>
-    <label for="data">Data:</label>
-    <input type="text" name="data" required>
-    <label for="tipo">Tipo:</label>
-    <input type="text" name="" required>
-    <label for="valor">Valor:</label>
-    <input type="number" name="valor" required>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>CNPJ </mat-label>
+          <input matInput formControlName="cnpj" name="cnpj">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Endereço </mat-label>
+          <input matInput formControlName="endereco" name="endereco">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Telefone </mat-label>
+          <input matInput formControlName="telefone" name="telefone">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Banco </mat-label>
+          <input matInput formControlName="banco" name="banco">
+        </mat-form-field>
+        <mat-form-field class="agencia" appearance="fill">
+          <mat-label>Agencia </mat-label>
+          <input matInput formControlName="agencia" name="agencia">
+        </mat-form-field>
+        <mat-form-field class="conta" appearance="fill">
+          <mat-label>Conta </mat-label>
+          <input matInput formControlName="conta" name="conta">
+        </mat-form-field>
+        <mat-form-field class="operacao" appearance="fill">
+          <mat-label>Operacao </mat-label>
+          <input matInput formControlName="operacao" name="operacao">
+        </mat-form-field>
+        <mat-form-field class="pix" appearance="fill">
+          <mat-label>PIX </mat-label>
+          <input matInput formControlName="pix" name="pix">
+        </mat-form-field>
+        <mat-form-field class="chavepix" appearance="fill">
+          <mat-label>Chave PIX </mat-label>
+          <input matInput formControlName="chavepix" name="chavepix">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Sindico</mat-label>
+          <input matInput formControlName="nome" name="nome">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>CPF Sindico</mat-label>
+          <input matInput formControlName="nome" name="nome">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Conselho Fiscal 1</mat-label>
+          <input matInput formControlName="nome" name="nome">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>CPF Conselho Fiscal 1</mat-label>
+          <input matInput formControlName="nome" name="nome">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Conselho Fiscal 2</mat-label>
+          <input matInput formControlName="nome" name="nome">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>CPF Conselho Fiscal 2</mat-label>
+          <input matInput formControlName="nome" name="nome">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Conselho Fiscal 3</mat-label>
+          <input matInput formControlName="nome" name="nome">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>CPF Conselho Fiscal 3</mat-label>
+          <input matInput formControlName="nome" name="nome">
+        </mat-form-field>
+      </form>
+      <div mat-dialog-actions>
+        <button mat-raised-button color="primary" (click)="salvarCondominio()">Salvar</button>
+      </div>
+    </mat-tab>
+    <mat-tab label="Funcionario">
+      <form [formGroup]="cadastroForm" class="example-form">
+        <mat-form-field appearance="fill">
+          <mat-label>Condominio</mat-label>
+          <mat-select>
+            <mat-option></mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Nome do Funcionario </mat-label>
+          <input matInput formControlName="nome" name="nome">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Endereço </mat-label>
+          <input matInput formControlName="endereco" name="endereco">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Telefone </mat-label>
+          <input matInput formControlName="telefone" name="telefone">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>CPF </mat-label>
+          <input matInput formControlName="cpf" name="cpf" required>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Cargo </mat-label>
+          <input matInput formControlName="cargo" name="cargo">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Admissao </mat-label>
+          <input matInput formControlName="admissao" name="admissao">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Banco </mat-label>
+          <input matInput formControlName="banco" name="banco">
+        </mat-form-field>
+        <mat-form-field class="agencia" appearance="fill">
+          <mat-label>Agencia </mat-label>
+          <input matInput formControlName="agencia" name="agencia">
+        </mat-form-field>
+        <mat-form-field class="conta" appearance="fill">
+          <mat-label>Conta </mat-label>
+          <input matInput formControlName="conta" name="conta">
+        </mat-form-field>
+        <mat-form-field class="operacao" appearance="fill">
+          <mat-label>Operacao </mat-label>
+          <input matInput formControlName="operacao" name="operacao">
+        </mat-form-field>
+        <mat-form-field class="pix" appearance="fill">
+          <mat-label>PIX </mat-label>
+          <input matInput formControlName="pix" name="pix">
+        </mat-form-field>
+        <mat-form-field class="chavepix" appearance="fill">
+          <mat-label>Chave PIX </mat-label>
+          <input matInput formControlName="chavepix" name="chavepix">
+        </mat-form-field>
+      </form>
+      <div mat-dialog-actions>
+        <button mat-raised-button color="primary" (click)="salvarCondominio()">Salvar</button>
+      </div>
+    </mat-tab>
 
-    <button> Adicionar</button>
-</form>
+    <mat-tab label="Fornecedores">
+      <form [formGroup]="cadastroForm" class="example-form">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Nome do Fornecedor </mat-label>
+          <input matInput formControlName="nome" name="nome">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Endereço </mat-label>
+          <input matInput formControlName="endereco" name="endereco">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Telefone </mat-label>
+          <input matInput formControlName="telefone" name="telefone">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>CNPJ </mat-label>
+          <input matInput formControlName="cpf" name="cpf" required>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Serviços Prestados </mat-label>
+          <input matInput formControlName="cargo" name="cargo">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Banco </mat-label>
+          <input matInput formControlName="banco" name="banco">
+        </mat-form-field>
+        <mat-form-field class="agencia" appearance="fill">
+          <mat-label>Agencia </mat-label>
+          <input matInput formControlName="agencia" name="agencia">
+        </mat-form-field>
+        <mat-form-field class="conta" appearance="fill">
+          <mat-label>Conta </mat-label>
+          <input matInput formControlName="conta" name="conta">
+        </mat-form-field>
+        <mat-form-field class="operacao" appearance="fill">
+          <mat-label>Operacao </mat-label>
+          <input matInput formControlName="operacao" name="operacao">
+        </mat-form-field>
+        <mat-form-field class="pix" appearance="fill">
+          <mat-label>PIX </mat-label>
+          <input matInput formControlName="pix" name="pix">
+        </mat-form-field>
+        <mat-form-field class="chavepix" appearance="fill">
+          <mat-label>Chave PIX </mat-label>
+          <input matInput formControlName="chavepix" name="chavepix">
+        </mat-form-field>
+      </form>
+      <div mat-dialog-actions>
+        <button mat-raised-button color="primary" (click)="salvarCondominio()">Salvar</button>
+      </div>
+    </mat-tab>
+    <mat-tab label="Condôminos">
+      <form [formGroup]="cadastroForm" class="example-form">
+        <mat-form-field appearance="fill">
+          <mat-label>Condominio</mat-label>
+          <mat-select>
+            <mat-option></mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Unidade </mat-label>
+          <input matInput formControlName="unidade" name="unidade">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Morador 1 </mat-label>
+          <input matInput formControlName="nome" name="nome">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Morador 2 </mat-label>
+          <input matInput formControlName="nome" name="nome">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Telefone </mat-label>
+          <input matInput formControlName="telefone" name="telefone">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Email </mat-label>
+          <input matInput formControlName="telefone" name="telefone">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Observação </mat-label>
+          <input matInput formControlName="telefone" name="telefone">
+        </mat-form-field>
 
-<hr>
 
-<form action="deletar">
-    <label for="id">Id:</label>
-    <input type="text" name="id" required>
-    <label for="conta">Conta:</label>
-    <input type="text" name="conta" required>
-    <label for="data">Data:</label>
-    <input type="text" name="data" required>
-    <label for="tipo">Tipo:</label>
-    <input type="text" name="" required>
-    <label for="valor">Valor:</label>
-    <input type="number" name="valor" required>
 
-    <button> Deletar</button>
-</form>
+      </form>
+      <div mat-dialog-actions>
+        <button mat-raised-button color="primary" (click)="salvarCondominio()">Salvar</button>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

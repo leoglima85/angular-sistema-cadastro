@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Extrato } from 'src/app/models/extrato';
 import { collection, getFirestore, getDocs, query, where, orderBy, collectionGroup } from "firebase/firestore";
 import { Condominio } from 'src/app/models/condominio.model';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
@@ -14,7 +14,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 export class ExtratoComponent implements OnInit {
 
   db = getFirestore();
-  fileString: any;
+  public fileString: any;
   
   check_cred = true;
   check_deb = true;
@@ -56,7 +56,7 @@ export class ExtratoComponent implements OnInit {
         var texto = myReader.result?.toString();
         var texto2 = texto?.replace(/"/gi,'');
         texto2 = texto2?.replace(/\r/gi,';');
-        texto2 = texto2?.replace(/\n/gi,'');
+        texto2 = texto2?.replace(/\n/gi,';');
         var texto3 = texto2?.toString().split(';');
         this.fileString = texto3;
         var cont = 6;
@@ -82,6 +82,7 @@ export class ExtratoComponent implements OnInit {
             }
             
             this.fs.addMovimentacaoExtrato(mov);
+            console.log(mov);
             cont = cont +6;
             if (this.fileString[cont] == undefined || this.fileString[cont] == 0 ){ 
                 temp = false;
@@ -102,6 +103,7 @@ export class ExtratoComponent implements OnInit {
     const querySnapshot = await getDocs(collection(this.db, "extrato"));
     querySnapshot.forEach((doc) => {
       this.somaTotal = this.somaTotal + doc.data().valor;
+      console.log("mes:",doc.data().data_mov.toDate().getMonth(),"ano: ",doc.data().data_mov.toDate().getYear())
       this.movimentacoes.push({...doc.data(),id: doc.id})
     });
     this.extrato = this.movimentacoes;

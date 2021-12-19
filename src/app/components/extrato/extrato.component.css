@@ -17,7 +17,8 @@ table {
     "tabela tabela tabela";
 }
 
-.tabela {
+.tabela{
+   
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
@@ -29,9 +30,10 @@ table {
 }
 
 .dashboard {
+  background-color: aqua;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 0.2fr 0.2fr 0.2fr;
+  grid-template-rows: 0.5fr 0.5fr 0.5fr;
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:

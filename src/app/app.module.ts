@@ -34,6 +34,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { ExtratoComponent } from './components/extrato/extrato.component';
+import { ConsultaComponent } from './components/consulta/consulta.component';
 
 
 
@@ -48,6 +49,7 @@ import { ExtratoComponent } from './components/extrato/extrato.component';
     CadastroComponent,
     PagenotfoundComponent,
     ExtratoComponent,
+    ConsultaComponent,
    
   ],
   imports: [

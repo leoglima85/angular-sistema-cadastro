@@ -1,3 +1,4 @@
+import { ConsultaComponent } from './components/consulta/consulta.component';
 import { ExtratoComponent } from './components/extrato/extrato.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -19,6 +20,7 @@ const routes: Routes = [
     { path: 'dashboard',canActivate: [AngularFireAuthGuard], component: DashboardComponent },
     { path: 'cadastro', canActivate: [AngularFireAuthGuard], component: CadastroComponent },
     { path: 'extrato', canActivate: [AngularFireAuthGuard], component: ExtratoComponent },
+    { path: 'consulta', canActivate: [AngularFireAuthGuard], component: ConsultaComponent },
     { path: '**', component: PagenotfoundComponent },
 ];
 

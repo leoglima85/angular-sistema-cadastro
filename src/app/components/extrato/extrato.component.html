@@ -58,7 +58,7 @@
       </ng-container>
       <ng-container matColumnDef="data_mov">
         <th mat-header-cell *matHeaderCellDef> Data </th>
-        <td mat-cell *matCellDef="let element"> {{element.data_mov.toDate() | date }}</td>
+        <td mat-cell *matCellDef="let element"> {{element.data_mov.toDate() | date:'dd/MM/yyyy' }}</td>
       </ng-container>
       <ng-container matColumnDef="nr_doc">
         <th mat-header-cell *matHeaderCellDef> Nr. Doc </th>

@@ -1,0 +1,36 @@
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  
+  td {
+    padding-right: 8px;
+  }
+
+  .conta {
+    width: 35%;
+    padding-right: 5%;
+  }
+
+  .agencia {
+    width: 20%;
+    padding-right: 5%;
+  }
+
+  .operacao {
+    width: 35%;
+    
+  }
+  .pix {
+    width: 30%;
+    padding-right: 5%;
+  }
+  .chavepix {
+    width: 65%;
+    
+  }

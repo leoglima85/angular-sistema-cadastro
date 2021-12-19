@@ -103,7 +103,7 @@ export class ExtratoComponent implements OnInit {
     const querySnapshot = await getDocs(collection(this.db, "extrato"));
     querySnapshot.forEach((doc) => {
       this.somaTotal = this.somaTotal + doc.data().valor;
-      console.log("mes:",doc.data().data_mov.toDate().getMonth(),"ano: ",doc.data().data_mov.toDate().getYear())
+      console.log("mes:",doc.data().data_mov.toDate().getMonth(),"ano: ",doc.data().data_mov.toDate().getFullYear())
       this.movimentacoes.push({...doc.data(),id: doc.id})
     });
     this.extrato = this.movimentacoes;

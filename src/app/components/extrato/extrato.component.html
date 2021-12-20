@@ -41,6 +41,16 @@
       </mat-form-field>
     </div>
     <div>
+      <mat-form-field appearance="fill" >
+        <mat-label>Mes</mat-label>
+        <mat-select [(ngModel)]="mes" >
+          <mat-option *ngFor="let opt of meses" 
+                      [value]="opt" 
+                      (click)="onChange()">{{ opt }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
       <section class="select-box" >
           <mat-checkbox class="select-box" [(ngModel)]="check_cred" (change)="onChange()"> Credito</mat-checkbox>
           <mat-checkbox class="select-box" [(ngModel)]="check_deb" (change)="onChange()"> Debito</mat-checkbox>

@@ -1,5 +1,5 @@
 import { FirestoreService } from './../../services/firestore.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Extrato } from 'src/app/models/extrato';
 import { collection, getFirestore, getDocs, query, where, orderBy, collectionGroup } from "firebase/firestore";
 import { Condominio } from 'src/app/models/condominio.model';
@@ -20,6 +20,7 @@ export class ExtratoComponent implements OnInit {
   check_deb = true;
   
   mes : string = "";
+  ano : number = 0;
   condominio : number = 0 ;
   somaTotal : number = 0 ;
   extrato: Extrato[] = [];
@@ -28,11 +29,13 @@ export class ExtratoComponent implements OnInit {
   movimentacoes: any[] = [];
   displayedColumns: string[] = ['conta', 'data_mov', 'nr_doc', 'historico','valor','deb_cred','check'];
   meses = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+  anos = [2021,2022,2023,2024,2025,2026,2027,2028,2029,2030];
   
   dataSource2 = this.extrato;
   
   constructor(private fs: FirestoreService,
-              fb: FormBuilder) 
+              fb: FormBuilder,
+              private changeDetectorRefs: ChangeDetectorRef) 
   
                 { 
                   this.fileString;
@@ -42,7 +45,7 @@ export class ExtratoComponent implements OnInit {
   async ngOnInit() {
      await this.getExtratoDocs();
      await this.getCondominioDocs();
-      this.filtrar();
+      //this.filtrar();
   }
 
   changeListener($event : any) {
@@ -55,16 +58,24 @@ export class ExtratoComponent implements OnInit {
     myReader.onloadend = (e) => {
         var texto = myReader.result?.toString();
         var texto2 = texto?.replace(/"/gi,'');
+        //console.log("tira aspas - ",texto2);
         texto2 = texto2?.replace(/\r/gi,';');
-        texto2 = texto2?.replace(/\n/gi,';');
+        //console.log("tira /r - ",texto2);
+        texto2 = texto2?.replace(/\n/gi,'');
+        //console.log("tira /n - ",texto2);
         var texto3 = texto2?.toString().split(';');
+        //console.log("dividida - ",texto3);
         this.fileString = texto3;
+        //console.log("texto3 - ",texto3);
         var cont = 6;
         var temp =  true;
         while  ( temp ){
+          console.log("cont: ",cont,"temp: ",temp);
           if (this.fileString[cont] == 0) {
-            console.log("undefined")
+            console.log("aqui - undefined")
+            temp = false;
           }else {
+            console.log("dentro do else")
             let data2  = this.fileString[cont+1];
             var year        = data2.substring(0,4);
             var month       = data2.substring(4,6);
@@ -80,12 +91,13 @@ export class ExtratoComponent implements OnInit {
               deb_cred: this.fileString[cont+5],
               check: false,
             }
-            
+            console.log("mov aqui: ",mov);
             this.fs.addMovimentacaoExtrato(mov);
             console.log(mov);
             cont = cont +6;
             if (this.fileString[cont] == undefined || this.fileString[cont] == 0 ){ 
                 temp = false;
+                console.log("if- temp = false");
             }
           }
         }
@@ -100,7 +112,8 @@ export class ExtratoComponent implements OnInit {
   }
 
   async getExtratoDocs(){
-    const querySnapshot = await getDocs(collection(this.db, "extrato"));
+    const ref = query(collection(this.db, 'extrato'), orderBy("data_mov","asc") ); //, orderBy("data_mov","asc")
+    const querySnapshot = await getDocs(ref); //getDocs(collection(this.db, "extrato"));
     querySnapshot.forEach((doc) => {
       this.somaTotal = this.somaTotal + doc.data().valor;
       console.log("mes:",doc.data().data_mov.toDate().getMonth(),"ano: ",doc.data().data_mov.toDate().getFullYear())
@@ -124,18 +137,21 @@ export class ExtratoComponent implements OnInit {
 
   async filtrar(){
     
-    console.log ("cred: ",this.check_cred,"deb: ",this.check_deb, "cond:", this.condominio, "mes:", this.mes );
-    const ref = query(collection(this.db, 'extrato'), where('deb_cred', '==', 'D'));
+    console.log ("FILTRO --- cred: ",this.check_cred,"deb: ",this.check_deb, "cond:", this.condominio, "mes:", this.mes, this.mes,"ano:", this.ano );
+    const ref = query(collection(this.db, 'extrato'), where('deb_cred', '==', 'D'),orderBy("data_mov")); //where('deb_cred', '==', 'D'));
     const querySnapshot = await getDocs(ref);
     querySnapshot.forEach((doc) => {
         //console.log(doc.id, ' => ', doc.data());
+        this.movimentacoes.push({...doc.data(),id: doc.id})
+
+        console.log('data : ', doc.data().data_mov.toDate(),"deb-cred: ",'data : ', doc.data().deb_cred);
    });
-
-
+   this.extrato = this.movimentacoes;
+   this.changeDetectorRefs.detectChanges();
   }
 
   onChange() {
-    console.log ("cred: ",this.check_cred,"deb: ",this.check_deb, "cond:", this.condominio, "mes:", this.mes );
+    console.log ("cred: ",this.check_cred,"deb: ",this.check_deb, "cond:", this.condominio, "mes:", this.mes,"ano:", this.ano );
     
   }
 

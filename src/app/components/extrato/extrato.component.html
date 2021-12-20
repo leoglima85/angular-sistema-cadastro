@@ -42,9 +42,9 @@
     </div>
     <div>
       <mat-form-field appearance="fill" >
-        <mat-label>Mes</mat-label>
-        <mat-select [(ngModel)]="mes" >
-          <mat-option *ngFor="let opt of meses" 
+        <mat-label>Ano</mat-label>
+        <mat-select [(ngModel)]="ano" >
+          <mat-option *ngFor="let opt of anos" 
                       [value]="opt" 
                       (click)="onChange()">{{ opt }}</mat-option>
         </mat-select>

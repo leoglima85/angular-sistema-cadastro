@@ -6,6 +6,7 @@ table {
 
 .container {
   display: grid;
+  padding: 5px;
   grid-template-columns: 33% 33% 33%;
   grid-template-rows: 0fr 0fr 0fr;
   grid-auto-columns: 1fr;

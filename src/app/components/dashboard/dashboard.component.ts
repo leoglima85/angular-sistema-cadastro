@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
    movimentacoes: any[] = [];
 
    constructor(private fas: FireauthservService) { 
-    this.getDocsFunc();     
+    //this.getDocsFunc();     
       }
 
   ngOnInit(): void {

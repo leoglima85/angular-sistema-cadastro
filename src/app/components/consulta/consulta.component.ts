@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Condominio } from './../../models/condominio.model';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Observable } from '@firebase/util';
-import { Condominio } from 'src/app/models/condominio.model';
+//import { Condominio } from 'src/app/models/condominio.model';
 import { FirestoreService } from 'src/app/services/firestore.service';
 
 export interface UserData {
@@ -27,8 +28,10 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  //@ViewChild(MatTable, {static: false}) table : MatTable // initialize
 
-  constructor(private fs : FirestoreService) {
+  constructor(private fs : FirestoreService,
+    private changeDetectorRefs: ChangeDetectorRef) {
     // Create 100 users
     //const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
     //const users = [{ nome: "", telefone: "", sindico: "" }];
@@ -42,9 +45,9 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    //this.dataSource.paginator = this.paginator;
-    //this.dataSource.sort = this.sort;
-    
+    //this.dataSource2.paginator = this.paginator;
+    //this.dataSource2.sort = this.sort;
+    //this.changeDetectorRefs.detectChanges()
   }
 
   applyFilter(event: Event) {
@@ -56,16 +59,25 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
     }
   }
 
-  filtrar(opt : string){
-    
+  async filtrar(opt : string){
+    //const tmp = {nome:'',email:'',telefone:''} ;
+    //this.dataSource2 = new MatTableDataSource(tmp);
     console.log(opt);
-    this.fs.getConsultaDocs(opt);
+    await this.fs.getConsultaDocs(opt);
     console.log("this itens: ",this.fs.itens);
+    //this.dataSource2.paginator = this.paginator;
+    //this.dataSource2.sort = this.sort;
     this.dataSource2 = new MatTableDataSource(this.fs.itens);
-    this.dataSource2.paginator = this.paginator;
-    this.dataSource2.sort = this.sort;
+
     console.log("DTS2: ",this.dataSource2.data);
+    //this.changeDetectorRefs.detectChanges();
+     this.dataSource2._updatePaginator;
+   // this.dataSource.paginator = this.paginator;
   }
 
-  
+  ngOnChanges() {
+    console.log("on change");
+  }
+
+
 }

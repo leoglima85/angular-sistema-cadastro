@@ -14,11 +14,11 @@ export class FirestoreService {
   colRef = collection(this.db,'extrato');
   condominiosTemp: any[] = [];
   public itens: Condominio[] = [];
-  
 
-  constructor(private _snackBar: MatSnackBar) { 
-    
-    
+
+  constructor(private _snackBar: MatSnackBar) {
+
+
   }
 
   async addMovimentacaoExtrato (mov: Extrato) {
@@ -33,7 +33,7 @@ export class FirestoreService {
         check: mov.check
       });
       console.log("Document written with ID: ", docRef.id);
-      
+
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -41,7 +41,7 @@ export class FirestoreService {
 
   async addCondominioDoc (dados: FormGroup) {
     try {
-      const docRef = await addDoc(collection(this.db, "Condominio"), 
+      const docRef = await addDoc(collection(this.db, "Condominio"),
       { // objeto a ser enviado
         cnpj : dados.value.cnpj,
         nome : dados.value.nome,
@@ -73,7 +73,7 @@ export class FirestoreService {
 
   async addFuncionarioDoc (dados: FormGroup) {
     try {
-      const docRef = await addDoc(collection(this.db, "Funcionario"), 
+      const docRef = await addDoc(collection(this.db, "Funcionario"),
       {
         cpf : dados.value.cpf,
         nome : dados.value.nome,
@@ -97,7 +97,7 @@ export class FirestoreService {
 
   async addFornecedorDoc (dados: FormGroup) {
     try {
-      const docRef = await addDoc(collection(this.db, "Fornecedor"), 
+      const docRef = await addDoc(collection(this.db, "Fornecedor"),
       {
         cnpj : dados.value.cnpj,
         cpf : dados.value.cpf,
@@ -121,9 +121,9 @@ export class FirestoreService {
 
   async addCondominoDoc (dados: FormGroup) {
     try {
-      const docRef = await addDoc(collection(this.db, "condomino"), 
+      const docRef = await addDoc(collection(this.db, "condomino"),
       {
-        
+
         nome : dados.value.nome,
         endereco : dados.value.endereco,
         telefone : dados.value.telefone,
@@ -149,6 +149,7 @@ export class FirestoreService {
       item.nome = doc.data().nome;
       item.email = doc.data().email;
       item.telefone = doc.data().telefone;
+      item.cnpj = doc.data().cnpj;
       this.itens.push(item);
       //console.log(item);
     });
@@ -157,6 +158,6 @@ export class FirestoreService {
     //console.log("this itens:",this.itens);
     //return this.itens;
   }
-  
+
 
 }

@@ -6,21 +6,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 
 import { MatIconModule } from '@angular/material/icon';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatInputModule} from '@angular/material/input';
-import {MatCardModule} from '@angular/material/card';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatTableModule} from '@angular/material/table';
-import {MatSortModule} from '@angular/material/sort';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatSelectModule} from '@angular/material/select';
-import {MatListModule} from '@angular/material/list';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatListModule } from '@angular/material/list';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { HomeComponent } from './components/home/home.component';
 import { SigninComponent } from './components/signin/signin.component';
@@ -51,7 +53,7 @@ import { ConsultaComponent } from './components/consulta/consulta.component';
     PagenotfoundComponent,
     ExtratoComponent,
     ConsultaComponent,
-   
+
   ],
   imports: [
     BrowserModule,
@@ -75,10 +77,12 @@ import { ConsultaComponent } from './components/consulta/consulta.component';
     MatSortModule,
     MatCheckboxModule,
     MatSelectModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ],
-  
-  providers: [ ],
+
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

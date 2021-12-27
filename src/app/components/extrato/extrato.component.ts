@@ -32,7 +32,7 @@ export class ExtratoComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['conta', 'data_mov', 'nr_doc', 'historico', 'valor', 'deb_cred', 'check'];
   meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
   anos = [2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030];
-
+  tst : string = "";
   dataSource2 = this.extrato;
   dataSource!: MatTableDataSource<Extrato>;
 
@@ -41,16 +41,19 @@ export class ExtratoComponent implements OnInit, AfterViewInit {
 
   constructor(private fs: FirestoreService,
               fb: FormBuilder,
-              private changeDetectorRefs: ChangeDetectorRef) {
+              private changeDetectorRefs: ChangeDetectorRef) 
+              {
               this.fileString;
-              this.dataSource = new MatTableDataSource(this.extrato);
-  }
+              //this.getExtratoDocs();
+              
+              }
 
   async ngOnInit() {
     //await this.getExtratoDocs();
-    await this.getCondominioDocs();
+    //await this.getCondominioDocs();
     //this.filtrar();
-
+    //await this.filtrar();
+    //console.log(this.extrato);
   }
 
   changeListener($event: any) {
@@ -141,7 +144,7 @@ export class ExtratoComponent implements OnInit, AfterViewInit {
   }
 
   async filtrar() {
-
+    console.log("filtrando");
     //console.log("FILTRO --- cred: ", this.check_cred, "deb: ", this.check_deb, "cond:", this.condominio, "mes:", this.mes, this.mes, "ano:", this.ano);
     const ref = query(collection(this.db, 'extrato'), where('deb_cred', '==', 'D'), orderBy("data_mov")); //where('deb_cred', '==', 'D'));
     const querySnapshot = await getDocs(ref);
@@ -154,6 +157,7 @@ export class ExtratoComponent implements OnInit, AfterViewInit {
     this.extrato = this.movimentacoes;
     //this.changeDetectorRefs.detectChanges();
     this.dataSource2 = this.extrato;
+    return this.extrato;
   }
 
   onChange() {
@@ -174,6 +178,17 @@ export class ExtratoComponent implements OnInit, AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  getTable (event: Event){
+    //implementar um formfiled para isso
+    // mudar a entrada do extrato do de > para para um calendar
+    const start = new Date('2021-11-01T00:00:00.000z');
+    const end = new Date('2021-11-31T00:00:00.000z');
+    //console.log(start.toDateString());
+    //console.log(end.toDateString());
+    //console.log("FILTRO --- cred: ", event.target, "deb: ", this.tst, "cond:", this.condominio, "mes:",                 this.mes, this.mes, "ano:", this.ano);
+    console.log(this.tst)
   }
 
 }

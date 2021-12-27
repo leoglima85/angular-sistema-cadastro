@@ -6,3 +6,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .example-spacer {
     flex: 1 1 auto;
   }
+
+.snack-verde {
+    margin-right: 8px;
+    background-color:green ;
+  }
+
+  .snack-vermelho {
+    margin-right: 8px;
+    background-color: rgb(196, 25, 25) ;
+  }

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { collection, addDoc, getFirestore, getDocs } from "firebase/firestore";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { collection, addDoc, getFirestore, getDocs, query } from "firebase/firestore";
 import { Extrato } from 'src/app/models/extrato';
+import { Condominio } from '../models/condominio.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +11,12 @@ import { Extrato } from 'src/app/models/extrato';
 export class FirestoreService {
 
   db = getFirestore();
-  
   colRef = collection(this.db,'extrato');
+  condominiosTemp: any[] = [];
+  public itens: Condominio[] = [];
+  
 
-  constructor() { 
+  constructor(private _snackBar: MatSnackBar) { 
     
     
   }
@@ -29,6 +33,7 @@ export class FirestoreService {
         check: mov.check
       });
       console.log("Document written with ID: ", docRef.id);
+      
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -59,8 +64,10 @@ export class FirestoreService {
         cpfconselhofiscal3 : dados.value.cpfconselhofiscal3
       });
       console.log("Document written with ID: ", docRef.id);
+      this._snackBar.open("Mensagem", "", {duration: 4000, panelClass: ["snack-verde"]});
     } catch (e) {
       console.error("Error adding document: ", e);
+      this._snackBar.open("Mensagem", "", {duration: 4000, panelClass: ["snack-vermelho"]});
     }
   }
 
@@ -129,6 +136,26 @@ export class FirestoreService {
     } catch (e) {
       console.error("Error adding document: ", e);
     }
+  }
+
+  async getConsultaDocs (opt : string)  {
+    const q = query(collection(this.db, opt));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      //console.log("data",doc.data())// is never undefined for query doc snapshots
+      //console.log(doc.id, " => ", doc.data());
+      const item : Condominio = {id: '',nome: '',conta: '',agencia: '',banco: '',chavepix: '',cnpj: '',conselhofiscal1: '',conselhofiscal2: '',conselhofiscal3: '',cpfconselhofiscal1: '',cpfconselhofiscal2: '',cpfconselhofiscal3: '',cpfsindico: '',email: '',endereco: '',operacao: '',pix: '',sindico: '',telefone: ''} ;
+      this.condominiosTemp.push({ ...doc.data(), id: doc.id })
+      item.nome = doc.data().nome;
+      item.email = doc.data().email;
+      item.telefone = doc.data().telefone;
+      this.itens.push(item);
+      //console.log(item);
+    });
+
+    //this.itens = this.condominiosTemp;
+    //console.log("this itens:",this.itens);
+    //return this.itens;
   }
   
 

@@ -2,6 +2,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { collection, addDoc, getFirestore } from "firebase/firestore";
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cadastro',
@@ -17,9 +18,10 @@ export class CadastroComponent implements OnInit {
   pix : any;
   //pixSel : any;
   constructor(private fb : FormBuilder,
-              private fs : FirestoreService) {
+              private fs : FirestoreService,
+              ) {
     this.cadastroCondominioForm = this.fb.group({
-      cnpj:['',[Validators.required,Validators.pattern(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/)]],
+      cnpj:['',[Validators.required,Validators.pattern("[0-9 ]{14}")]], ///^(\d{3}\.){2}\d{3}\-\d{2}$/
       nome:['',[Validators.required]],
       endereco:['',[]],
       telefone:['',[Validators.required,Validators.pattern("[0-9 ]{11}")]],
@@ -90,6 +92,7 @@ export class CadastroComponent implements OnInit {
     console.log("criar condominio", this.cadastroCondominioForm.value);
     //this.cadastroCondominioForm.reset();
     this.fs.addCondominioDoc(this.cadastroCondominioForm);
+    
   }
   
   salvarFuncionario(){

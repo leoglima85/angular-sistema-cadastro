@@ -1,33 +1,42 @@
+<div class="escolha">
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Pesquisar:</mat-label>
+      <mat-select [(ngModel)]="escolha" >
+        <mat-option *ngFor="let opt of lista" 
+                    [value]="opt"
+                    (click)="filtrar(opt)">{{ opt }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
 <mat-form-field appearance="standard">
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-  </mat-form-field>
+</mat-form-field>
   
   <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
+    <table mat-table [dataSource]="dataSource2" matSort >
   
-      <!-- ID Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
+        <td mat-cell *matCellDef="let row"> {{row.nome}} </td>
       </ng-container>
   
-      <!-- Progress Column -->
-      <ng-container matColumnDef="progress">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
-        <td mat-cell *matCellDef="let row"> {{row.progress}}% </td>
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> E-mail </th>
+        <td mat-cell *matCellDef="let row"> {{row.email}} </td>
       </ng-container>
   
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+      <ng-container matColumnDef="telefone">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Telefone </th>
+        <td mat-cell *matCellDef="let row"> {{row.telefone}} </td>
       </ng-container>
   
-      <!-- Fruit Column -->
-      <ng-container matColumnDef="fruit">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fruit </th>
-        <td mat-cell *matCellDef="let row"> {{row.fruit}} </td>
+      <ng-container matColumnDef="editar">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Editar </th>
+        <td mat-cell *matCellDef="let row"> <mat-icon>edit</mat-icon> </td>
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -39,5 +48,6 @@
       </tr>
     </table>
   
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page"></mat-paginator>
   </div>
+  

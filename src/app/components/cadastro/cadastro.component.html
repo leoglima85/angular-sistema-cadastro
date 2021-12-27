@@ -156,7 +156,7 @@
       </div>
     </mat-tab>
 
-    <mat-tab label="Fornecedores">
+    <mat-tab label="Fornecedor">
       <form #f="ngForm" [formGroup]="cadastroFornecedorForm" class="example-form">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Nome do Fornecedor </mat-label>
@@ -213,10 +213,10 @@
         </mat-form-field>
       </form>
       <div mat-dialog-actions>
-        <button [disabled]="!f.valid" mat-raised-button color="primary" (click)="salvarFornecedor()">Salvar</button>
+        <button [disabled]="!f.valid" mat-raised-button color="primary" (click)="salvarFornecedor()" >Salvar</button>
       </div>
     </mat-tab>
-    <mat-tab label="Condôminos">
+    <mat-tab label="Condômino">
       <form #f="ngForm" [formGroup]="cadastroCondominoForm" class="example-form">
         <mat-form-field appearance="fill">
           <mat-label>Condominio</mat-label>

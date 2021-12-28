@@ -132,7 +132,7 @@ export class ExtratoComponent implements OnInit, AfterViewInit {
   }
 
   async getCondominioDocs() {
-    const q = query(collection(this.db, "condominio"));
+    const q = query(collection(this.db, "Condominio"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       //console.log("data",doc.data())// is never undefined for query doc snapshots

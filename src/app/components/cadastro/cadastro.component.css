@@ -34,3 +34,7 @@
     width: 65%;
     
   }
+
+  .cargos-servicos{
+    grid-column: auto;
+  }

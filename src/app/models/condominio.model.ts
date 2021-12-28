@@ -1,5 +1,5 @@
 export interface Condominio {
-    id: string;
+    id?: string;
     nome: string;
     conta:string;
     agencia:string;

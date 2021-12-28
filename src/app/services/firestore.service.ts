@@ -14,12 +14,15 @@ export class FirestoreService {
   colRef = collection(this.db,'extrato');
   condominiosTemp: any[] = [];
   public itens: Condominio[] = [];
+  public listaCondominios: string[] = [];
+  public listaCargos: string[] = [];
+  public listaBancos: string[] = [];
 
+  constructor(private _snackBar: MatSnackBar) 
+    {
+      
 
-  constructor(private _snackBar: MatSnackBar) {
-
-
-  }
+    } 
 
   async addMovimentacaoExtrato (mov: Extrato) {
     try {
@@ -88,6 +91,7 @@ export class FirestoreService {
         chavepix : dados.value.chavepix,
         email : dados.value.email,
         admissa : dados.value.admissao,
+        condominio : dados.value.condominio,
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
@@ -121,7 +125,7 @@ export class FirestoreService {
 
   async addCondominoDoc (dados: FormGroup) {
     try {
-      const docRef = await addDoc(collection(this.db, "condomino"),
+      const docRef = await addDoc(collection(this.db, "Condomino"),
       {
 
         nome : dados.value.nome,
@@ -131,6 +135,44 @@ export class FirestoreService {
         unidade : dados.value.unidade,
         morador1 : dados.value.morador1,
         morador2 : dados.value.morador2,
+        condominio : dados.value.condominio,
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  }
+
+  async addCargoDoc (dados: FormGroup) {
+    try {
+      const docRef = await addDoc(collection(this.db, "Cargo"),
+      {
+        cargo : dados.value.cargo,
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  }
+
+  async addServicoDoc (dados: FormGroup) {
+    try {
+      const docRef = await addDoc(collection(this.db, "Servico"),
+      {
+        servico : dados.value.servico,
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  }
+
+  async addBancoDoc (dados: FormGroup) {
+    //console.log("add banco",dados.value);
+    try {
+      const docRef = await addDoc(collection(this.db, "Banco"),
+      {
+        banco : dados.value.banco,
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
@@ -139,6 +181,7 @@ export class FirestoreService {
   }
 
   async getConsultaDocs (opt : string)  {
+    this.itens = [];
     const q = query(collection(this.db, opt));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -146,10 +189,27 @@ export class FirestoreService {
       //console.log(doc.id, " => ", doc.data());
       const item : Condominio = {id: '',nome: '',conta: '',agencia: '',banco: '',chavepix: '',cnpj: '',conselhofiscal1: '',conselhofiscal2: '',conselhofiscal3: '',cpfconselhofiscal1: '',cpfconselhofiscal2: '',cpfconselhofiscal3: '',cpfsindico: '',email: '',endereco: '',operacao: '',pix: '',sindico: '',telefone: ''} ;
       this.condominiosTemp.push({ ...doc.data(), id: doc.id })
+      item.id = doc.id;
+      item.conta = doc.data().conta;
+      item.agencia= doc.data().agencia;
+      item.banco= doc.data().banco;
+      item.chavepix= doc.data().chavepix;
+      item.conselhofiscal1= doc.data().conselhofiscal1;
+      item.conselhofiscal2= doc.data().conselhofiscal2;
+      item.conselhofiscal3= doc.data().conselhofiscal3;
+      item.cpfconselhofiscal1= doc.data().cpfconselhofiscal1;
+      item.cpfconselhofiscal2= doc.data().cpfconselhofiscal2;
+      item.cpfconselhofiscal3= doc.data().cpfconselhofiscal3;
+      item.cpfsindico= doc.data().cpfsindico;
+      item.endereco= doc.data().endereco;
+      item.operacao= doc.data().operacao;
+      item.pix= doc.data().pix;
+      item.sindico= doc.data().sindico;
       item.nome = doc.data().nome;
       item.email = doc.data().email;
       item.telefone = doc.data().telefone;
       item.cnpj = doc.data().cnpj;
+
       this.itens.push(item);
       //console.log(item);
     });
@@ -157,6 +217,39 @@ export class FirestoreService {
     //this.itens = this.condominiosTemp;
     //console.log("this itens:",this.itens);
     //return this.itens;
+  }
+
+  async getCondominioDocs() {
+    const lista : string [] = [];
+    const q = query(collection(this.db, "Condominio"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      lista.push(doc.data().nome);
+    });
+    this.listaCondominios = lista;
+    //console.log("lista de con", lista);
+  }
+
+  async getCargosDocs() {
+    const lista : string [] = [];
+    const q = query(collection(this.db, "Cargo"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      lista.push(doc.data().cargo);
+    });
+    this.listaCargos = lista;
+    //console.log("lista de cargos", lista);
+  }
+
+  async getBancosDocs() {
+    const lista : string [] = [];
+    const q = query(collection(this.db, "Banco"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      lista.push(doc.data().banco);
+    });
+    this.listaBancos = lista;
+    //console.log("lista de bancos", lista);
   }
 
 

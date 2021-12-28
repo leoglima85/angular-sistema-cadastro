@@ -15,11 +15,21 @@ export class CadastroComponent implements OnInit {
   cadastroFuncionarioForm: FormGroup;
   cadastroFornecedorForm: FormGroup;
   cadastroCondominoForm: FormGroup;
+  cadastroCargoForm: FormGroup;
+  cadastroServicoForm: FormGroup;
+  cadastroBancoForm: FormGroup;
+  
+  listaCondominios : string [] = [];
+  listaCargos : string [] = [];
+  listaBancos : string [] = [];
+
   pix : any;
   //pixSel : any;
   constructor(private fb : FormBuilder,
               private fs : FirestoreService,
-              ) {
+              ) 
+    {
+    
     this.cadastroCondominioForm = this.fb.group({
       cnpj:['',[]], ///^(\d{3}\.){2}\d{3}\-\d{2}$/
       nome:['',[Validators.required]],
@@ -42,12 +52,13 @@ export class CadastroComponent implements OnInit {
       cpfconselhofiscal3:['',[]],
     });
     this.cadastroFuncionarioForm = this.fb.group({
-      cpf:['',[Validators.required,Validators.pattern(/^(\d{3}\.){2}\d{3}\-\d{2}$/)]],
+      cpf:['',[Validators.required,]], //Validators.pattern(/^(\d{3}\.){2}\d{3}\-\d{2}$/)
       nome:['',[Validators.required]],
       endereco:['',[Validators.required]],
-      telefone:['',[Validators.required,Validators.pattern("[0-9 ]{11}")]],
+      telefone:['',[Validators.required,]], //Validators.pattern("[0-9 ]{11}")
       cargo:['',[Validators.required]],
       banco:['',[]],
+      condominio:['',[]],
       titular:['',[]],
       agencia:['',[]],
       conta:['',[]],
@@ -85,36 +96,70 @@ export class CadastroComponent implements OnInit {
       unidade:['',[]],
       morador1:['',[]],
       morador2:['',[]],
+      condominio:['',[]],
     });
+    this.cadastroCargoForm = this.fb.group({
+      cargo:['',[Validators.required]],
+    });
+    this.cadastroServicoForm = this.fb.group({
+      servico:['',[Validators.required]],
+    });
+    this.cadastroBancoForm = this.fb.group({
+      banco:['',[Validators.required]],
+    });
+    
   }
 
-  ngOnInit(): void {
-
+  async ngOnInit() {
+    await this.fs.getCondominioDocs();
+    await this.fs.getCargosDocs();
+    await this.fs.getBancosDocs();
+    this.listaCondominios = this.fs.listaCondominios;
+    this.listaCargos = this.fs.listaCargos;
+    this.listaBancos = this.fs.listaBancos;
+    //console.log("construtor: ",this.listaCondominios)
   }
 
-  salvarCondominio(){
-    console.log("criar condominio", this.cadastroCondominioForm.value);
-    //this.cadastroCondominioForm.reset();
-    this.fs.addCondominioDoc(this.cadastroCondominioForm);
-
+  async salvarCondominio(){
+    //console.log("criar condominio", this.cadastroCondominioForm.value);
+    await this.fs.addCondominioDoc(this.cadastroCondominioForm);
+    this.cadastroCondominioForm.reset();    
   }
 
-  salvarFuncionario(){
-    console.log("criar funcionario", this.cadastroFuncionarioForm.value);
-    //this.cadastroCondominioForm.reset();
-    this.fs.addCondominioDoc(this.cadastroFuncionarioForm);
+  async salvarFuncionario(){
+    //console.log("criar funcionario", this.cadastroFuncionarioForm.value);
+    await this.fs.addFuncionarioDoc(this.cadastroFuncionarioForm);
+    this.cadastroCondominioForm.reset();
   }
 
-  salvarFornecedor(){
-    console.log("criar fornecedor", this.cadastroFornecedorForm.value);
-    //this.cadastroCondominioForm.reset();
-    this.fs.addCondominioDoc(this.cadastroFornecedorForm);
+  async salvarFornecedor(){
+    //console.log("criar fornecedor", this.cadastroFornecedorForm.value);
+    await this.fs.addFornecedorDoc(this.cadastroFornecedorForm);
+    this.cadastroCondominioForm.reset();
   }
 
-  salvarCondomino(){
-    console.log("criar condomino", this.cadastroCondominoForm.value);
-    //this.cadastroCondominioForm.reset();
-    this.fs.addCondominioDoc(this.cadastroCondominoForm);
+  async salvarCondomino(){
+    //console.log("criar condomino", this.cadastroCondominoForm.value);
+    await this.fs.addCondominoDoc(this.cadastroCondominoForm);
+    this.cadastroCondominioForm.reset();
+  }
+
+  async salvarCargo(){
+    //console.log("criar cargo: ", this.cadastroCargoForm.value);
+    await this.fs.addCargoDoc(this.cadastroCargoForm);
+    this.cadastroCargoForm.reset();
+  }
+
+  async salvarServico(){
+    //console.log("criar servico", this.cadastroServicoForm.value);
+    await this.fs.addServicoDoc(this.cadastroServicoForm);
+    this.cadastroServicoForm.reset();
+  }
+
+  async salvarBanco(){
+    //console.log("criar banco", this.cadastroBancoForm.value);
+    await this.fs.addBancoDoc(this.cadastroBancoForm);
+    this.cadastroBancoForm.reset();
   }
 
 }

@@ -2,9 +2,10 @@ import { Condominio } from './../../models/condominio.model';
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from '@firebase/util';
-//import { Condominio } from 'src/app/models/condominio.model';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+
 import { FirestoreService } from 'src/app/services/firestore.service';
 
 export interface UserData {
@@ -15,39 +16,42 @@ export interface UserData {
 
 @Component({
   selector: 'app-consulta',
+  styleUrls: ['./consulta.component.css'],
   templateUrl: './consulta.component.html',
-  styleUrls: ['./consulta.component.css']
+  animations: [
+      trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
+
 export class ConsultaComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['nome', 'email', 'telefone', 'editar'];
+  displayedColumns: string[] = ['nome'];
   dataSource!: MatTableDataSource<UserData>;
   dataSource2!: MatTableDataSource<Condominio>;
   lista : string[] = ['Condominio','Funcionario','Fornecedor','Condomino'];
   escolha: string = "";
-  //itens!: Promise<Condominio[]> ;
+  expandedElement: Condominio = {id: '',nome: '',conta: '',agencia: '',banco: '',chavepix: '',cnpj: '',conselhofiscal1: '',conselhofiscal2: '',conselhofiscal3: '',cpfconselhofiscal1: '',cpfconselhofiscal2: '',cpfconselhofiscal3: '',cpfsindico: '',email: '',endereco: '',operacao: '',pix: '',sindico: '',telefone: ''};
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  //@ViewChild(MatTable, {static: false}) table : MatTable // initialize
+  
 
   constructor(private fs : FirestoreService,
-    private changeDetectorRefs: ChangeDetectorRef) {
-    // Create 100 users
-    //const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
-    //const users = [{ nome: "", telefone: "", sindico: "" }];
-
-    // Assign the data to the data source for the table to render
-    //this.dataSource = new MatTableDataSource(users);
-  }
+    private changeDetectorRefs: ChangeDetectorRef) 
+    {
+      //this.expandedElement = new Condominio{};
+    }
 
   ngOnInit(): void {
 
   }
 
   ngAfterViewInit() {
-    //this.dataSource2.paginator = this.paginator;
-    //this.dataSource2.sort = this.sort;
-    //this.changeDetectorRefs.detectChanges()
+    
+    
   }
 
   applyFilter(event: Event) {
@@ -60,19 +64,18 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
   }
 
   async filtrar(opt : string){
-    //const tmp = {nome:'',email:'',telefone:''} ;
-    //this.dataSource2 = new MatTableDataSource(tmp);
-    console.log(opt);
+    
+    //console.log(opt);
     await this.fs.getConsultaDocs(opt);
-    console.log("this itens: ",this.fs.itens);
-    //this.dataSource2.paginator = this.paginator;
-    //this.dataSource2.sort = this.sort;
+    //console.log("this itens: ",this.fs.itens);
+    //this.dataSource2 = new MatTableDataSource;
     this.dataSource2 = new MatTableDataSource(this.fs.itens);
 
-    console.log("DTS2: ",this.dataSource2.data);
-    //this.changeDetectorRefs.detectChanges();
-     this.dataSource2._updatePaginator;
-   // this.dataSource.paginator = this.paginator;
+    //console.log("DTS2: ",this.dataSource2.data);
+    this.dataSource2.paginator = this.paginator;
+    this.dataSource2.sort = this.sort;
+    
+   
   }
 
   ngOnChanges() {

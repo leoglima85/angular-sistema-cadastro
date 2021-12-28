@@ -18,11 +18,11 @@ export class FirestoreService {
   public listaCargos: string[] = [];
   public listaBancos: string[] = [];
 
-  constructor(private _snackBar: MatSnackBar) 
+  constructor(private _snackBar: MatSnackBar)
     {
-      
 
-    } 
+
+    }
 
   async addMovimentacaoExtrato (mov: Extrato) {
     try {
@@ -127,15 +127,13 @@ export class FirestoreService {
     try {
       const docRef = await addDoc(collection(this.db, "Condomino"),
       {
-
-        nome : dados.value.nome,
-        endereco : dados.value.endereco,
         telefone : dados.value.telefone,
         email : dados.value.email,
         unidade : dados.value.unidade,
         morador1 : dados.value.morador1,
         morador2 : dados.value.morador2,
         condominio : dados.value.condominio,
+        observacao : dados.value.observacao
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {

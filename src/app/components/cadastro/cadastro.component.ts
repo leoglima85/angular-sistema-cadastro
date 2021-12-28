@@ -18,7 +18,7 @@ export class CadastroComponent implements OnInit {
   cadastroCargoForm: FormGroup;
   cadastroServicoForm: FormGroup;
   cadastroBancoForm: FormGroup;
-  
+
   listaCondominios : string [] = [];
   listaCargos : string [] = [];
   listaBancos : string [] = [];
@@ -27,9 +27,9 @@ export class CadastroComponent implements OnInit {
   //pixSel : any;
   constructor(private fb : FormBuilder,
               private fs : FirestoreService,
-              ) 
+              )
     {
-    
+
     this.cadastroCondominioForm = this.fb.group({
       cnpj:['',[]], ///^(\d{3}\.){2}\d{3}\-\d{2}$/
       nome:['',[Validators.required]],
@@ -87,14 +87,11 @@ export class CadastroComponent implements OnInit {
       servicoesPrestados:['',[]],
     });
     this.cadastroCondominoForm = this.fb.group({
-      cpf:['',[Validators.required,Validators.pattern(/^(\d{3}\.){2}\d{3}\-\d{2}$/)]],
-      nome:['',[Validators.required]],
-      endereco:['',[Validators.required]],
-      telefone:['',[Validators.required,Validators.pattern("[0-9 ]{11}")]],
-      observação:['',[]],
-      email:['',[Validators.email]],
+      telefone:['',[]],
+      observacao:['',[]],
+      email:['',[]],
       unidade:['',[]],
-      morador1:['',[]],
+      morador1:['',[Validators.required]],
       morador2:['',[]],
       condominio:['',[]],
     });
@@ -107,7 +104,7 @@ export class CadastroComponent implements OnInit {
     this.cadastroBancoForm = this.fb.group({
       banco:['',[Validators.required]],
     });
-    
+
   }
 
   async ngOnInit() {
@@ -123,7 +120,7 @@ export class CadastroComponent implements OnInit {
   async salvarCondominio(){
     //console.log("criar condominio", this.cadastroCondominioForm.value);
     await this.fs.addCondominioDoc(this.cadastroCondominioForm);
-    this.cadastroCondominioForm.reset();    
+    this.cadastroCondominioForm.reset();
   }
 
   async salvarFuncionario(){
@@ -141,7 +138,7 @@ export class CadastroComponent implements OnInit {
   async salvarCondomino(){
     //console.log("criar condomino", this.cadastroCondominoForm.value);
     await this.fs.addCondominoDoc(this.cadastroCondominoForm);
-    this.cadastroCondominioForm.reset();
+    this.cadastroCondominoForm.reset();
   }
 
   async salvarCargo(){

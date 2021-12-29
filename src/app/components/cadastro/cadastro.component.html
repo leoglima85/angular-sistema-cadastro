@@ -9,7 +9,7 @@
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>CNPJ </mat-label>
-          <input matInput formControlName="cnpj" name="cnpj">
+          <input mask="000.000.000-00||00.000.000/0000-00" matInput formControlName="cnpj" name="cnpj">
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Endereço </mat-label>
@@ -20,8 +20,12 @@
           <input matInput formControlName="telefone" name="telefone">
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Banco </mat-label>
-          <input matInput formControlName="banco" name="banco">
+          <mat-label>Banco</mat-label>
+          <mat-select  formControlName="banco">
+            <mat-option *ngFor="let opt of listaBancos"
+                        [value]="opt"
+                        >{{ opt }}</mat-option>
+          </mat-select>
         </mat-form-field>
         <mat-form-field class="agencia" appearance="fill">
           <mat-label>Agencia </mat-label>
@@ -132,7 +136,7 @@
           <input matInput formControlName="admissao" name="admissao">
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
+        <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Banco</mat-label>
           <mat-select  formControlName="banco">
             <mat-option *ngFor="let opt of listaBancos"
@@ -202,10 +206,14 @@
           <mat-label>CPF </mat-label>
           <input matInput formControlName="cpf" name="cpf" >
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Serviços Prestados </mat-label>
-          <input matInput formControlName="servicoesPrestados" name="servicoesPrestados">
-        </mat-form-field>
+        
+
+        <div *ngFor="let unit of listaServicos; let i=index" (click)="ver(i)">
+          <mat-checkbox formControlName="servicoesPrestados" name="servicoesPrestados">
+               {{ unit.nome }}
+          </mat-checkbox>                        
+        </div>
+
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Banco</mat-label>
           <mat-select  formControlName="banco">
@@ -259,12 +267,12 @@
           <input matInput formControlName="unidade" name="unidade">
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Morador 1 </mat-label>
-          <input matInput formControlName="morador1" name="morador1">
+          <mat-label>Proprietario </mat-label>
+          <input matInput formControlName="nome" name="nome">
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Morador 2 </mat-label>
-          <input matInput formControlName="morador2" name="morador2">
+          <mat-label>Locatario</mat-label>
+          <input matInput formControlName="locatario" name="locatario">
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Telefone </mat-label>

@@ -1,10 +1,10 @@
 <p>dashboard works!</p>
-<ul>
-    <li  *ngFor="let item of movimentacoes " async>
-      ID: {{ item.id }} <br>
-      Conta: {{ item.conta }}<br>
-      Data: {{ item.mes_ref }}<br>
-      Tipo: {{ item.tipo }}<br>
-      Valor: {{ item.valor }}
-    </li>
-</ul>
+
+<!-- novo 
+no cadastro do fornecedor, iniciar tudo sem o check...
+<div *ngFor="let unit of lista; let i=index" (click)="ver()">
+  <mat-checkbox [(ngModel)]="lista[i].checked">
+       {{ unit.nome }}
+  </mat-checkbox>                        
+</div> 
+-->

@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { collection, addDoc, getFirestore, getDocs, query } from "firebase/firestore";
 import { Extrato } from 'src/app/models/extrato';
 import { Condominio } from '../models/condominio.model';
+import { Generico } from '../models/generico';
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +14,14 @@ export class FirestoreService {
   db = getFirestore();
   colRef = collection(this.db,'extrato');
   condominiosTemp: any[] = [];
-  public itens: Condominio[] = [];
+  public itens: Generico[] = [];
   public listaCondominios: string[] = [];
   public listaCargos: string[] = [];
   public listaBancos: string[] = [];
+  public listaServicos: any[] = [];
 
   constructor(private _snackBar: MatSnackBar)
     {
-
 
     }
 
@@ -36,9 +37,10 @@ export class FirestoreService {
         check: mov.check
       });
       console.log("Document written with ID: ", docRef.id);
-
+      this._snackBar.open("Cadastrato com Sucesso", "", {duration: 4000, panelClass: ["snack-verde"]});
     } catch (e) {
       console.error("Error adding document: ", e);
+      this._snackBar.open("Falha ao cadastrar", "", {duration: 4000, panelClass: ["snack-vermelho"]});
     }
   }
 
@@ -67,10 +69,10 @@ export class FirestoreService {
         cpfconselhofiscal3 : dados.value.cpfconselhofiscal3
       });
       console.log("Document written with ID: ", docRef.id);
-      this._snackBar.open("Mensagem", "", {duration: 4000, panelClass: ["snack-verde"]});
+      this._snackBar.open("Cadastrato com Sucesso", "", {duration: 4000, panelClass: ["snack-verde"]});
     } catch (e) {
       console.error("Error adding document: ", e);
-      this._snackBar.open("Mensagem", "", {duration: 4000, panelClass: ["snack-vermelho"]});
+      this._snackBar.open("Falha ao cadastrar", "", {duration: 4000, panelClass: ["snack-vermelho"]});
     }
   }
 
@@ -90,16 +92,18 @@ export class FirestoreService {
         pix : dados.value.pix,
         chavepix : dados.value.chavepix,
         email : dados.value.email,
-        admissa : dados.value.admissao,
+        admissao : dados.value.admissao,
         condominio : dados.value.condominio,
       });
       console.log("Document written with ID: ", docRef.id);
+      this._snackBar.open("Cadastrato com Sucesso", "", {duration: 4000, panelClass: ["snack-verde"]});
     } catch (e) {
       console.error("Error adding document: ", e);
+      this._snackBar.open("Falha ao cadastrar", "", {duration: 4000, panelClass: ["snack-vermelho"]});
     }
   }
 
-  async addFornecedorDoc (dados: FormGroup) {
+  async addFornecedorDoc (dados: FormGroup, lista: any[]) {
     try {
       const docRef = await addDoc(collection(this.db, "Fornecedor"),
       {
@@ -115,11 +119,13 @@ export class FirestoreService {
         pix : dados.value.pix,
         chavepix : dados.value.chavepix,
         email : dados.value.email,
-        servicosPrestados : dados.value.servicoesPrestados,
+        servicosPrestados : lista,
       });
       console.log("Document written with ID: ", docRef.id);
+      this._snackBar.open("Cadastrato com Sucesso", "", {duration: 4000, panelClass: ["snack-verde"]});
     } catch (e) {
       console.error("Error adding document: ", e);
+      this._snackBar.open("Falha ao cadastrar", "", {duration: 4000, panelClass: ["snack-vermelho"]});
     }
   }
 
@@ -130,14 +136,16 @@ export class FirestoreService {
         telefone : dados.value.telefone,
         email : dados.value.email,
         unidade : dados.value.unidade,
-        morador1 : dados.value.morador1,
-        morador2 : dados.value.morador2,
+        nome : dados.value.nome,
+        locatario : dados.value.locatario,
         condominio : dados.value.condominio,
         observacao : dados.value.observacao
       });
       console.log("Document written with ID: ", docRef.id);
+      this._snackBar.open("Cadastrato com Sucesso", "", {duration: 4000, panelClass: ["snack-verde"]});
     } catch (e) {
       console.error("Error adding document: ", e);
+      this._snackBar.open("Falha ao cadastrar", "", {duration: 4000, panelClass: ["snack-vermelho"]});
     }
   }
 
@@ -148,8 +156,10 @@ export class FirestoreService {
         cargo : dados.value.cargo,
       });
       console.log("Document written with ID: ", docRef.id);
+      this._snackBar.open("Cadastrato com Sucesso", "", {duration: 4000, panelClass: ["snack-verde"]});
     } catch (e) {
       console.error("Error adding document: ", e);
+      this._snackBar.open("Falha ao cadastrar", "", {duration: 4000, panelClass: ["snack-vermelho"]});
     }
   }
 
@@ -160,8 +170,10 @@ export class FirestoreService {
         servico : dados.value.servico,
       });
       console.log("Document written with ID: ", docRef.id);
+      this._snackBar.open("Cadastrato com Sucesso", "", {duration: 4000, panelClass: ["snack-verde"]});
     } catch (e) {
       console.error("Error adding document: ", e);
+      this._snackBar.open("Falha ao cadastrar", "", {duration: 4000, panelClass: ["snack-vermelho"]});
     }
   }
 
@@ -173,8 +185,10 @@ export class FirestoreService {
         banco : dados.value.banco,
       });
       console.log("Document written with ID: ", docRef.id);
+      this._snackBar.open("Cadastrato com Sucesso", "", {duration: 4000, panelClass: ["snack-verde"]});
     } catch (e) {
       console.error("Error adding document: ", e);
+      this._snackBar.open("Falha ao cadastrar", "", {duration: 4000, panelClass: ["snack-vermelho"]});
     }
   }
 
@@ -185,7 +199,15 @@ export class FirestoreService {
     querySnapshot.forEach((doc) => {
       //console.log("data",doc.data())// is never undefined for query doc snapshots
       //console.log(doc.id, " => ", doc.data());
-      const item : Condominio = {id: '',nome: '',conta: '',agencia: '',banco: '',chavepix: '',cnpj: '',conselhofiscal1: '',conselhofiscal2: '',conselhofiscal3: '',cpfconselhofiscal1: '',cpfconselhofiscal2: '',cpfconselhofiscal3: '',cpfsindico: '',email: '',endereco: '',operacao: '',pix: '',sindico: '',telefone: ''} ;
+      const item : Generico = {id: '',nome: '',conta: '',agencia: '',banco: '',
+                              chavepix: '',cnpj: '',conselhofiscal1: '',
+                              conselhofiscal2: '',conselhofiscal3: '',
+                              cpfconselhofiscal1: '',cpfconselhofiscal2: '',
+                              cpfconselhofiscal3: '',cpfsindico: '',email: '',
+                              endereco: '',operacao: '',pix: '',sindico: '',
+                              telefone: '',unidade :  '', apelido : '',
+                              locatario :  '', condominio :  '', observacao : '',
+                              servicosPrestados:  '', cpf:  '', admissao:  '', cargo:  '',} ;
       this.condominiosTemp.push({ ...doc.data(), id: doc.id })
       item.id = doc.id;
       item.conta = doc.data().conta;
@@ -207,6 +229,15 @@ export class FirestoreService {
       item.email = doc.data().email;
       item.telefone = doc.data().telefone;
       item.cnpj = doc.data().cnpj;
+      item.unidade = doc.data().unidade;
+      item.locatario = doc.data().morador2;
+      item.condominio = doc.data().condominio;
+      item.observacao = doc.data().observacao;
+      item.servicosPrestados = doc.data().servicosPrestados;
+      item.cpf = doc.data().cpf;
+      item.admissao = doc.data().admissao;
+      item.cargo = doc.data().cargo;
+      item.apelido = doc.data().apelido;
 
       this.itens.push(item);
       //console.log(item);
@@ -248,6 +279,17 @@ export class FirestoreService {
     });
     this.listaBancos = lista;
     //console.log("lista de bancos", lista);
+  }
+
+  async getServicosDocs() {
+    const lista : any [] = [];
+    const q = query(collection(this.db, "Servico"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      lista.push({nome: doc.data().servico, checked: false});
+    });
+    this.listaServicos = lista;
+    console.log("lista de bancos", lista);
   }
 
 

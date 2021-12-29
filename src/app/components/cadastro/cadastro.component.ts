@@ -22,6 +22,7 @@ export class CadastroComponent implements OnInit {
   listaCondominios : string [] = [];
   listaCargos : string [] = [];
   listaBancos : string [] = [];
+  listaServicos : any [] = [];
 
   pix : any;
   //pixSel : any;
@@ -76,7 +77,7 @@ export class CadastroComponent implements OnInit {
       apelido:['',[]],
       nome:['',[Validators.required]],
       endereco:['',[]],
-      telefone:['',[Validators.required,Validators.pattern("[0-9 ]{11}")]],
+      telefone:['',[Validators.required,]], //Validators.pattern("[0-9 ]{11}")
       banco:['',[]],
       agencia:['',[]],
       conta:['',[]],
@@ -91,8 +92,8 @@ export class CadastroComponent implements OnInit {
       observacao:['',[]],
       email:['',[]],
       unidade:['',[]],
-      morador1:['',[Validators.required]],
-      morador2:['',[]],
+      nome:['',[Validators.required]],
+      locatario:['',[]],
       condominio:['',[]],
     });
     this.cadastroCargoForm = this.fb.group({
@@ -111,9 +112,11 @@ export class CadastroComponent implements OnInit {
     await this.fs.getCondominioDocs();
     await this.fs.getCargosDocs();
     await this.fs.getBancosDocs();
+    await this.fs.getServicosDocs();
     this.listaCondominios = this.fs.listaCondominios;
     this.listaCargos = this.fs.listaCargos;
     this.listaBancos = this.fs.listaBancos;
+    this.listaServicos = this.fs.listaServicos;
     //console.log("construtor: ",this.listaCondominios)
   }
 
@@ -130,9 +133,9 @@ export class CadastroComponent implements OnInit {
   }
 
   async salvarFornecedor(){
-    //console.log("criar fornecedor", this.cadastroFornecedorForm.value);
-    await this.fs.addFornecedorDoc(this.cadastroFornecedorForm);
-    this.cadastroCondominioForm.reset();
+    console.log("criar fornecedor", this.cadastroFornecedorForm.value);
+    await this.fs.addFornecedorDoc(this.cadastroFornecedorForm, this.listaServicos);
+    this.cadastroFornecedorForm.reset();
   }
 
   async salvarCondomino(){
@@ -157,6 +160,13 @@ export class CadastroComponent implements OnInit {
     //console.log("criar banco", this.cadastroBancoForm.value);
     await this.fs.addBancoDoc(this.cadastroBancoForm);
     this.cadastroBancoForm.reset();
+  }
+
+  ver (i : number) {
+    //console.log("pos: ",i);
+    this.listaServicos[i].checked = true;
+    //console.log("lista1: ",this.listaServicos);
+    
   }
 
 }

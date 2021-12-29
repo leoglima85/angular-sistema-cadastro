@@ -49,6 +49,16 @@
               <div class="example-element-cpfconselhofiscal2" *ngIf="element.cpfconselhofiscal2" ><b>CPF Conselho Fiscal 2:</b> {{element.cpfconselhofiscal2}} </div>
               <div class="example-element-conselhofiscal3" *ngIf="element.conselhofiscal3" ><b>Conselho Fiscal 3:</b> {{element.conselhofiscal3}} </div>
               <div class="example-element-cpfconselhofiscal3" *ngIf="element.cpfconselhofiscal3" ><b>CPF Conselho Fiscal 3:</b> {{element.cpfconselhofiscal3}} </div>
+              <div class="example-element-nome" *ngIf="element.nome" ><b> Nome:</b> {{element.nome}} </div>
+              <div class="example-element-unidade" *ngIf="element.unidade" ><b> Unidade:</b> {{element.unidade}} </div>
+              <div class="example-element-locatario" *ngIf="element.locatario" ><b> Locatario:</b> {{element.locatario}} </div>
+              <div class="example-element-condominio" *ngIf="element.condominio" ><b> Condominio:</b> {{element.condominio}} </div>
+              <div class="example-element-observacao" *ngIf="element.observacao" ><b> Observacao:</b> {{element.observacao}} </div>
+              <div class="example-element-servicosPrestados" *ngIf="element.servicosPrestados" ><b> Servicos Prestados:</b> <div *ngFor="let i of element.servicosPrestados">{{i.nome}}</div> </div>
+              <div class="example-element-cpf" *ngIf="element.cpf" ><b> CPF:</b> {{element.cpf}} </div>
+              <div class="example-element-admissao" *ngIf="element.admissao" ><b> Admissao:</b> {{element.admissao}} </div>
+              <div class="example-element-cargo" *ngIf="element.cargo" ><b> Cargo:</b> {{element.cargo}} </div>
+              <div class="example-element-apelido" *ngIf="element.apelido" ><b> Apelido:</b> {{element.apelido}} </div>
             </div>
             <div class="example-element-editar">
               <button mat-button><mat-icon>edit</mat-icon>Editar</button>

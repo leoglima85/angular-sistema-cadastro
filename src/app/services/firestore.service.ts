@@ -3,7 +3,6 @@ import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { collection, addDoc, getFirestore, getDocs, query } from "firebase/firestore";
 import { Extrato } from 'src/app/models/extrato';
-import { Condominio } from '../models/condominio.model';
 import { Generico } from '../models/generico';
 
 @Injectable({
@@ -104,6 +103,11 @@ export class FirestoreService {
   }
 
   async addFornecedorDoc (dados: FormGroup, lista: any[]) {
+    let listaString = "";
+    for ( let i of lista){
+      listaString +=i.nome +" ";
+    }
+    console.log(listaString);
     try {
       const docRef = await addDoc(collection(this.db, "Fornecedor"),
       {
@@ -119,7 +123,7 @@ export class FirestoreService {
         pix : dados.value.pix,
         chavepix : dados.value.chavepix,
         email : dados.value.email,
-        servicosPrestados : lista,
+        servicosPrestados : listaString,
       });
       console.log("Document written with ID: ", docRef.id);
       this._snackBar.open("Cadastrato com Sucesso", "", {duration: 4000, panelClass: ["snack-verde"]});
@@ -289,7 +293,7 @@ export class FirestoreService {
       lista.push({nome: doc.data().servico, checked: false});
     });
     this.listaServicos = lista;
-    console.log("lista de bancos", lista);
+    //console.log("lista de bancos", lista);
   }
 
 

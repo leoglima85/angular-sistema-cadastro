@@ -1,0 +1,238 @@
+<div class="example-docInfos-cnpj" *ngIf="docInfos.cnpj" ><b>CNPJ:</b> {{docInfos.cnpj}} </div>
+<div class="example-docInfos-email" *ngIf="docInfos.email"><b> Email:</b> {{docInfos.email}} </div>
+<div class="example-docInfos-telefone" *ngIf="docInfos.telefone" ><b>Telefone:</b> {{docInfos.telefone}} </div>
+<div class="example-docInfos-endereco" *ngIf="docInfos.endereco" ><b>Endereço:</b> {{docInfos.endereco}} </div>
+<div class="example-docInfos-sindico" *ngIf="docInfos.sindico" ><b> Sindico:</b> {{docInfos.sindico}} </div>
+<div class="example-docInfos-cpfsindico" *ngIf="docInfos.cpfsindico" ><b>CPF Sindico:</b> {{docInfos.cpfsindico}} </div>
+<div class="example-docInfos-banco" *ngIf="docInfos.banco" ><b> Banco:</b> {{docInfos.banco}} </div>
+<div class="example-docInfos-conta" *ngIf="docInfos.conta" ><b> Conta:</b> {{docInfos.conta}} </div>
+<div class="example-docInfos-agencia" *ngIf="docInfos.agencia" ><b> Agencia:</b> {{docInfos.agencia}} </div>
+<div class="example-docInfos-operacao" *ngIf="docInfos.operacao" ><b>Operação:</b> {{docInfos.operacao}} </div>
+<div class="example-docInfos-pix" *ngIf="docInfos.pix" ><b> Pix:</b> {{docInfos.pix}} </div>
+<div class="example-docInfos-chavepix" *ngIf="docInfos.chavepix" ><b>Chave Pix:</b> {{docInfos.chavepix}} </div>
+<div class="example-docInfos-conselhofiscal1" *ngIf="docInfos.conselhofiscal1" ><b> Conselho Fiscal 1:</b> {{docInfos.conselhofiscal1}} </div>
+<div class="example-docInfos-cpfconselhofiscal1" *ngIf="docInfos.cpfconselhofiscal1" ><b>CPF Conselho Fiscal 1:</b> {{docInfos.cpfconselhofiscal1}} </div>
+<div class="example-docInfos-conselhofiscal2" *ngIf="docInfos.conselhofiscal2" ><b>Conselho Fiscal 2:</b> {{docInfos.conselhofiscal2}} </div>
+<div class="example-docInfos-cpfconselhofiscal2" *ngIf="docInfos.cpfconselhofiscal2" ><b>CPF Conselho Fiscal 2:</b> {{docInfos.cpfconselhofiscal2}} </div>
+<div class="example-docInfos-conselhofiscal3" *ngIf="docInfos.conselhofiscal3" ><b>Conselho Fiscal 3:</b> {{docInfos.conselhofiscal3}} </div>
+<div class="example-docInfos-cpfconselhofiscal3" *ngIf="docInfos.cpfconselhofiscal3" ><b>CPF Conselho Fiscal 3:</b> {{docInfos.cpfconselhofiscal3}} </div>
+<div class="example-docInfos-nome" *ngIf="docInfos.nome" ><b> Nome:</b> {{docInfos.nome}} </div>
+<div class="example-docInfos-unidade" *ngIf="docInfos.unidade" ><b> Unidade:</b> {{docInfos.unidade}} </div>
+<div class="example-docInfos-locatario" *ngIf="docInfos.locatario" ><b> Locatario:</b> {{docInfos.locatario}} </div>
+<div class="example-docInfos-condominio" *ngIf="docInfos.condominio" ><b> Condominio:</b> {{docInfos.condominio}} </div>
+<div class="example-docInfos-observacao" *ngIf="docInfos.observacao" ><b> Observacao:</b> {{docInfos.observacao}} </div>
+<div class="example-docInfos-servicosPrestados" *ngIf="docInfos.servicosPrestados" ><b> Servicos Prestados:</b> {{docInfos.servicosPrestados}} </div>
+<div class="example-docInfos-cpf" *ngIf="docInfos.cpf" ><b> CPF:</b> {{docInfos.cpf}} </div>
+<div class="example-docInfos-admissao" *ngIf="docInfos.admissao" ><b> Admissao:</b> {{docInfos.admissao}} </div>
+<div class="example-docInfos-cargo" *ngIf="docInfos.cargo" ><b> Cargo:</b> {{docInfos.cargo}} </div>
+<div class="example-docInfos-apelido" *ngIf="docInfos.apelido" ><b> Apelido:</b> {{docInfos.apelido}} </div>
+    
+<mat-card>
+    <mat-form-field *ngIf="docInfos.nome" class="example-full-width" appearance="fill">
+        <mat-label>Nome do Condominio</mat-label>
+        <input matInput [(ngModel)]="docInfos.nome" name="nome">
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.cnpj" class="example-full-width" appearance="fill">
+        <mat-label>CNPJ </mat-label>
+        <input matInput [(ngModel)]="docInfos.cnpj" name="cnpj">
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.endereco" class="example-full-width" appearance="fill">
+        <mat-label>Endereço </mat-label>
+        <input matInput [(ngModel)]="docInfos.endereco" name="endereco">
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.telefone" class="example-full-width" appearance="fill">
+        <mat-label>Telefone </mat-label>
+        <input matInput [(ngModel)]="docInfos.telefone" name="telefone">
+    </mat-form-field>
+    <!-- <mat-form-field *ngIf="docInfos.nome"  class="example-full-width" appearance="fill">
+        <mat-label>Banco</mat-label>
+        <mat-select  formControlName="banco">
+            <mat-option *ngFor="let opt of listaBancos"
+                        [value]="opt"
+                        >{{ opt }}</mat-option>
+        </mat-select>
+        </mat-form-field> -->
+    <mat-form-field *ngIf="docInfos.agencia" class="agencia" appearance="fill">
+        <mat-label>Agencia </mat-label>
+        <input matInput [(ngModel)]="docInfos.agencia" name="agencia">
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.conta" class="conta" appearance="fill">
+        <mat-label>Conta </mat-label>
+        <input matInput [(ngModel)]="docInfos.conta" name="conta">
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.operacao" class="operacao" appearance="fill">
+        <mat-label>Operacao </mat-label>
+        <input matInput [(ngModel)]="docInfos.operacao" name="operacao">
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.nome" class="pix" appearance="fill">
+        <mat-label>PIX</mat-label>
+        <mat-select>
+            <mat-option [value]='"CPF/CNPJ"'>CPF/CNPJ</mat-option>
+            <mat-option [value]='"Telefone"'>Telefone</mat-option>
+            <mat-option [value]='"Email"'>Email</mat-option>
+            <mat-option [value]='"Chave"'>Chave</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.chavepix" class="chavepix" appearance="fill">
+        <mat-label>Chave PIX </mat-label>
+        <input matInput [(ngModel)]="docInfos.chavepix" name="chavepix">
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.sindico" class="example-full-width" appearance="fill">
+        <mat-label>Sindico</mat-label>
+        <input matInput [(ngModel)]="docInfos.sindico" name="sindico">
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.cpfsindico" class="example-full-width" appearance="fill">
+        <mat-label>CPF Sindico</mat-label>
+        <input matInput [(ngModel)]="docInfos.cpfsindico" name="cpfsindico">
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.conselhofiscal1" class="example-full-width" appearance="fill">
+        <mat-label>Conselho Fiscal 1</mat-label>
+        <input matInput [(ngModel)]="docInfos.conselhofiscal1" name="conselhofiscal1">
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.cpfconselhofiscal1" class="example-full-width" appearance="fill">
+        <mat-label>CPF Conselho Fiscal 1</mat-label>
+        <input matInput [(ngModel)]="docInfos.cpfconselhofiscal1" name="cpfconselhofiscal1">
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.conselhofiscal2" class="example-full-width" appearance="fill">
+        <mat-label>Conselho Fiscal 2</mat-label>
+        <input matInput [(ngModel)]="docInfos.conselhofiscal2" name="conselhofiscal2">
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.cpfconselhofiscal2" class="example-full-width" appearance="fill">
+        <mat-label>CPF Conselho Fiscal 2</mat-label>
+        <input matInput [(ngModel)]="docInfos.cpfconselhofiscal2" name="cpfconselhofiscal2">
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.conselhofiscal3" class="example-full-width" appearance="fill">
+        <mat-label>Conselho Fiscal 3</mat-label>
+        <input matInput [(ngModel)]="docInfos.conselhofiscal3" name="conselhofiscal3">
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.cpfconselhofiscal3" class="example-full-width" appearance="fill">
+        <mat-label>CPF Conselho Fiscal 3</mat-label>
+        <input matInput [(ngModel)]="docInfos.cpfconselhofiscal3" name="cpfconselhofiscal3">
+    </mat-form-field>
+
+    <!-- <mat-form-field appearance="fill">
+        <mat-label>Condominio</mat-label>
+        <mat-select  formControlName="condominio">
+            <mat-option *ngFor="let opt of listaCondominios"
+                        [value]="opt"
+                        >{{ opt }}</mat-option>
+        </mat-select>
+        </mat-form-field> -->
+
+
+
+    <mat-form-field *ngIf="docInfos.nome" class="example-full-width" appearance="fill">
+        <mat-label>CPF </mat-label>
+        <input matInput [(ngModel)]="docInfos.cnpj" name="cpf">
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.email" class="example-full-width" appearance="fill">
+        <mat-label>Email </mat-label>
+        <input matInput [(ngModel)]="docInfos.email" name="email">
+    </mat-form-field>
+
+    <!-- <mat-form-field appearance="fill">
+        <mat-label>Cargo</mat-label>
+        <mat-select  formControlName="cargo">
+            <mat-option *ngFor="let opt of listaCargos"
+                        [value]="opt"
+                        >{{ opt }}</mat-option>
+        </mat-select>
+        </mat-form-field> -->
+
+    <mat-form-field *ngIf="docInfos.admissao" class="example-full-width" appearance="fill">
+        <mat-label>Admissao </mat-label>
+        <input matInput [(ngModel)]="docInfos.admissao" name="admissao">
+    </mat-form-field>
+
+    <!-- <mat-form-field *ngIf="docInfos.nome"  class="example-full-width" appearance="fill">
+        <mat-label>Banco</mat-label>
+        <mat-select  formControlName="banco">
+            <mat-option *ngFor="let opt of listaBancos"
+                        [value]="opt"
+                        >{{ opt }}</mat-option>
+        </mat-select>
+        </mat-form-field> -->
+
+    <!-- <mat-form-field *ngIf="docInfos.titular"  class="example-full-width" appearance="fill">
+        <mat-label>Titular </mat-label>
+        <input matInput [(ngModel)]="docInfos.titular" name="titular">
+    </mat-form-field>
+     -->
+    <mat-form-field *ngIf="docInfos.agencia" class="agencia" appearance="fill">
+        <mat-label>Agencia </mat-label>
+        <input matInput [(ngModel)]="docInfos.agencia" name="agencia">
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.conta" class="conta" appearance="fill">
+        <mat-label>Conta </mat-label>
+        <input matInput [(ngModel)]="docInfos.conta" name="conta">
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.operacao" class="operacao" appearance="fill">
+        <mat-label>Operacao </mat-label>
+        <input matInput [(ngModel)]="docInfos.operacao" name="operacao">
+    </mat-form-field>
+
+
+
+
+
+    <mat-form-field *ngIf="docInfos.apelido" class="example-full-width" appearance="fill">
+        <mat-label>Apelido do Fornecedor </mat-label>
+        <input matInput [(ngModel)]="docInfos.apelido" name="apelido">
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.endereco" class="example-full-width" appearance="fill">
+        <mat-label>Endereço </mat-label>
+        <input matInput [(ngModel)]="docInfos.endereco" name="endereco">
+    </mat-form-field>
+    <mat-form-field *ngIf="docInfos.telefone" class="example-full-width" appearance="fill">
+        <mat-label>Telefone </mat-label>
+        <input matInput [(ngModel)]="docInfos.telefone" name="telefone">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="docInfos.cpf" class="example-full-width" appearance="fill">
+        <mat-label>CPF </mat-label>
+        <input matInput [(ngModel)]="docInfos.cpf" name="cpf">
+    </mat-form-field>
+
+
+    <!-- <div *ngFor="let unit of listaServicos; let i=index" (click)="ver(i)">
+        <mat-checkbox formControlName="servicoesPrestados" name="servicoesPrestados">
+                {{ unit.nome }}
+        </mat-checkbox>                        
+        </div> -->
+
+    <!-- <mat-form-field *ngIf="docInfos.nome"  class="example-full-width" appearance="fill">
+        <mat-label>Banco</mat-label>
+        <mat-select  formControlName="banco">
+            <mat-option *ngFor="let opt of listaBancos"
+                        [value]="opt"
+                        >{{ opt }}</mat-option>
+        </mat-select>
+        </mat-form-field> -->
+
+
+
+    <!-- <mat-form-field appearance="fill">
+        <mat-label>Condominio</mat-label>
+        <mat-select  formControlName="condominio">
+            <mat-option *ngFor="let opt of listaCondominios"
+                        [value]="opt"
+                        >{{ opt }}</mat-option>
+        </mat-select>
+        </mat-form-field> -->
+    <mat-form-field *ngIf="docInfos.unidade" class="example-full-width" appearance="fill">
+        <mat-label>Unidade </mat-label>
+        <input matInput [(ngModel)]="docInfos.unidade" name="unidade">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="docInfos.locatario" class="example-full-width" appearance="fill">
+        <mat-label>Locatario</mat-label>
+        <input matInput [(ngModel)]="docInfos.locatario" name="locatario">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="docInfos.observacao" class="example-full-width" appearance="fill">
+        <mat-label>Observação </mat-label>
+        <input matInput [(ngModel)]="docInfos.observacao" name="observacao">
+    </mat-form-field>
+    <br>
+    <button (click)="salvarAlteracao()" mat-raised-button color="primary">Salvar</button>
+</mat-card>

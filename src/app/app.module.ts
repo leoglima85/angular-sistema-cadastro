@@ -41,6 +41,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
+import { EditarComponent } from './components/editar/editar.component';
 
 
 
@@ -56,6 +57,7 @@ import { EffectsModule } from '@ngrx/effects';
     PagenotfoundComponent,
     ExtratoComponent,
     ConsultaComponent,
+    EditarComponent,
 
   ],
   imports: [

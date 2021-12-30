@@ -57,14 +57,6 @@ export class DashboardComponent implements OnInit {
       this.movimentacoes.push({...doc.data(),id: doc.id})
     });
   }
-
-  ver () {
-    console.log("lista1: ",this.lista);
-  }
-
-  inc() {
-    this.vart += " " + "nome";
-    console.log(this.vart);
-  }
+ 
 
 }

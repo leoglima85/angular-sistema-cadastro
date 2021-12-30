@@ -2,91 +2,100 @@
   <div>
     <mat-form-field appearance="fill">
       <mat-label>Pesquisar:</mat-label>
-      <mat-select [(ngModel)]="escolha" >
-        <mat-option *ngFor="let opt of lista"
-                    [value]="opt"
-                    (click)="filtrar(opt)">{{ opt }}</mat-option>
+      <mat-select [(ngModel)]="escolha">
+        <mat-option *ngFor="let opt of lista" [value]="opt" (click)="filtrar(opt)">{{ opt }}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
 </div>
 
 <mat-form-field appearance="standard">
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
 </mat-form-field>
 
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource2" matSort multiTemplateDataRows>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource2" matSort multiTemplateDataRows>
 
-      <!-- novo -->
-      <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
-        <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-        <td mat-cell *matCellDef="let row"> {{row[column]}} </td>
-      </ng-container>
+    <!-- novo -->
+    <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
+      <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+      <td mat-cell *matCellDef="let row"> {{row[column]}} </td>
+    </ng-container>
 
-      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-      <ng-container matColumnDef="expandedDetail">
-        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-          <div class="example-element-detail"
-              [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-            <div class="example-element-box-detalhe">
-              <div class="example-element-cnpj" *ngIf="element.cnpj" ><b>CNPJ:</b> {{element.cnpj}} </div>
-              <div class="example-element-email" *ngIf="element.email"><b> Email:</b> {{element.email}} </div>
-              <div class="example-element-telefone" *ngIf="element.telefone" ><b>Telefone:</b> {{element.telefone}} </div>
-              <div class="example-element-endereco" *ngIf="element.endereco" ><b>Endereço:</b> {{element.endereco}} </div>
-              <div class="example-element-sindico" *ngIf="element.sindico" ><b> Sindico:</b> {{element.sindico}} </div>
-              <div class="example-element-cpfsindico" *ngIf="element.cpfsindico" ><b>CPF Sindico:</b> {{element.cpfsindico}} </div>
-              <div class="example-element-banco" *ngIf="element.banco" ><b> Banco:</b> {{element.banco}} </div>
-              <div class="example-element-conta" *ngIf="element.conta" ><b> Conta:</b> {{element.conta}} </div>
-              <div class="example-element-agencia" *ngIf="element.agencia" ><b> Agencia:</b> {{element.agencia}} </div>
-              <div class="example-element-operacao" *ngIf="element.operacao" ><b>Operação:</b> {{element.operacao}} </div>
-              <div class="example-element-pix" *ngIf="element.pix" ><b> Pix:</b> {{element.pix}} </div>
-              <div class="example-element-chavepix" *ngIf="element.chavepix" ><b>Chave Pix:</b> {{element.chavepix}} </div>
-              <div class="example-element-conselhofiscal1" *ngIf="element.conselhofiscal1" ><b> Conselho Fiscal 1:</b> {{element.conselhofiscal1}} </div>
-              <div class="example-element-cpfconselhofiscal1" *ngIf="element.cpfconselhofiscal1" ><b>CPF Conselho Fiscal 1:</b> {{element.cpfconselhofiscal1}} </div>
-              <div class="example-element-conselhofiscal2" *ngIf="element.conselhofiscal2" ><b>Conselho Fiscal 2:</b> {{element.conselhofiscal2}} </div>
-              <div class="example-element-cpfconselhofiscal2" *ngIf="element.cpfconselhofiscal2" ><b>CPF Conselho Fiscal 2:</b> {{element.cpfconselhofiscal2}} </div>
-              <div class="example-element-conselhofiscal3" *ngIf="element.conselhofiscal3" ><b>Conselho Fiscal 3:</b> {{element.conselhofiscal3}} </div>
-              <div class="example-element-cpfconselhofiscal3" *ngIf="element.cpfconselhofiscal3" ><b>CPF Conselho Fiscal 3:</b> {{element.cpfconselhofiscal3}} </div>
-              <div class="example-element-nome" *ngIf="element.nome" ><b> Nome:</b> {{element.nome}} </div>
-              <div class="example-element-unidade" *ngIf="element.unidade" ><b> Unidade:</b> {{element.unidade}} </div>
-              <div class="example-element-locatario" *ngIf="element.locatario" ><b> Locatario:</b> {{element.locatario}} </div>
-              <div class="example-element-condominio" *ngIf="element.condominio" ><b> Condominio:</b> {{element.condominio}} </div>
-              <div class="example-element-observacao" *ngIf="element.observacao" ><b> Observacao:</b> {{element.observacao}} </div>
-              <div class="example-element-servicosPrestados" *ngIf="element.servicosPrestados" ><b> Servicos Prestados:</b> <div *ngFor="let i of element.servicosPrestados">{{i.nome}}</div> </div>
-              <div class="example-element-cpf" *ngIf="element.cpf" ><b> CPF:</b> {{element.cpf}} </div>
-              <div class="example-element-admissao" *ngIf="element.admissao" ><b> Admissao:</b> {{element.admissao}} </div>
-              <div class="example-element-cargo" *ngIf="element.cargo" ><b> Cargo:</b> {{element.cargo}} </div>
-              <div class="example-element-apelido" *ngIf="element.apelido" ><b> Apelido:</b> {{element.apelido}} </div>
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+        <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+          <div class="example-element-box-detalhe">
+            <!-- <div class="example-element-id" *ngIf="element.id" ><b>ID:</b> {{element.id}} </div> -->
+            <div class="example-element-cnpj" *ngIf="element.cnpj"><b>CNPJ:</b> {{element.cnpj}} </div>
+            <div class="example-element-email" *ngIf="element.email"><b> Email:</b> {{element.email}} </div>
+            <div class="example-element-telefone" *ngIf="element.telefone"><b>Telefone:</b> {{element.telefone}} </div>
+            <div class="example-element-endereco" *ngIf="element.endereco"><b>Endereço:</b> {{element.endereco}} </div>
+            <div class="example-element-sindico" *ngIf="element.sindico"><b> Sindico:</b> {{element.sindico}} </div>
+            <div class="example-element-cpfsindico" *ngIf="element.cpfsindico"><b>CPF Sindico:</b>
+              {{element.cpfsindico}} </div>
+            <div class="example-element-banco" *ngIf="element.banco"><b> Banco:</b> {{element.banco}} </div>
+            <div class="example-element-conta" *ngIf="element.conta"><b> Conta:</b> {{element.conta}} </div>
+            <div class="example-element-agencia" *ngIf="element.agencia"><b> Agencia:</b> {{element.agencia}} </div>
+            <div class="example-element-operacao" *ngIf="element.operacao"><b>Operação:</b> {{element.operacao}} </div>
+            <div class="example-element-pix" *ngIf="element.pix"><b> Pix:</b> {{element.pix}} </div>
+            <div class="example-element-chavepix" *ngIf="element.chavepix"><b>Chave Pix:</b> {{element.chavepix}} </div>
+            <div class="example-element-conselhofiscal1" *ngIf="element.conselhofiscal1"><b> Conselho Fiscal 1:</b>
+              {{element.conselhofiscal1}} </div>
+            <div class="example-element-cpfconselhofiscal1" *ngIf="element.cpfconselhofiscal1"><b>CPF Conselho Fiscal
+                1:</b> {{element.cpfconselhofiscal1}} </div>
+            <div class="example-element-conselhofiscal2" *ngIf="element.conselhofiscal2"><b>Conselho Fiscal 2:</b>
+              {{element.conselhofiscal2}} </div>
+            <div class="example-element-cpfconselhofiscal2" *ngIf="element.cpfconselhofiscal2"><b>CPF Conselho Fiscal
+                2:</b> {{element.cpfconselhofiscal2}} </div>
+            <div class="example-element-conselhofiscal3" *ngIf="element.conselhofiscal3"><b>Conselho Fiscal 3:</b>
+              {{element.conselhofiscal3}} </div>
+            <div class="example-element-cpfconselhofiscal3" *ngIf="element.cpfconselhofiscal3"><b>CPF Conselho Fiscal
+                3:</b> {{element.cpfconselhofiscal3}} </div>
+            <div class="example-element-nome" *ngIf="element.nome"><b> Nome:</b> {{element.nome}} </div>
+            <div class="example-element-unidade" *ngIf="element.unidade"><b> Unidade:</b> {{element.unidade}} </div>
+            <div class="example-element-locatario" *ngIf="element.locatario"><b> Locatario:</b> {{element.locatario}}
             </div>
-            <div class="example-element-editar">
-              <button mat-button><mat-icon>edit</mat-icon>Editar</button>
-            </div>
+            <div class="example-element-condominio" *ngIf="element.condominio"><b> Condominio:</b>
+              {{element.condominio}} </div>
+            <div class="example-element-observacao" *ngIf="element.observacao"><b> Observacao:</b>
+              {{element.observacao}} </div>
+            <div class="example-element-servicosPrestados" *ngIf="element.servicosPrestados"><b> Servicos Prestados:</b>
+              {{element.servicosPrestados}} </div>
+            <div class="example-element-cpf" *ngIf="element.cpf"><b> CPF:</b> {{element.cpf}} </div>
+            <div class="example-element-admissao" *ngIf="element.admissao"><b> Admissao:</b> {{element.admissao}} </div>
+            <div class="example-element-cargo" *ngIf="element.cargo"><b> Cargo:</b> {{element.cargo}} </div>
+            <div class="example-element-apelido" *ngIf="element.apelido"><b> Apelido:</b> {{element.apelido}} </div>
           </div>
-        </td>
-      </ng-container>
+          <div class="example-element-editar">
+            <button routerLink="/editar/{{element.id}}/{{escolha}}" mat-button>
+              <mat-icon>edit</mat-icon>Editar
+            </button>
+          </div>
+        </div>
+      </td>
+    </ng-container>
 
 
-      <!-- novo -->
-      
+    <!-- novo -->
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-          class="example-element-row"
-          [class.example-expanded-row]="expandedElement === row"
-          (click)="expandedElement = expandedElement === row ? null : row">
-      </tr>
-          <tr mat-row *matRowDef="let row; 
-              columns: ['expandedDetail']" 
-              class="example-detail-row">
-          </tr>
 
-      <!-- Row shown when there is no matching data. -->
-      <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-      </tr>
-    </table>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row"
+      [class.example-expanded-row]="expandedElement === row"
+      (click)="expandedElement = expandedElement === row ? null : row">
+    </tr>
+    <tr mat-row *matRowDef="let row; 
+              columns: ['expandedDetail']" class="example-detail-row">
+    </tr>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page"></mat-paginator>
-  </div>
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page"></mat-paginator>
+</div>

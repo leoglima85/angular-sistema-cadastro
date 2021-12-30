@@ -133,7 +133,7 @@ export class CadastroComponent implements OnInit {
   }
 
   async salvarFornecedor(){
-    console.log("criar fornecedor", this.cadastroFornecedorForm.value);
+    //console.log("criar fornecedor", this.cadastroFornecedorForm.value);
     await this.fs.addFornecedorDoc(this.cadastroFornecedorForm, this.listaServicos);
     this.cadastroFornecedorForm.reset();
   }

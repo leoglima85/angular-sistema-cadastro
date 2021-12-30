@@ -40,6 +40,7 @@ export class DashboardComponent implements OnInit {
                   ];
 
   lista2 : any[] = ['teste', 'dois','tres','quatro'];
+  vart = "";
 
    constructor(private fas: FireauthservService) 
       { 
@@ -61,6 +62,9 @@ export class DashboardComponent implements OnInit {
     console.log("lista1: ",this.lista);
   }
 
-  
+  inc() {
+    this.vart += " " + "nome";
+    console.log(this.vart);
+  }
 
 }

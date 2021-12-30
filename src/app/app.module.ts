@@ -28,16 +28,19 @@ import { HomeComponent } from './components/home/home.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { ProfileComponent } from './components/profile/profile.component';
-
-import { environment } from 'src/environments/environment';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { ExtratoComponent } from './components/extrato/extrato.component';
 import { ConsultaComponent } from './components/consulta/consulta.component';
+
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
 
 
 
@@ -79,7 +82,10 @@ import { ConsultaComponent } from './components/consulta/consulta.component';
     MatSelectModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    StoreModule.forRoot({}, {}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([])
   ],
 
   providers: [],

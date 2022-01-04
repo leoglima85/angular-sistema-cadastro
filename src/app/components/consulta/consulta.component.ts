@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { Generico } from 'src/app/models/generico';
 
@@ -11,44 +11,46 @@ import { Generico } from 'src/app/models/generico';
   styleUrls: ['./consulta.component.css'],
   templateUrl: './consulta.component.html',
   animations: [
-      trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
 })
 
 export class ConsultaComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['nome', 'condominio'];
+  displayedColumns: string[] = ['nome', 'condominio','funcionario', 'fornecedor', 'condomino'];
   dataSource2!: MatTableDataSource<Generico>;
-  lista : string[] = ['Condominio','Funcionario','Fornecedor','Condomino'];
+  lista: string[] = ['Condominio', 'Funcionario', 'Fornecedor', 'Condomino'];
   escolha: string = "";
-  expandedElement: Generico = { id: '',nome: '',conta: '',agencia: '',banco: '',
-                                chavepix: '',cnpj: '',conselhofiscal1: '',
-                                conselhofiscal2: '',conselhofiscal3: '',
-                                cpfconselhofiscal1: '',cpfconselhofiscal2: '',
-                                cpfconselhofiscal3: '',cpfsindico: '',email: '',
-                                endereco: '',operacao: '',pix: '',sindico: '',
-                                telefone: '',unidade :  '', apelido : '',
-                                locatario :  '', condominio :  '', observacao : '',
-                                servicosPrestados:  '', cpf:  '', admissao:  '', cargo:  '',} ;
+  expandedElement: Generico = {
+    id: '', nome: '', conta: '', agencia: '', banco: '',
+    chavepix: '', cnpj: '', conselhofiscal1: '', proprietario: '',
+    conselhofiscal2: '', conselhofiscal3: '', funcionario: '',
+    cpfconselhofiscal1: '', cpfconselhofiscal2: '', fornecedor: '',
+    cpfconselhofiscal3: '', cpfsindico: '', email: '',
+    endereco: '', operacao: '', pix: '', sindico: '',
+    telefone: '', unidade: '', apelido: '', titular: '',
+    locatario: '', condominio: '', observacaoCondominio: '', 
+    observacaoFuncionario: '', observacaoFornecedor: '', observacaoCondomino: '',
+    servicosPrestados: '', cpf: '', admissao: '', cargo: '',
+  };
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  
-  constructor(private fs : FirestoreService,
-              ) 
-    {
-      
-    }
+
+  constructor(private fs: FirestoreService,
+  ) {
+
+  }
 
   ngOnInit(): void {
 
   }
 
   ngAfterViewInit() {
-        
+
   }
 
   applyFilter(event: Event) {
@@ -60,12 +62,12 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
     }
   }
 
-  async filtrar(opt : string){
+  async filtrar(opt: string) {
     await this.fs.getConsultaDocs(opt);
     this.dataSource2 = new MatTableDataSource(this.fs.itens);
     this.dataSource2.paginator = this.paginator;
     this.dataSource2.sort = this.sort;
-   
+
   }
 
 }

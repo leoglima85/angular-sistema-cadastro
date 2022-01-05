@@ -20,20 +20,20 @@ import { Generico } from 'src/app/models/generico';
 })
 
 export class ConsultaComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['nome', 'condominio','funcionario', 'fornecedor', 'condomino'];
+  displayedColumns: string[] = ['nome', 'condominio'];
   dataSource2!: MatTableDataSource<Generico>;
   lista: string[] = ['Condominio', 'Funcionario', 'Fornecedor', 'Condomino'];
   escolha: string = "";
   expandedElement: Generico = {
     id: '', nome: '', conta: '', agencia: '', banco: '',
-    chavepix: '', cnpj: '', conselhofiscal1: '', proprietario: '',
-    conselhofiscal2: '', conselhofiscal3: '', funcionario: '',
-    cpfconselhofiscal1: '', cpfconselhofiscal2: '', fornecedor: '',
+    chavepix: '', cnpj: '', conselhofiscal1: '', //proprietario: '',
+    conselhofiscal2: '', conselhofiscal3: '', //funcionario: '',
+    cpfconselhofiscal1: '', cpfconselhofiscal2: '',// fornecedor: '',
     cpfconselhofiscal3: '', cpfsindico: '', email: '',
     endereco: '', operacao: '', pix: '', sindico: '',
     telefone: '', unidade: '', apelido: '', titular: '',
-    locatario: '', condominio: '', observacaoCondominio: '', 
-    observacaoFuncionario: '', observacaoFornecedor: '', observacaoCondomino: '',
+    locatario: '', condominio: '', observacao: '', 
+    //observacaoFuncionario: '', observacaoFornecedor: '', observacaoCondomino: '',
     servicosPrestados: '', cpf: '', admissao: '', cargo: '',
   };
 

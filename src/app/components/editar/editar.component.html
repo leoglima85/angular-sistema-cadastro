@@ -1,5 +1,5 @@
 <div class="example-docInfos-cnpj" *ngIf="docInfos.cnpj" ><b>CNPJ:</b> {{docInfos.cnpj}} </div>
-<div class="example-docInfos-prorietario" *ngIf="docInfos.proprietario" ><b>Proprietario:</b> {{docInfos.proprietario}} </div>
+<!-- <div class="example-docInfos-prorietario" *ngIf="docInfos.proprietario" ><b>Proprietario:</b> {{docInfos.proprietario}} </div> -->
 <div class="example-docInfos-email" *ngIf="docInfos.email"><b> Email:</b> {{docInfos.email}} </div>
 <div class="example-docInfos-telefone" *ngIf="docInfos.telefone" ><b>Telefone:</b> {{docInfos.telefone}} </div>
 <div class="example-docInfos-endereco" *ngIf="docInfos.endereco" ><b>Endereço:</b> {{docInfos.endereco}} </div>
@@ -21,23 +21,24 @@
 <div class="example-docInfos-unidade" *ngIf="docInfos.unidade" ><b> Unidade:</b> {{docInfos.unidade}} </div>
 <div class="example-docInfos-locatario" *ngIf="docInfos.locatario" ><b> Locatario:</b> {{docInfos.locatario}} </div>
 <div class="example-docInfos-condominio" *ngIf="docInfos.condominio" ><b> Condominio:</b> {{docInfos.condominio}} </div>
-<div class="example-docInfos-observacao" *ngIf="docInfos.observacaoCondominio" ><b> Observacao:</b> {{docInfos.observacaoCondominio}} </div>
+<div class="example-docInfos-observacao" *ngIf="docInfos.observacao" ><b> Observacao:</b> {{docInfos.observacao}} </div>
+<!-- <div class="example-docInfos-observacao" *ngIf="docInfos.observacaoCondominio" ><b> Observacao:</b> {{docInfos.observacaoCondominio}} </div>
 <div class="example-docInfos-observacao" *ngIf="docInfos.observacaoFuncionario" ><b> Observacao:</b> {{docInfos.observacaoFuncionario}} </div>
 <div class="example-docInfos-observacao" *ngIf="docInfos.observacaoFornecedor" ><b> Observacao:</b> {{docInfos.observacaoFornecedor}} </div>
-<div class="example-docInfos-observacao" *ngIf="docInfos.observacaoCondomino" ><b> Observacao:</b> {{docInfos.observacaoCondomino}} </div>
+<div class="example-docInfos-observacao" *ngIf="docInfos.observacaoCondomino" ><b> Observacao:</b> {{docInfos.observacaoCondomino}} </div> -->
 <div class="example-docInfos-servicosPrestados" *ngIf="docInfos.servicosPrestados" ><b> Servicos Prestados:</b> {{docInfos.servicosPrestados}} </div>
 <div class="example-docInfos-cpf" *ngIf="docInfos.cpf" ><b> CPF:</b> {{docInfos.cpf}} </div>
 <div class="example-docInfos-admissao" *ngIf="docInfos.admissao" ><b> Admissao:</b> {{docInfos.admissao}} </div>
 <div class="example-docInfos-cargo" *ngIf="docInfos.cargo" ><b> Cargo:</b> {{docInfos.cargo}} </div>
 <div class="example-docInfos-apelido" *ngIf="docInfos.apelido" ><b> Apelido:</b> {{docInfos.apelido}} </div>
-<div class="example-docInfos-funcionario" *ngIf="docInfos.funcionario" ><b> Funcionario:</b> {{docInfos.funcionario}} </div>
-<div class="example-docInfos-fornecedor" *ngIf="docInfos.fornecedor" ><b> Fornecedor:</b> {{docInfos.fornecedor}} </div>
+<!-- <div class="example-docInfos-funcionario" *ngIf="docInfos.funcionario" ><b> Funcionario:</b> {{docInfos.funcionario}} </div>
+<div class="example-docInfos-fornecedor" *ngIf="docInfos.fornecedor" ><b> Fornecedor:</b> {{docInfos.fornecedor}} </div> -->
     
 <!--  *********************** CONDOMINIO **************************** -->
 <mat-card *ngIf="docEscolha =='Condominio' ">
     <mat-form-field  class="example-full-width" appearance="fill">
         <mat-label>Nome do Condominio</mat-label>
-        <input matInput [(ngModel)]="docInfos.condominio" name="condominio">
+        <input matInput [(ngModel)]="docInfos.nome" name="nome">
     </mat-form-field>
     <mat-form-field  class="example-full-width" appearance="fill">
         <mat-label>CNPJ </mat-label>
@@ -125,7 +126,7 @@
 
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Observação </mat-label>
-        <input matInput [(ngModel)]="docInfos.observacaoCondominio" name="observacaoCondominio">
+        <input matInput [(ngModel)]="docInfos.observacao" name="observacao">
     </mat-form-field>
     <br>
     <button (click)="salvarAlteracaoCondominio()" mat-raised-button color="primary">Salvar</button>
@@ -134,7 +135,7 @@
 <mat-card *ngIf="docEscolha =='Funcionario' ">
     <mat-form-field appearance="fill">
         <mat-label>Condominio</mat-label>
-        <mat-select [(ngModel)]="condominioEscolha" name="condominioEscolha">
+        <mat-select [(ngModel)]="docInfos.condominio" name="condominio">
             <mat-option *ngFor="let opt of listaCondominios" 
                         [value]="opt">
                         {{ opt }}
@@ -169,6 +170,10 @@
         <mat-label>CPF </mat-label>
         <input matInput [(ngModel)]="docInfos.cnpj" name="cpf">
     </mat-form-field>
+    <mat-form-field  class="example-full-width" appearance="fill">
+        <mat-label>Titular </mat-label>
+        <input matInput [(ngModel)]="docInfos.titular" name="titular">
+    </mat-form-field>
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Banco</mat-label>
         <mat-select [(ngModel)]="docInfos.banco" name="banco" >
@@ -192,7 +197,7 @@
     </mat-form-field>
     <mat-form-field  class="pix" appearance="fill">
         <mat-label>PIX</mat-label>
-        <mat-select>
+        <mat-select [(ngModel)]="docInfos.pix" name="pix">
             <mat-option [value]='"CPF/CNPJ"'>CPF/CNPJ</mat-option>
             <mat-option [value]='"Telefone"'>Telefone</mat-option>
             <mat-option [value]='"Email"'>Email</mat-option>
@@ -209,7 +214,7 @@
     </mat-form-field>
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Observação </mat-label>
-        <input matInput [(ngModel)]="docInfos.observacaoFuncionario" name="observacaoFuncionario">
+        <input matInput [(ngModel)]="docInfos.observacao" name="observacao">
     </mat-form-field>
     <br>
     <button (click)="salvarAlteracaoFuncionario()" mat-raised-button color="primary">Salvar</button>
@@ -246,7 +251,7 @@
     </mat-form-field>
     <mat-form-field  class="pix" appearance="fill">
         <mat-label>PIX</mat-label>
-        <mat-select>
+        <mat-select [(ngModel)]="docInfos.pix" name="pix">
             <mat-option [value]='"CPF/CNPJ"'>CPF/CNPJ</mat-option>
             <mat-option [value]='"Telefone"'>Telefone</mat-option>
             <mat-option [value]='"Email"'>Email</mat-option>
@@ -254,9 +259,9 @@
         </mat-select>
     </mat-form-field>
     
-        <div *ngFor="let unit of listaServicos; let i=index" >
-            <mat-checkbox [(ngModel)]="docInfos.servicosPrestados" name="servicosPrestados">
-                    {{ unit.nome }}
+        <div *ngFor="let serv of listaServicos; let i=index" >
+            <mat-checkbox  (change)="ver(i,$event)" [checked]=serv.checked>
+                    {{ serv.servico }}
             </mat-checkbox>                        
         </div>
     
@@ -278,7 +283,7 @@
     </mat-form-field>
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Observação </mat-label>
-        <input matInput [(ngModel)]="docInfos.observacaoFornecedor" name="observacaoFornecedor">
+        <input matInput [(ngModel)]="docInfos.observacao" name="observacao">
     </mat-form-field>
     <br>
     <button (click)="salvarAlteracaoFornecedor()" mat-raised-button color="primary">Salvar</button>
@@ -287,30 +292,23 @@
 <mat-card *ngIf="docEscolha =='Condomino' ">
     <mat-form-field appearance="fill" >
         <mat-label>Condominio</mat-label>
-        <mat-select [(ngModel)]="docInfos.nome" name="nome">
+        <mat-select [(ngModel)]="docInfos.condominio" name="condominio">
             <mat-option *ngFor="let opt of listaCondominios" 
                         [value]="opt">
                         {{ opt }}
             </mat-option>
         </mat-select>
     </mat-form-field>
-    <mat-form-field  class="example-full-width" appearance="fill">
-        <mat-label>Endereço </mat-label>
-        <input matInput [(ngModel)]="docInfos.endereco" name="endereco">
-    </mat-form-field>
+    
     <mat-form-field  class="example-full-width" appearance="fill">
         <mat-label>Proprietario </mat-label>
-        <input matInput [(ngModel)]="docInfos.proprietario" name="proprietario">
+        <input matInput [(ngModel)]="docInfos.nome" name="nome">
     </mat-form-field>
     <mat-form-field  class="example-full-width" appearance="fill">
         <mat-label>Telefone </mat-label>
         <input matInput [(ngModel)]="docInfos.telefone" name="telefone">
     </mat-form-field>
     
-    <mat-form-field  class="example-full-width" appearance="fill">
-        <mat-label>CPF </mat-label>
-        <input matInput [(ngModel)]="docInfos.cpf" name="cpf">
-    </mat-form-field>
     <mat-form-field  class="example-full-width" appearance="fill">
         <mat-label>Unidade </mat-label>
         <input matInput [(ngModel)]="docInfos.unidade" name="unidade">
@@ -321,7 +319,7 @@
     </mat-form-field>
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Observação </mat-label>
-        <input matInput [(ngModel)]="docInfos.observacaoCondomino" name="observacaoCondomino">
+        <input matInput [(ngModel)]="docInfos.observacao" name="observacao">
     </mat-form-field>
     <br>
     <button (click)="salvarAlteracaoCondomino()" mat-raised-button color="primary">Salvar</button>

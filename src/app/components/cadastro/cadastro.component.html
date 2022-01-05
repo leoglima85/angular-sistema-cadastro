@@ -5,7 +5,7 @@
       <form #fc="ngForm" [formGroup]="cadastroCondominioForm" class="example-form">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Nome do Condominio</mat-label>
-          <input matInput formControlName="condominio" name="condominio">
+          <input matInput formControlName="nome" name="nome">
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>CNPJ </mat-label>
@@ -21,7 +21,7 @@
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Banco</mat-label>
-          <mat-select formControlName="banco">
+          <mat-select formControlName="banco" name="banco">
             <mat-option *ngFor="let opt of listaBancos" [value]="opt">{{ opt }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -39,7 +39,7 @@
         </mat-form-field>
         <mat-form-field class="pix" appearance="fill">
           <mat-label>PIX</mat-label>
-          <mat-select formControlName="pix">
+          <mat-select formControlName="pix" name="pix">
             <mat-option [value]='"CPF/CNPJ"'>CPF/CNPJ</mat-option>
             <mat-option [value]='"Telefone"'>Telefone</mat-option>
             <mat-option [value]='"Email"'>Email</mat-option>
@@ -84,11 +84,11 @@
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Observação</mat-label>
-          <input matInput formControlName="observacaoCondominio" name="observacaoCondominio">
+          <input matInput formControlName="observacao" name="observacao">
         </mat-form-field>
       </form>
       <div mat-dialog-actions>
-        <button [disabled]="!fc.valid" mat-raised-button color="primary" (click)="salvarCondominio()">Salvar</button>
+        <button [disabled]="!fc.valid" mat-raised-button color="primary" (click)="cadastrarCondominio()">Salvar</button>
       </div>
     </mat-tab>
     <!-- ******************************* FUNCIONARIO ************************ -->
@@ -96,13 +96,13 @@
       <form #ff="ngForm" [formGroup]="cadastroFuncionarioForm" class="example-form">
         <mat-form-field appearance="fill">
           <mat-label>Condominio</mat-label>
-          <mat-select formControlName="condominio">
+          <mat-select formControlName="condominio" name="funcionario">
             <mat-option *ngFor="let opt of listaCondominios" [value]="opt">{{ opt }}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Nome do Funcionario </mat-label>
-          <input matInput formControlName="funcionario" name="funcionario">
+          <input matInput formControlName="nome" name="nome">
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Endereço </mat-label>
@@ -122,7 +122,7 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Cargo</mat-label>
-          <mat-select formControlName="cargo">
+          <mat-select formControlName="cargo" name="cargo">
             <mat-option *ngFor="let opt of listaCargos" [value]="opt">{{ opt }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -154,7 +154,7 @@
         </mat-form-field>
         <mat-form-field class="pix" appearance="fill">
           <mat-label>PIX</mat-label>
-          <mat-select formControlName="pix">
+          <mat-select formControlName="pix" name="pix">
             <mat-option [value]='"CPF/CNPJ"'>CPF/CNPJ</mat-option>
             <mat-option [value]='"Telefone"'>Telefone</mat-option>
             <mat-option [value]='"Email"'>Email</mat-option>
@@ -167,18 +167,19 @@
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Observação</mat-label>
-          <input matInput formControlName="observacaoFuncionario" name="observacaoFuncionario">
+          <input matInput formControlName="observacao" name="observacao">
         </mat-form-field>
       </form>
       <div mat-dialog-actions>
-        <button [disabled]="!ff.valid" mat-raised-button color="primary" (click)="salvarFuncionario()">Salvar</button>
+        <button [disabled]="!ff.valid" mat-raised-button color="primary" (click)="cadastrarFuncionario()">Salvar</button>
       </div>
     </mat-tab>
+    <!-- **************************** FORNECEDOR *********************************** -->
     <mat-tab label="Fornecedor">
       <form #ffo="ngForm" [formGroup]="cadastroFornecedorForm" class="example-form">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Nome do Fornecedor </mat-label>
-          <input matInput formControlName="fornecedor" name="fornecedor">
+          <input matInput formControlName="nome" name="nome">
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Apelido do Fornecedor </mat-label>
@@ -207,7 +208,7 @@
         </div>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Banco</mat-label>
-          <mat-select formControlName="banco">
+          <mat-select formControlName="banco" name="banco">
             <mat-option *ngFor="let opt of listaBancos" [value]="opt">{{ opt }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -225,7 +226,7 @@
         </mat-form-field>
         <mat-form-field class="pix" appearance="fill">
           <mat-label>PIX</mat-label>
-          <mat-select formControlName="pix">
+          <mat-select formControlName="pix" name="pix">
             <mat-option [value]='"CPF/CNPJ"'>CPF/CNPJ</mat-option>
             <mat-option [value]='"Telefone"'>Telefone</mat-option>
             <mat-option [value]='"Email"'>Email</mat-option>
@@ -238,11 +239,11 @@
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Observação</mat-label>
-          <input matInput formControlName="observacaoFornecedor" name="observacaoFornecedor">
+          <input matInput formControlName="observacao" name="observacao">
         </mat-form-field>
       </form>
       <div mat-dialog-actions>
-        <button [disabled]="!ffo.valid" mat-raised-button color="primary" (click)="salvarFornecedor()">Salvar</button>
+        <button [disabled]="!ffo.valid" mat-raised-button color="primary" (click)="cadastrarFornecedor()">Salvar</button>
       </div>
     </mat-tab>
     <!-- ***************************** CONDOMINO ************************* -->
@@ -250,7 +251,7 @@
       <form #fco="ngForm" [formGroup]="cadastroCondominoForm" class="example-form">
         <mat-form-field appearance="fill">
           <mat-label>Condominio</mat-label>
-          <mat-select formControlName="condominio">
+          <mat-select formControlName="condominio" name="condominio">
             <mat-option *ngFor="let opt of listaCondominios" [value]="opt">{{ opt }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -260,7 +261,7 @@
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Proprietario </mat-label>
-          <input matInput formControlName="proprietario" name="proprietario">
+          <input matInput formControlName="nome" name="nome">
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Locatario</mat-label>
@@ -276,11 +277,11 @@
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Observação </mat-label>
-          <input matInput formControlName="observacaoCondomino" name="observacaoCondomino">
+          <input matInput formControlName="observacao" name="observacao">
         </mat-form-field>
       </form>
       <div mat-dialog-actions>
-        <button [disabled]="!fco.valid" mat-raised-button color="primary" (click)="salvarCondomino()">Salvar</button>
+        <button [disabled]="!fco.valid" mat-raised-button color="primary" (click)="cadastrarCondomino()">Salvar</button>
       </div>
     </mat-tab>
     <mat-tab label="Outros" class="outros">
@@ -292,7 +293,7 @@
         </mat-form-field>
       </form>
       <div mat-dialog-actions>
-        <button [disabled]="!fca.valid" mat-raised-button color="primary" (click)="salvarCargo()">Salvar</button>
+        <button [disabled]="!fca.valid" mat-raised-button color="primary" (click)="cadastrarCargo()">Salvar</button>
       </div>
       <hr>
       <h1>Cadastro de Serviços</h1>
@@ -303,7 +304,7 @@
         </mat-form-field>
       </form>
       <div mat-dialog-actions>
-        <button [disabled]="!fse.valid" mat-raised-button color="primary" (click)="salvarServico()">Salvar</button>
+        <button [disabled]="!fse.valid" mat-raised-button color="primary" (click)="cadastrarServico()">Salvar</button>
       </div>
       <hr>
       <h1>Cadastro de Bancos</h1>
@@ -314,7 +315,7 @@
         </mat-form-field>
       </form>
       <div mat-dialog-actions>
-        <button [disabled]="!fba.valid" mat-raised-button color="primary" (click)="salvarBanco()">Salvar</button>
+        <button [disabled]="!fba.valid" mat-raised-button color="primary" (click)="cadastrarBanco()">Salvar</button>
       </div>
     </mat-tab>
   </mat-tab-group>

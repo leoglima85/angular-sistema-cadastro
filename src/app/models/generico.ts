@@ -23,16 +23,17 @@ export interface Generico {
   unidade: string;
   locatario: string;
   condominio: string;
-  observacaoCondominio: string;
-  observacaoFuncionario: string;
-  observacaoFornecedor: string;
-  observacaoCondomino: string;
+  observacao: string;
+  // observacaoCondominio: string;
+  // observacaoFuncionario: string;
+  // observacaoFornecedor: string;
+  // observacaoCondomino: string;
   servicosPrestados: string;
   cpf: string;
   admissao: string;
   cargo: string;
   apelido: string;
-  proprietario : string;
-  funcionario : string;
-  fornecedor : string;
+  // proprietario : string;
+  // funcionario : string;
+  // fornecedor : string;
 }

@@ -27,12 +27,12 @@ export class CadastroComponent implements OnInit {
   pix: any;
   //pixSel : any;
   constructor(private fb: FormBuilder,
-    private fs: FirestoreService,
+              private fs: FirestoreService,
   ) {
 
     this.cadastroCondominioForm = this.fb.group({
       cnpj: ['', []], ///^(\d{3}\.){2}\d{3}\-\d{2}$/
-      condominio: ['', [Validators.required]],
+      nome: ['', [Validators.required]],
       endereco: ['', [Validators.required]],
       telefone: ['', []],
       banco: ['', []],
@@ -50,11 +50,11 @@ export class CadastroComponent implements OnInit {
       cpfconselhofiscal2: ['', []],
       conselhofiscal3: ['', []],
       cpfconselhofiscal3: ['', []],
-      observacaoCondominio: ['', []],
+      observacao: ['', []],
     });
     this.cadastroFuncionarioForm = this.fb.group({
       cpf: ['', [Validators.required,]], //Validators.pattern(/^(\d{3}\.){2}\d{3}\-\d{2}$/)
-      funcionario: ['', [Validators.required]],
+      nome: ['', [Validators.required]],
       endereco: ['', [Validators.required]],
       telefone: ['', [Validators.required,]], //Validators.pattern("[0-9 ]{11}")
       cargo: ['', [Validators.required]],
@@ -68,7 +68,7 @@ export class CadastroComponent implements OnInit {
       chavepix: ['', []],
       admissao: ['', [Validators.required]],
       email: ['', []],
-      observacaoFuncionario: ['', []],
+      observacao: ['', []],
     });
     this.cadastroFornecedorForm = this.fb.group({
       cnpj: ['', []],
@@ -76,7 +76,7 @@ export class CadastroComponent implements OnInit {
       //apelido do fornecedor....
       cpf: ['', []],
       apelido: ['', []],
-      fornecedor: ['', [Validators.required]],
+      nome: ['', [Validators.required]],
       endereco: ['', []],
       telefone: ['', [Validators.required,]], //Validators.pattern("[0-9 ]{11}")
       banco: ['', []],
@@ -87,17 +87,17 @@ export class CadastroComponent implements OnInit {
       chavepix: ['', []],
       email: ['', [Validators.email]],
       servicosPrestados: ['', []],
-      observacaoFornecedor: ['', []],
+      observacao: ['', []],
     });
     this.cadastroCondominoForm = this.fb.group({
       telefone: ['', []],
       observacao: ['', []],
       email: ['', []],
       unidade: ['', []],
-      proprietario: ['', [Validators.required]],
+      nome: ['', [Validators.required]],
       locatario: ['', []],
       condominio: ['', []],
-      observacaoCondomino: ['', []],
+      
     });
     this.cadastroCargoForm = this.fb.group({
       cargo: ['', [Validators.required]],
@@ -123,43 +123,43 @@ export class CadastroComponent implements OnInit {
     //console.log("construtor: ",this.listaCondominios)
   }
 
-  async salvarCondominio() {
+  async cadastrarCondominio() {
     //console.log("criar condominio", this.cadastroCondominioForm.value);
     await this.fs.addCondominioDoc(this.cadastroCondominioForm);
     this.cadastroCondominioForm.reset();
   }
 
-  async salvarFuncionario() {
+  async cadastrarFuncionario() {
     //console.log("criar funcionario", this.cadastroFuncionarioForm.value);
     await this.fs.addFuncionarioDoc(this.cadastroFuncionarioForm);
     this.cadastroCondominioForm.reset();
   }
 
-  async salvarFornecedor() {
+  async cadastrarFornecedor() {
     //console.log("criar fornecedor", this.cadastroFornecedorForm.value);
     await this.fs.addFornecedorDoc(this.cadastroFornecedorForm, this.listaServicos);
     this.cadastroFornecedorForm.reset();
   }
 
-  async salvarCondomino() {
+  async cadastrarCondomino() {
     //console.log("criar condomino", this.cadastroCondominoForm.value);
     await this.fs.addCondominoDoc(this.cadastroCondominoForm);
     this.cadastroCondominoForm.reset();
   }
 
-  async salvarCargo() {
+  async cadastrarCargo() {
     //console.log("criar cargo: ", this.cadastroCargoForm.value);
     await this.fs.addCargoDoc(this.cadastroCargoForm);
     this.cadastroCargoForm.reset();
   }
 
-  async salvarServico() {
+  async cadastrarServico() {
     //console.log("criar servico", this.cadastroServicoForm.value);
     await this.fs.addServicoDoc(this.cadastroServicoForm);
     this.cadastroServicoForm.reset();
   }
 
-  async salvarBanco() {
+  async cadastrarBanco() {
     //console.log("criar banco", this.cadastroBancoForm.value);
     await this.fs.addBancoDoc(this.cadastroBancoForm);
     this.cadastroBancoForm.reset();
@@ -168,7 +168,7 @@ export class CadastroComponent implements OnInit {
   ver(i: number) {
     //console.log("pos: ",i);
     this.listaServicos[i].checked = true;
-    //console.log("lista1: ",this.listaServicos);
+    console.log("lista1: ",this.listaServicos);
 
   }
 

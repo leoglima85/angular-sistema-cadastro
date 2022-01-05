@@ -1,8 +1,14 @@
+import { literalArr } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { collection, doc, getDocs, getFirestore, query, where } from 'firebase/firestore';
 import { Generico } from 'src/app/models/generico';
 import { FirestoreService } from 'src/app/services/firestore.service';
+
+export interface listaServico{
+  servico : string ;
+  checked : boolean ;
+}
 
 @Component({
   selector: 'app-editar',
@@ -14,22 +20,20 @@ export class EditarComponent implements OnInit {
   docID = "";
   docEscolha = "";
   db = getFirestore();
-  //bancoEscolha = "";
-  condominioEscolha = "";
   listaCondominios: string[] = [];
   listaCargos: string[] = [];
   listaBancos: string[] = [];
-  listaServicos: any[] = [];
+  listaServicos: listaServico[] = [];
+  listaServicosPrestados: listaServico[] = [];
   docInfos: Generico = {
     id: '', nome: '', conta: '', agencia: '', banco: '',
-    chavepix: '', cnpj: '', conselhofiscal1: '', proprietario: '',
-    conselhofiscal2: '', conselhofiscal3: '',  funcionario : '',
-    cpfconselhofiscal1: '', cpfconselhofiscal2: '', fornecedor : '',
+    chavepix: '', cnpj: '', conselhofiscal1: '',
+    conselhofiscal2: '', conselhofiscal3: '',
+    cpfconselhofiscal1: '', cpfconselhofiscal2: '',
     cpfconselhofiscal3: '', cpfsindico: '', email: '',
     endereco: '', operacao: '', pix: '', sindico: '',
     telefone: '', unidade: '', apelido: '', titular: '',
-    locatario: '', condominio: '', observacaoCondominio : '',observacaoFuncionario : '',
-    observacaoFornecedor : '',observacaoCondomino : '',
+    locatario: '',  observacao : '', condominio: '',
     servicosPrestados: '', cpf: '', admissao: '', cargo: '',
   };
 
@@ -38,11 +42,10 @@ export class EditarComponent implements OnInit {
 
   async ngOnInit() {
     this.route.params.subscribe((obj) => {
-      this.docID = obj.id;
-      this.docEscolha = obj.escolha;
-      //console.log(obj.id, " - ", obj.escolha);
+    this.docID = obj.id;
+    this.docEscolha = obj.escolha;
+    
     });
-    this.getDoc(this.docID, this.docEscolha)
     await this.fs.getCondominioDocs();
     await this.fs.getCargosDocs();
     await this.fs.getBancosDocs();
@@ -51,6 +54,19 @@ export class EditarComponent implements OnInit {
     this.listaCargos = this.fs.listaCargos;
     this.listaBancos = this.fs.listaBancos;
     this.listaServicos = this.fs.listaServicos;
+    await this.getDoc(this.docID, this.docEscolha)
+    if (this.docInfos.servicosPrestados) {
+      const listaArr = this.docInfos.servicosPrestados.split(' ');
+      for (let serv of listaArr) {
+        if (serv != ""){
+          for (let ls of this.listaServicos) {
+            if ( ls.servico == serv )
+              ls.checked = true;
+          }
+        }
+      }
+    }
+    
   }
 
   async getDoc(id: string, tipo: string) {
@@ -80,10 +96,7 @@ export class EditarComponent implements OnInit {
       this.docInfos.id = doc.id;
       this.docInfos.locatario = doc.data().locatario;
       this.docInfos.nome = doc.data().nome;
-      this.docInfos.observacaoCondominio = doc.data().observacaoCondominio;
-      this.docInfos.observacaoFuncionario = doc.data().observacaoFuncionario;
-      this.docInfos.observacaoFornecedor = doc.data().observacaoFornecedor;
-      this.docInfos.observacaoCondomino = doc.data().observacaoCondomino;
+      this.docInfos.observacao = doc.data().observacao;
       this.docInfos.operacao = doc.data().operacao;
       this.docInfos.pix = doc.data().pix;
       this.docInfos.servicosPrestados = doc.data().servicosPrestados;
@@ -91,16 +104,17 @@ export class EditarComponent implements OnInit {
       this.docInfos.telefone = doc.data().telefone;
       this.docInfos.titular = doc.data().titular;
       this.docInfos.unidade = doc.data().unidade;
-      this.docInfos.proprietario = doc.data().proprietario;
     });
+    //preencher a listaServiços
+    //console.log("lista serviços prestados: ",this.docInfos.servicosPrestados);
+    
   }
 
   async salvarAlteracaoCondominio() {
     const data = {
-      observacaoCondominio: this.docInfos.observacaoCondominio,
       endereco: this.docInfos.endereco,
-      condominio: this.docInfos.condominio,
       telefone: this.docInfos.telefone,
+      nome: this.docInfos.nome,
       cnpj : this.docInfos.cnpj ,
       banco : this.docInfos.banco ,
       agencia : this.docInfos.agencia ,
@@ -125,14 +139,14 @@ export class EditarComponent implements OnInit {
   async salvarAlteracaoFuncionario() {
     const data = {
       endereco: this.docInfos.endereco,
-      observacaoFuncionario: this.docInfos.observacaoFuncionario,
+      observacao: this.docInfos.observacao,
       admissao: this.docInfos.admissao,
       nome: this.docInfos.nome,
       cargo: this.docInfos.cargo,
-      condominio: this.docInfos.condominio,
       telefone: this.docInfos.telefone,
       cpf : this.docInfos.cpf ,
       banco : this.docInfos.banco ,
+      titular : this.docInfos.titular ,
       agencia : this.docInfos.agencia ,
       conta : this.docInfos.conta ,
       operacao : this.docInfos.operacao ,
@@ -144,6 +158,14 @@ export class EditarComponent implements OnInit {
   }
 
   async salvarAlteracaoFornecedor() {
+    console.log("lista :", this.listaServicos);
+    let listaString = "";
+    for (let i of this.listaServicos) {
+      if (i.checked == true){
+        listaString += i.servico + " ";
+      }
+    }
+    console.log("listastring :",listaString);
     const data = {
       nome: this.docInfos.nome,
       apelido : this.docInfos.apelido ,
@@ -154,12 +176,12 @@ export class EditarComponent implements OnInit {
       email : this.docInfos.email ,
       pix : this.docInfos.pix ,
       chavepix : this.docInfos.chavepix ,
-      servicosPrestados: this.docInfos.servicosPrestados,
+      servicosPrestados: listaString,
       banco : this.docInfos.banco ,
       agencia : this.docInfos.agencia ,
       conta : this.docInfos.conta ,
       operacao : this.docInfos.operacao ,
-      observacaoFornecedor: this.docInfos.observacaoFornecedor,
+      observacao: this.docInfos.observacao,
       
     };
     await this.fs.atualizaDoc(this.docEscolha, this.docID, data);
@@ -167,16 +189,29 @@ export class EditarComponent implements OnInit {
 
   async salvarAlteracaoCondomino() {
     const data = {
-      observacaoCondomino: this.docInfos.observacaoCondomino,
+      observacao: this.docInfos.observacao,
       unidade: this.docInfos.unidade,
       locatario: this.docInfos.locatario,
-      endereco: this.docInfos.endereco,
-      cpf: this.docInfos.cpf,
       condominio: this.docInfos.condominio,
       telefone: this.docInfos.telefone,
-      proprietario: this.docInfos.proprietario
+      nome: this.docInfos.nome
     };
     await this.fs.atualizaDoc(this.docEscolha, this.docID, data);
+  }
+
+  ver(i: number,event:any) {
+    console.log("pos: ",i);
+    console.log("event: ",event.checked);
+    this.listaServicos[i].checked = event.checked;
+    console.log("check: ",this.listaServicos[i].checked);
+    // if (this.listaServicos[i].checked == true){
+    //   this.listaServicos[i].checked = false;
+    // }else{
+    //   this.listaServicos[i].checked == true
+    // }
+    //this.listaServicos[i].checked = true;
+    console.log("lista1: ",this.listaServicos);
+
   }
 
 

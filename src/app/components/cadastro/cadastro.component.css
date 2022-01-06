@@ -38,3 +38,24 @@
   .cargos-servicos{
     grid-column: auto;
   }
+
+  .box-servicos{
+    border: 2px solid black;
+    
+  }
+
+.h2-box-servico{
+    text-align: center;
+    border: 2px solid black;
+}
+
+.box-servico-itens{
+    display: inline-flex;
+    padding-left: 15px;
+    padding-top: 15px;
+    
+}
+
+.botao-salvar{
+  align-items: center;
+}

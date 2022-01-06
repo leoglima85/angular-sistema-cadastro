@@ -21,19 +21,19 @@ import { Generico } from 'src/app/models/generico';
 
 export class ConsultaComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['nome', 'condominio'];
+  displayedColumnsOutros: string[] = ['servico', 'cargo', 'banco'];
   dataSource2!: MatTableDataSource<Generico>;
-  lista: string[] = ['Condominio', 'Funcionario', 'Fornecedor', 'Condomino'];
+  lista: string[] = ['Condominio', 'Funcionario', 'Fornecedor', 'Condomino', 'Outros'];
   escolha: string = "";
   expandedElement: Generico = {
     id: '', nome: '', conta: '', agencia: '', banco: '',
-    chavepix: '', cnpj: '', conselhofiscal1: '', //proprietario: '',
-    conselhofiscal2: '', conselhofiscal3: '', //funcionario: '',
-    cpfconselhofiscal1: '', cpfconselhofiscal2: '',// fornecedor: '',
+    chavepix: '', cnpj: '', conselhofiscal1: '', 
+    conselhofiscal2: '', conselhofiscal3: '', 
+    cpfconselhofiscal1: '', cpfconselhofiscal2: '',
     cpfconselhofiscal3: '', cpfsindico: '', email: '',
     endereco: '', operacao: '', pix: '', sindico: '',
     telefone: '', unidade: '', apelido: '', titular: '',
     locatario: '', condominio: '', observacao: '', 
-    //observacaoFuncionario: '', observacaoFornecedor: '', observacaoCondomino: '',
     servicosPrestados: '', cpf: '', admissao: '', cargo: '',
   };
 
@@ -69,5 +69,7 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
     this.dataSource2.sort = this.sort;
 
   }
+
+  
 
 }

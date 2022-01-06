@@ -41,13 +41,21 @@ table {
   }
   
   .example-element-box-detalhe {
-    
+    font-size: large;
+    flex-direction: row;
     border: 2px solid black;
     padding: 8px;
+    padding-top: 15px;
     font-weight: lighter;
     margin: 8px 0;
     
   }
+
+  .example-element-box-detalhe-outros {
+    display: flex;
+    
+  }
+
   
   .example-element-symbol {
     font-weight: bold;

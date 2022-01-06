@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { collection, addDoc, getFirestore, getDocs, query, updateDoc, doc } from "firebase/firestore";
+import { Router } from '@angular/router';
+import { collection, addDoc, getFirestore, getDocs, query, updateDoc, doc, orderBy } from "firebase/firestore";
 import { Extrato } from 'src/app/models/extrato';
 import { Generico } from '../models/generico';
 
@@ -19,7 +20,8 @@ export class FirestoreService {
   public listaBancos: string[] = [];
   public listaServicos: any[] = [];
 
-  constructor(private _snackBar: MatSnackBar) {
+  constructor(private _snackBar: MatSnackBar,
+              private router: Router) {
 
   }
 
@@ -142,21 +144,40 @@ export class FirestoreService {
 
   async getConsultaDocs(opt: string) {
     this.itens = [];
+    const outros = ['Servico', 'Banco', 'Cargo']
+    if (opt == "Outros") {
+      for (let i of outros){
+        const t = query(collection(this.db, i));
+        const qsnp = await getDocs(t);
+        qsnp.forEach((doc) => {
+        const item: any = { servico: '', cargo: '', banco: '' };
+        this.genericoTemp.push({ ...doc.data(), id: doc.id })
+        //console.log("id:",doc.id)
+        item.id = doc.id;
+        if (i == 'Servico'){item.servico = doc.data().servico;}
+        if (i == 'Cargo'){item.cargo = doc.data().cargo;}
+        if (i == 'Banco'){item.banco = doc.data().banco;}
+        
+        
+        
+        this.itens.push(item);
+        console.log("item:",item)
+      });
+      }
+      
+    }else {
     const q = query(collection(this.db, opt));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      //console.log("data",doc.data())// is never undefined for query doc snapshots
-      //console.log(doc.id, " => ", doc.data());
       const item: Generico = {
         id: '', nome: '', conta: '', agencia: '', banco: '',
-        chavepix: '', cnpj: '', conselhofiscal1: '', //proprietario: '',
-        conselhofiscal2: '', conselhofiscal3: '', //funcionario: '',
-        cpfconselhofiscal1: '', cpfconselhofiscal2: '',// fornecedor: '',
+        chavepix: '', cnpj: '', conselhofiscal1: '',
+        conselhofiscal2: '', conselhofiscal3: '', 
+        cpfconselhofiscal1: '', cpfconselhofiscal2: '',
         cpfconselhofiscal3: '', cpfsindico: '', email: '',
         endereco: '', operacao: '', pix: '', sindico: '',
         telefone: '', unidade: '', apelido: '', titular: '',
-        locatario: '', condominio: '', observacao: '', //observacaoFuncionario: '', 
-        //observacaoFornecedor: '', observacaoCondomino: '',
+        locatario: '', condominio: '', observacao: '', 
         servicosPrestados: '', cpf: '', admissao: '', cargo: '',
       };
       this.genericoTemp.push({ ...doc.data(), id: doc.id })
@@ -183,32 +204,23 @@ export class FirestoreService {
       item.unidade = doc.data().unidade;
       item.locatario = doc.data().locatario;
       item.condominio = doc.data().condominio;
-      // item.observacaoCondominio = doc.data().observacao;
-      // item.observacaoFuncionario = doc.data().observacao;
-      // item.observacaoFornecedor = doc.data().observacao;
-      // item.observacaoCondomino = doc.data().observacao;
       item.observacao = doc.data().observacao;
       item.servicosPrestados = doc.data().servicosPrestados;
       item.cpf = doc.data().cpf;
       item.admissao = doc.data().admissao;
       item.cargo = doc.data().cargo;
       item.apelido = doc.data().apelido;
-      // item.proprietario = doc.data().proprietario;
       item.titular = doc.data().titular;
-      // item.funcionario = doc.data().funcionario;
-
       this.itens.push(item);
-      //console.log(item);
+      
     });
-
-    //this.itens = this.condominiosTemp;
-    //console.log("this itens:",this.itens);
-    //return this.itens;
+   }
+    
   }
 
   async getCondominioDocs() {
     const lista: string[] = [];
-    const q = query(collection(this.db, "Condominio"));
+    const q = query(collection(this.db, "Condominio"), orderBy("nome","asc"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       lista.push(doc.data().nome);
@@ -219,7 +231,7 @@ export class FirestoreService {
 
   async getCargosDocs() {
     const lista: string[] = [];
-    const q = query(collection(this.db, "Cargo"));
+    const q = query(collection(this.db, "Cargo"), orderBy("cargo","asc"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       lista.push(doc.data().cargo);
@@ -230,7 +242,7 @@ export class FirestoreService {
 
   async getBancosDocs() {
     const lista: string[] = [];
-    const q = query(collection(this.db, "Banco"));
+    const q = query(collection(this.db, "Banco"), orderBy("banco","asc"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       lista.push(doc.data().banco);
@@ -241,7 +253,7 @@ export class FirestoreService {
 
   async getServicosDocs() {
     const lista: any[] = [];
-    const q = query(collection(this.db, "Servico"));
+    const q = query(collection(this.db, "Servico"), orderBy("servico","asc"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       lista.push({ servico: doc.data().servico, checked: false });
@@ -255,40 +267,11 @@ export class FirestoreService {
     try {
       await updateDoc(doc(this.db, base, id), dados);
       this._snackBar.open("Editado com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
+      this.router.navigate(['consulta']);
     } catch (e) {
       console.error("Error adding document: ", e);
-      this._snackBar.open("Falha ao editar, verifique as informações", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+      this._snackBar.open("Falha ao editar, verifique todas as informações e tente novamente", "", { duration: 4000, panelClass: ["snack-vermelho"] });
     }
   }
-
-  // async updateFuncionarioDoc ( base : string, id : string, dados: any) {
-  //   try {
-  //     await updateDoc(doc(this.db, base, id ), dados);
-  //     this._snackBar.open("Editado com Sucesso", "", {duration: 4000, panelClass: ["snack-verde"]});
-  //   } catch (e) {
-  //     console.error("Error adding document: ", e);
-  //     this._snackBar.open("Falha ao editar", "", {duration: 4000, panelClass: ["snack-vermelho"]});
-  //   }
-  // }
-
-  // async updateFornecedorDoc ( base : string, id : string, dados: any) {
-  //   try {
-  //     await updateDoc(doc(this.db, base, id ), dados);
-  //     this._snackBar.open("Editado com Sucesso", "", {duration: 4000, panelClass: ["snack-verde"]});
-  //   } catch (e) {
-  //     console.error("Error adding document: ", e);
-  //     this._snackBar.open("Falha ao editar", "", {duration: 4000, panelClass: ["snack-vermelho"]});
-  //   }
-  // }
-
-  // async updateCondominoDoc ( base : string, id : string, dados: any) {
-  //   try {
-  //     await updateDoc(doc(this.db, base, id ), dados);
-  //     this._snackBar.open("Editado com Sucesso", "", {duration: 4000, panelClass: ["snack-verde"]});
-  //   } catch (e) {
-  //     console.error("Error adding document: ", e);
-  //     this._snackBar.open("Falha ao editar", "", {duration: 4000, panelClass: ["snack-vermelho"]});
-  //   }
-  // }
 
 }

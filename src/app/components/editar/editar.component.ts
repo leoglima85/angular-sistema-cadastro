@@ -158,14 +158,14 @@ export class EditarComponent implements OnInit {
   }
 
   async salvarAlteracaoFornecedor() {
-    console.log("lista :", this.listaServicos);
+    //console.log("lista :", this.listaServicos);
     let listaString = "";
     for (let i of this.listaServicos) {
       if (i.checked == true){
         listaString += i.servico + " ";
       }
     }
-    console.log("listastring :",listaString);
+    //console.log("listastring :",listaString);
     const data = {
       nome: this.docInfos.nome,
       apelido : this.docInfos.apelido ,
@@ -200,17 +200,17 @@ export class EditarComponent implements OnInit {
   }
 
   ver(i: number,event:any) {
-    console.log("pos: ",i);
-    console.log("event: ",event.checked);
+    //console.log("pos: ",i);
+    //console.log("event: ",event.checked);
     this.listaServicos[i].checked = event.checked;
-    console.log("check: ",this.listaServicos[i].checked);
+    //console.log("check: ",this.listaServicos[i].checked);
     // if (this.listaServicos[i].checked == true){
     //   this.listaServicos[i].checked = false;
     // }else{
     //   this.listaServicos[i].checked == true
     // }
     //this.listaServicos[i].checked = true;
-    console.log("lista1: ",this.listaServicos);
+    //console.log("lista1: ",this.listaServicos);
 
   }
 

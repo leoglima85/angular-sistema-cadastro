@@ -100,13 +100,13 @@ export class CadastroComponent implements OnInit {
       
     });
     this.cadastroCargoForm = this.fb.group({
-      cargo: ['', [Validators.required]],
+      nome: ['', [Validators.required]],
     });
     this.cadastroServicoForm = this.fb.group({
-      servico: ['', [Validators.required]],
+      nome: ['', [Validators.required]],
     });
     this.cadastroBancoForm = this.fb.group({
-      banco: ['', [Validators.required]],
+      nome: ['', [Validators.required]],
     });
 
   }

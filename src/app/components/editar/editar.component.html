@@ -135,8 +135,8 @@
             <input matInput [(ngModel)]="docInfos.observacao" name="observacao">
         </mat-form-field>
         <br>
-        <button class="botao-salvar" [disabled]="!updateCond.valid" (click)="salvarAlteracaoCondominio()" mat-raised-button
-            color="primary">Salvar</button>
+        <button class="botao-salvar" [disabled]="!updateCond.valid" (click)="salvarAlteracaoCondominio()"
+            mat-raised-button color="primary">Salvar</button>
     </mat-card>
 </form>
 <!--  *********************** FUNCIONARIO **************************** -->
@@ -275,7 +275,7 @@
                 <mat-option [value]='"Chave"'>Chave</mat-option>
             </mat-select>
         </mat-form-field>
-        
+
         <mat-form-field class="chavepix example-full-width" appearance="fill">
             <mat-label>Chave PIX </mat-label>
             <input matInput [(ngModel)]="docInfos.chavepix" name="chavepix">
@@ -305,8 +305,8 @@
             </div>
         </div>
         <br>
-        <button class="botao-salvar" [disabled]="!updateForn.valid" (click)="salvarAlteracaoFornecedor()" mat-raised-button
-            color="primary">Salvar</button>
+        <button class="botao-salvar" [disabled]="!updateForn.valid" (click)="salvarAlteracaoFornecedor()"
+            mat-raised-button color="primary">Salvar</button>
     </mat-card>
 </form>
 <!-- ******************** CONDOMINO ********************************** -->
@@ -349,17 +349,11 @@
 <form #updateCondomino="ngForm">
     <mat-card *ngIf="docEscolha =='Outros' ">
         <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Cargo </mat-label>
-            <input matInput  [(ngModel)]="docInfos.cargo" name="cargo" >
+            <mat-label>Nome </mat-label>
+            <input matInput [(ngModel)]="docInfos.nome" name="nome">
         </mat-form-field>
-        
-        <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Banco </mat-label>
-            <input matInput [(ngModel)]="docInfos.banco" name="banco">
-        </mat-form-field>
-        
+
         <br>
-        <button [disabled]="!updateCondomino.valid" (click)="salvarAlteracaoCondomino()" mat-raised-button
-            color="primary">Salvar</button>
+        <button [disabled]="!updateCondomino.valid" mat-raised-button color="primary">Salvar</button>
     </mat-card>
 </form>

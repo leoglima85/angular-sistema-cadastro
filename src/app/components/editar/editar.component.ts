@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { collection, doc, getDocs, getFirestore, query, where } from 'firebase/firestore';
 import { Generico } from 'src/app/models/generico';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { ConsultaComponent } from '../consulta/consulta.component';
 
 export interface listaServico{
   servico : string ;
@@ -19,6 +20,7 @@ export interface listaServico{
 export class EditarComponent implements OnInit {
   docID = "";
   docEscolha = "";
+  docTipo = "";
   db = getFirestore();
   listaCondominios: string[] = [];
   listaCargos: string[] = [];
@@ -38,12 +40,15 @@ export class EditarComponent implements OnInit {
   };
 
   constructor(private route: ActivatedRoute,
-    private fs: FirestoreService) { }
+              private fs: FirestoreService,
+              ) { }
 
   async ngOnInit() {
     this.route.params.subscribe((obj) => {
     this.docID = obj.id;
     this.docEscolha = obj.escolha;
+    //this.docTipo = this.fs.tipo;
+    //console.log("tipo: ",this.docTipo)
     
     });
     await this.fs.getCondominioDocs();
@@ -54,6 +59,9 @@ export class EditarComponent implements OnInit {
     this.listaCargos = this.fs.listaCargos;
     this.listaBancos = this.fs.listaBancos;
     this.listaServicos = this.fs.listaServicos;
+    // console.log("cons.tipo: ",this.cons.tipo)
+    // if (this.cons.tipo == "banco") {console.log("é Banco")}
+    // if (this.cons.tipo == 'Cargo') {console.log("é Cargo")}
     await this.getDoc(this.docID, this.docEscolha)
     if (this.docInfos.servicosPrestados) {
       const listaArr = this.docInfos.servicosPrestados.split(' ');

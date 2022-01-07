@@ -21,10 +21,10 @@ import { Generico } from 'src/app/models/generico';
 
 export class ConsultaComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['nome', 'condominio'];
-  displayedColumnsOutros: string[] = ['servico', 'cargo', 'banco'];
   dataSource2!: MatTableDataSource<Generico>;
   lista: string[] = ['Condominio', 'Funcionario', 'Fornecedor', 'Condomino', 'Outros'];
   escolha: string = "";
+  public tipo : string = "";
   expandedElement: Generico = {
     id: '', nome: '', conta: '', agencia: '', banco: '',
     chavepix: '', cnpj: '', conselhofiscal1: '', 
@@ -70,6 +70,10 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
 
   }
 
-  
+  opcao(banco:string, cargo: string) {
+    console.log(banco,cargo)
+    if (banco) {this.tipo = "banco"}
+    if (cargo) {this.tipo = "cargo"}
+  }
 
 }

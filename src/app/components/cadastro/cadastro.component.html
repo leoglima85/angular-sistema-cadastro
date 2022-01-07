@@ -206,7 +206,7 @@
           <h2 class="h2-box-servico"> Serviços Prestados</h2>
           <div *ngFor="let unit of listaServicos; let i=index" (click)="ver(i)" class="box-servico-itens">
             <mat-checkbox formControlName="servicosPrestados" name="servicosPrestados">
-              {{ unit.servico }}
+              {{ unit.nome }}
             </mat-checkbox>
           </div>
         </div>
@@ -290,12 +290,13 @@
         <button [disabled]="!fco.valid" mat-raised-button color="primary" (click)="cadastrarCondomino()">Salvar</button>
       </div>
     </mat-tab>
+    <!-- **************************** OUTROS ********************************** -->
     <mat-tab label="Outros" class="outros">
       <h1>Cadastro de Cargos</h1>
-      <form #fca="ngForm" [formGroup]="cadastroCargoForm" class="example-form">
+      <form #fca="ngForm" [formGroup]="cadastroCargoForm" class="example-form" (keyup.enter)="cadastrarCargo()">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Nome do Cargo </mat-label>
-          <input matInput formControlName="cargo" name="cargo">
+          <input matInput formControlName="nome" name="nome">
         </mat-form-field>
       </form>
       <div mat-dialog-actions>
@@ -303,10 +304,10 @@
       </div>
       <hr>
       <h1>Cadastro de Serviços</h1>
-      <form #fse="ngForm" [formGroup]="cadastroServicoForm" class="example-form">
+      <form #fse="ngForm" [formGroup]="cadastroServicoForm" class="example-form" (keyup.enter)="cadastrarServico()">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Serviço </mat-label>
-          <input matInput formControlName="servico" name="servico">
+          <input matInput formControlName="nome" name="nome">
         </mat-form-field>
       </form>
       <div mat-dialog-actions>
@@ -314,14 +315,14 @@
       </div>
       <hr>
       <h1>Cadastro de Bancos</h1>
-      <form #fba="ngForm" [formGroup]="cadastroBancoForm" class="example-form">
+      <form #fba="ngForm" [formGroup]="cadastroBancoForm" class="example-form" (keyup.enter)="cadastrarBanco()">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Banco </mat-label>
-          <input matInput formControlName="banco" name="banco">
+          <input matInput formControlName="nome" name="nome">
         </mat-form-field>
       </form>
       <div mat-dialog-actions>
-        <button [disabled]="!fba.valid" mat-raised-button color="primary" (click)="cadastrarBanco()">Salvar</button>
+        <button [disabled]="!fba.valid" mat-raised-button color="primary" (click)="cadastrarBanco()" >Salvar</button>
       </div>
     </mat-tab>
   </mat-tab-group>

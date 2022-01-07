@@ -42,6 +42,7 @@ table {
   
   .example-element-box-detalhe {
     font-size: large;
+    
     flex-direction: row;
     border: 2px solid black;
     padding: 8px;

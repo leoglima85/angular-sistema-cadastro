@@ -1,25 +1,26 @@
 <mat-card>
   <h1>Formulários para cadastros</h1>
-  <mat-tab-group>
+  <mat-tab-group class="mat-tab-group">
     <mat-tab label="Condominio">
       <form #fc="ngForm" [formGroup]="cadastroCondominioForm" class="example-form">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Nome do Condominio</mat-label>
           <input matInput formControlName="nome" name="nome">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>CNPJ </mat-label>
-          <input matInput formControlName="cnpj" name="cnpj">
-        </mat-form-field>
+
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Endereço </mat-label>
           <input matInput formControlName="endereco" name="endereco">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width cnpj" appearance="fill">
+          <mat-label>CNPJ </mat-label>
+          <input matInput formControlName="cnpj" name="cnpj">
+        </mat-form-field>
+        <mat-form-field class="example-full-width telefone" appearance="fill">
           <mat-label>Telefone </mat-label>
           <input matInput formControlName="telefone" name="telefone">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width banco" appearance="fill">
           <mat-label>Banco</mat-label>
           <mat-select formControlName="banco" name="banco">
             <mat-option *ngFor="let opt of listaBancos" [value]="opt">{{ opt }}</mat-option>
@@ -34,7 +35,7 @@
           <input matInput formControlName="conta" name="conta">
         </mat-form-field>
         <mat-form-field class="operacao example-full-width" appearance="fill">
-          <mat-label>Operacao </mat-label>
+          <mat-label>Op </mat-label>
           <input matInput formControlName="operacao" name="operacao">
         </mat-form-field>
         <mat-form-field class="pix example-full-width" appearance="fill">
@@ -50,35 +51,35 @@
           <mat-label>Chave PIX </mat-label>
           <input matInput formControlName="chavepix" name="chavepix">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width sindico" appearance="fill">
           <mat-label>Sindico</mat-label>
           <input matInput formControlName="sindico" name="sindico">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width sindicocpf" appearance="fill">
           <mat-label>CPF Sindico</mat-label>
           <input matInput formControlName="cpfsindico" name="cpfsindico">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width sindico" appearance="fill">
           <mat-label>Conselho Fiscal 1</mat-label>
           <input matInput formControlName="conselhofiscal1" name="conselhofiscal1">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width sindicocpf" appearance="fill">
           <mat-label>CPF Conselho Fiscal 1</mat-label>
           <input matInput formControlName="cpfconselhofiscal1" name="cpfconselhofiscal1">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width sindico" appearance="fill">
           <mat-label>Conselho Fiscal 2</mat-label>
           <input matInput formControlName="conselhofiscal2" name="conselhofiscal2">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width sindicocpf" appearance="fill">
           <mat-label>CPF Conselho Fiscal 2</mat-label>
           <input matInput formControlName="cpfconselhofiscal2" name="cpfconselhofiscal2">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width sindico" appearance="fill">
           <mat-label>Conselho Fiscal 3</mat-label>
           <input matInput formControlName="conselhofiscal3" name="conselhofiscal3">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width sindicocpf" appearance="fill">
           <mat-label>CPF Conselho Fiscal 3</mat-label>
           <input matInput formControlName="cpfconselhofiscal3" name="cpfconselhofiscal3">
         </mat-form-field>
@@ -94,52 +95,52 @@
     <!-- ******************************* FUNCIONARIO ************************ -->
     <mat-tab label="Funcionario">
       <form #ff="ngForm" [formGroup]="cadastroFuncionarioForm" class="example-form">
-        <mat-form-field appearance="fill">
+        <mat-form-field class="example-full-width " appearance="fill">
           <mat-label>Condominio</mat-label>
           <mat-select formControlName="condominio" name="funcionario">
             <mat-option *ngFor="let opt of listaCondominios" [value]="opt">{{ opt }}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width nome" appearance="fill">
           <mat-label>Nome do Funcionario </mat-label>
           <input matInput formControlName="nome" name="nome">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width cpf" appearance="fill">
+          <mat-label>CPF </mat-label>
+          <input matInput formControlName="cpf" name="cpf">
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Endereço </mat-label>
           <input matInput formControlName="endereco" name="endereco">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Telefone </mat-label>
-          <input matInput formControlName="telefone" name="telefone">
-        </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>CPF </mat-label>
-          <input matInput formControlName="cpf" name="cpf">
-        </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width email-func" appearance="fill">
           <mat-label>Email </mat-label>
           <input matInput formControlName="email" name="email">
         </mat-form-field>
-        <mat-form-field appearance="fill">
+        <mat-form-field class="example-full-width telefone-func" appearance="fill">
+          <mat-label>Telefone </mat-label>
+          <input matInput formControlName="telefone" name="telefone">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width cargo" appearance="fill">
           <mat-label>Cargo</mat-label>
           <mat-select formControlName="cargo" name="cargo">
             <mat-option *ngFor="let opt of listaCargos" [value]="opt">{{ opt }}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width admissao" appearance="fill">
           <mat-label>Admissao </mat-label>
           <input matInput formControlName="admissao" name="admissao">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+
+        <mat-form-field class="example-full-width banco" appearance="fill">
           <mat-label>Banco</mat-label>
           <mat-select formControlName="banco">
             <mat-option *ngFor="let opt of listaBancos" [value]="opt">{{ opt }}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Titular </mat-label>
-          <input matInput formControlName="titular" name="titular">
-        </mat-form-field>
+
         <mat-form-field class="agencia" appearance="fill">
           <mat-label>Agencia </mat-label>
           <input matInput formControlName="agencia" name="agencia">
@@ -149,7 +150,7 @@
           <input matInput formControlName="conta" name="conta">
         </mat-form-field>
         <mat-form-field class="operacao" appearance="fill">
-          <mat-label>Operacao </mat-label>
+          <mat-label>Op </mat-label>
           <input matInput formControlName="operacao" name="operacao">
         </mat-form-field>
         <mat-form-field class="pix" appearance="fill">
@@ -164,6 +165,10 @@
         <mat-form-field class="chavepix" appearance="fill">
           <mat-label>Chave PIX </mat-label>
           <input matInput formControlName="chavepix" name="chavepix">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Titular </mat-label>
+          <input matInput formControlName="titular" name="titular">
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Observação</mat-label>
@@ -178,40 +183,32 @@
     <!-- **************************** FORNECEDOR *********************************** -->
     <mat-tab label="Fornecedor">
       <form #ffo="ngForm" [formGroup]="cadastroFornecedorForm" class="example-form">
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width nome-forn" appearance="fill">
           <mat-label>Nome do Fornecedor </mat-label>
           <input matInput formControlName="nome" name="nome">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width apelido-forn" appearance="fill">
           <mat-label>Apelido do Fornecedor </mat-label>
           <input matInput formControlName="apelido" name="apelido">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Endereço </mat-label>
-          <input matInput formControlName="endereco" name="endereco">
-        </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Telefone </mat-label>
-          <input matInput formControlName="telefone" name="telefone">
-        </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width cnpj-forn" appearance="fill">
           <mat-label>CNPJ </mat-label>
           <input matInput formControlName="cnpj" name="cnpj">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width cpf-forn" appearance="fill">
           <mat-label>CPF </mat-label>
           <input matInput formControlName="cpf" name="cpf">
         </mat-form-field>
-        <div class="box-servicos">
-          <h2 class="h2-box-servico"> Serviços Prestados</h2>
-          <div *ngFor="let unit of listaServicos; let i=index" (click)="cadServico(i)" class="box-servico-itens">
-            <mat-checkbox formControlName="servicosPrestados" name="servicosPrestados">
-              {{ unit.nome }}
-            </mat-checkbox>
-          </div>
-        </div>
+        <mat-form-field class="example-full-width end-forn" appearance="fill">
+          <mat-label>Endereço </mat-label>
+          <input matInput formControlName="endereco" name="endereco">
+        </mat-form-field>
+        <mat-form-field class="example-full-width tel-forn" appearance="fill">
+          <mat-label>Telefone </mat-label>
+          <input matInput formControlName="telefone" name="telefone">
+        </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width banco" appearance="fill">
           <mat-label>Banco</mat-label>
           <mat-select formControlName="banco" name="banco">
             <mat-option *ngFor="let opt of listaBancos" [value]="opt">{{ opt }}</mat-option>
@@ -226,7 +223,7 @@
           <input matInput formControlName="conta" name="conta">
         </mat-form-field>
         <mat-form-field class="operacao" appearance="fill">
-          <mat-label>Operacao </mat-label>
+          <mat-label>Op </mat-label>
           <input matInput formControlName="operacao" name="operacao">
         </mat-form-field>
         <mat-form-field class="pix" appearance="fill">
@@ -246,6 +243,16 @@
           <mat-label>Observação</mat-label>
           <input matInput formControlName="observacao" name="observacao">
         </mat-form-field>
+        <div class="caixa-servicos">
+          <h2 class="h2-box-servico"> Serviços Prestados</h2>
+        <div class="box-servicos">
+          <div *ngFor="let unit of listaServicos; let i=index" (click)="cadServico(i)" class="box-servico-itens">
+            <mat-checkbox formControlName="servicosPrestados" name="servicosPrestados">
+              {{ unit.nome }}
+            </mat-checkbox>
+          </div>
+        </div>
+        </div>
       </form>
       <div mat-dialog-actions>
         <button [disabled]="!ffo.valid" mat-raised-button color="primary"
@@ -255,32 +262,41 @@
     <!-- ***************************** CONDOMINO ************************* -->
     <mat-tab label="Condômino">
       <form #fco="ngForm" [formGroup]="cadastroCondominoForm" class="example-form">
-        <mat-form-field appearance="fill">
+        <mat-form-field class="example-full-width condominio-cond" appearance="fill">
           <mat-label>Condominio</mat-label>
           <mat-select formControlName="condominio" name="condominio">
             <mat-option *ngFor="let opt of listaCondominios" [value]="opt">{{ opt }}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width unidade" appearance="fill">
           <mat-label>Unidade </mat-label>
           <input matInput formControlName="unidade" name="unidade">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width proprietario" appearance="fill">
           <mat-label>Proprietario </mat-label>
           <input matInput formControlName="nome" name="nome">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width proprietariocpf" appearance="fill">
+          <mat-label>Proprietario CPF </mat-label>
+          <input matInput formControlName="cpfProprietario" name="cpfProprietario">
+        </mat-form-field>
+        <mat-form-field class="example-full-width locatario-nome" appearance="fill">
           <mat-label>Locatario</mat-label>
           <input matInput formControlName="locatario" name="locatario">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Telefone </mat-label>
-          <input matInput formControlName="telefone" name="telefone">
+        <mat-form-field class="example-full-width locatario-cpf" appearance="fill">
+          <mat-label>Locatario CPF</mat-label>
+          <input matInput formControlName="locatariocpf" name="locatariocpf">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width email-condo" appearance="fill">
           <mat-label>Email </mat-label>
           <input matInput formControlName="email" name="email">
         </mat-form-field>
+        <mat-form-field class="example-full-width telefone-condo" appearance="fill">
+          <mat-label>Telefone </mat-label>
+          <input matInput formControlName="telefone" name="telefone">
+        </mat-form-field>
+
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Observação </mat-label>
           <input matInput formControlName="observacao" name="observacao">

@@ -28,29 +28,29 @@
           <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
             <div class="example-element-box-detalhe">
               <!-- <div class="example-element-id" *ngIf="element.id" ><b>ID:</b> {{element.id}} </div> -->
-              <div class="example-element-cnpj" *ngIf="element.cnpj"><b>CNPJ:</b> {{element.cnpj}} </div>
+              <div class="example-element-cnpj" *ngIf="element.cnpj"><b>CNPJ: </b> {{element.cnpj}} </div>
               <div class="example-element-email" *ngIf="element.email"><b> Email:</b> {{element.email}} </div>
               <div class="example-element-telefone" *ngIf="element.telefone"><b>Telefone:</b> {{element.telefone}} <a target=”_blank” href="https:\\wa.me\55{{element.telefone}}"><mat-icon > chat</mat-icon></a> </div>
               <div class="example-element-endereco" *ngIf="element.endereco"><b>Endereço:</b> {{element.endereco}} </div>
               <div class="example-element-sindico" *ngIf="element.sindico"><b> Sindico:</b> {{element.sindico}} </div>
-              <div class="example-element-cpfsindico" *ngIf="element.cpfsindico"><b>CPF Sindico:</b>{{element.cpfsindico}} </div>
+              <div class="example-element-cpfsindico" *ngIf="element.cpfsindico"><b>CPF Sindico: </b>{{element.cpfsindico}} </div>
               <div class="example-element-banco" *ngIf="element.banco"><b> Banco:</b> {{element.banco}} </div>
               <div class="example-element-conta" *ngIf="element.conta"><b> Conta:</b> {{element.conta}} </div>
               <div class="example-element-agencia" *ngIf="element.agencia"><b> Agencia:</b> {{element.agencia}} </div>
               <div class="example-element-operacao" *ngIf="element.operacao"><b>Operação:</b> {{element.operacao}}              </div>
               <div class="example-element-pix" *ngIf="element.pix"><b> Pix:</b> {{element.pix}} </div>
               <div class="example-element-chavepix" *ngIf="element.chavepix"><b>Chave Pix:</b> {{element.chavepix}}              </div>
-              <div class="example-element-conselhofiscal1" *ngIf="element.conselhofiscal1"><b> Conselho Fiscal 1:</b>{{element.conselhofiscal1}} </div>
+              <div class="example-element-conselhofiscal1" *ngIf="element.conselhofiscal1"><b> Conselho Fiscal 1: </b>{{element.conselhofiscal1}} </div>
               <div class="example-element-cpfconselhofiscal1" *ngIf="element.cpfconselhofiscal1"><b>CPF Conselho Fiscal 1:</b> {{element.cpfconselhofiscal1}} </div>
-              <div class="example-element-conselhofiscal2" *ngIf="element.conselhofiscal2"><b>Conselho Fiscal 2:</b>{{element.conselhofiscal2}} </div>
+              <div class="example-element-conselhofiscal2" *ngIf="element.conselhofiscal2"><b>Conselho Fiscal 2: </b>{{element.conselhofiscal2}} </div>
               <div class="example-element-cpfconselhofiscal2" *ngIf="element.cpfconselhofiscal2"><b>CPF Conselho Fiscal 2:</b> {{element.cpfconselhofiscal2}} </div>
-              <div class="example-element-conselhofiscal3" *ngIf="element.conselhofiscal3"><b>Conselho Fiscal 3:</b>{{element.conselhofiscal3}} </div>
+              <div class="example-element-conselhofiscal3" *ngIf="element.conselhofiscal3"><b>Conselho Fiscal 3: </b>{{element.conselhofiscal3}} </div>
               <div class="example-element-cpfconselhofiscal3" *ngIf="element.cpfconselhofiscal3"><b>CPF Conselho Fiscal 3:</b> {{element.cpfconselhofiscal3}} </div>
               <div class="example-element-nome" *ngIf="element.nome"><b> Nome:</b> {{element.nome}} </div>
               <div class="example-element-unidade" *ngIf="element.unidade"><b> Unidade:</b> {{element.unidade}} </div>
               <div class="example-element-locatario" *ngIf="element.locatario"><b> Locatario:</b> {{element.locatario}}</div>
               <div class="example-element-condominio" *ngIf="element.condominio"><b> Condominio:</b>{{element.condominio}} </div>
-              <div class="example-element-observacao" *ngIf="element.observacao"><b> Observacao:</b>{{element.observacao}} </div>
+              <div class="example-element-observacao" *ngIf="element.observacao"><b> Observacao: </b>{{element.observacao}} </div>
               <div class="example-element-servicosPrestados" *ngIf="element.servicosPrestados"><b> Servicos Prestados:</b>{{element.servicosPrestados}} </div>
               <div class="example-element-cpf" *ngIf="element.cpf"><b> CPF:</b> {{element.cpf}} </div>
               <div class="example-element-admissao" *ngIf="element.admissao"><b> Admissao:</b> {{element.admissao}}</div>
@@ -73,7 +73,7 @@
         [class.example-expanded-row]="expandedElement === row"
         (click)="expandedElement = expandedElement === row ? null : row">
       </tr>
-      <tr mat-row *matRowDef="let row; 
+      <tr mat-row *matRowDef="let row;
               columns: ['expandedDetail']" class="example-detail-row">
       </tr>
 

@@ -13,7 +13,7 @@ export class ProfileComponent  {
 
   constructor(private fas: FireauthservService){ 
     this.usuario =  fas.getUser();
-    console.log('profile usuario', this.usuario)
+    //console.log('profile usuario', this.usuario)
   }
 
 

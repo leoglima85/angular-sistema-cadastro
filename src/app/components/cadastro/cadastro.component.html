@@ -204,7 +204,7 @@
         </mat-form-field>
         <div class="box-servicos">
           <h2 class="h2-box-servico"> Serviços Prestados</h2>
-          <div *ngFor="let unit of listaServicos; let i=index" (click)="ver(i)" class="box-servico-itens">
+          <div *ngFor="let unit of listaServicos; let i=index" (click)="cadServico(i)" class="box-servico-itens">
             <mat-checkbox formControlName="servicosPrestados" name="servicosPrestados">
               {{ unit.nome }}
             </mat-checkbox>

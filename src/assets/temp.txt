@@ -1,13 +1,11 @@
-var texto = myReader.result?.toString();
-        var texto2 = texto?.replace(/"/gi,'');
-        console.log("tira aspas - ",texto2);
-        texto2 = texto2?.replace(/\r/gi,'');
-        console.log("tira /r - ",texto2);
-        texto2 = texto2?.replace(/\n/gi,';');
-        console.log("tira /n - ",texto2);
-        var texto3 = texto2?.toString().split(';');
-        console.log("dividida - ",texto3);
-        this.fileString = texto3;
-        console.log("texto3 - ",texto3);
-        var cont = 6;
-        var temp =  true;
+regras para prevenção de cadastro duplicado
+condominio      
+        *nome
+funcionario
+        *cpf
+fornecedor
+        *???
+condomino
+        condominio + unidade
+serviço/cargo/banco
+        * nome

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
-import { Usuario } from '../models/usuario.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,15 +20,15 @@ export class FireauthservService {
   }
 
   logout(){
-    console.log("logout", getAuth().signOut())
+    //console.log("logout", getAuth().signOut())
   }
 
   async signin(email: string, password:string){
-    console.log('signIn no fireauthservice');
+    //console.log('signIn no fireauthservice');
     signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
         this.user = userCredential.user.email;
-        console.log('aqui o user: ',this.user);
+        //console.log('aqui o user: ',this.user);
         //console.log('Conta logada com sucesso!. uid: ', userCredential.user.uid)
         this.isLoggedIn = true;
         //console.log('user.uid:',userCredential.user.uid);
@@ -38,7 +38,7 @@ export class FireauthservService {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(error);
+        //console.log(error);
       });
   }
 
@@ -46,8 +46,8 @@ export class FireauthservService {
     createUserWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(userCredential.user.uid);
-        console.log('Conta criada com sucesso')
+        //console.log(userCredential.user.uid);
+        //console.log('Conta criada com sucesso')
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -56,7 +56,7 @@ export class FireauthservService {
     }
 
     getAuth () {
-      console.log('getAuth ->', this.auth);
+      //console.log('getAuth ->', this.auth);
       return getAuth().currentUser?.uid;
     }
 
@@ -64,10 +64,10 @@ export class FireauthservService {
       onAuthStateChanged(this.auth, (userid) => {
         if (userid) {
            this.uid = userid.uid;
-          console.log('**get user do fire auth:', this.uid);
+          //console.log('**get user do fire auth:', this.uid);
           return this.uid;
         } else {
-          console.log ('else do getuser')
+          //console.log ('else do getuser')
         }
       });
       //console.log('get user do fire auth retorno uid:', this.uid);

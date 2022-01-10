@@ -42,6 +42,7 @@
 <div class="example-docInfos-fornecedor" *ngIf="docInfos.fornecedor" ><b> Fornecedor:</b> {{docInfos.fornecedor}} </div> -->
 
 <h1 class="h1-titulo">Atualização Cadastral</h1>
+
 <!--  *********************** CONDOMINIO **************************** -->
 <form #updateCond="ngForm">
     <mat-card *ngIf="docEscolha =='Condominio'">
@@ -216,7 +217,10 @@
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Admissao </mat-label>
-            <input matInput [(ngModel)]="docInfos.admissao" name="admissao" required>
+            <input matInput  [(ngModel)]="docInfos.admissao" name="admissao" required>
+            <!-- <input matInput  [matDatepicker]="admissao" formControlName="admissao" name="admissao"> -->
+          <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
+          <!-- <mat-datepicker #picker></mat-datepicker> -->
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Observação </mat-label>
@@ -299,7 +303,7 @@
         <div class="box-servicos example-full-width">
             <h2 class="h2-box-servico"> Serviços Prestados</h2>
             <div *ngFor="let serv of listaServicos; let i=index" class="box-servico-itens">
-                <mat-checkbox (change)="ver(i,$event)" [checked]=serv.checked>
+                <mat-checkbox (change)="marcarServico(i,$event)" [checked]=serv.checked>
                     {{ serv.servico }}
                 </mat-checkbox>
             </div>

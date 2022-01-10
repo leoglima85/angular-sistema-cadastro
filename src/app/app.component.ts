@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
     
   }
   ngOnInit() {
-    console.log('*** OnInit -> ',this.fas.getAuth());
+    //console.log('*** OnInit -> ',this.fas.getAuth());
     
   }
 

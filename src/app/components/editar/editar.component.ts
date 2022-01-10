@@ -207,19 +207,10 @@ export class EditarComponent implements OnInit {
     await this.fs.atualizaDoc(this.docEscolha, this.docID, data);
   }
 
-  ver(i: number,event:any) {
-    //console.log("pos: ",i);
-    //console.log("event: ",event.checked);
+  marcarServico(i: number,event:any) {
+    
     this.listaServicos[i].checked = event.checked;
-    //console.log("check: ",this.listaServicos[i].checked);
-    // if (this.listaServicos[i].checked == true){
-    //   this.listaServicos[i].checked = false;
-    // }else{
-    //   this.listaServicos[i].checked == true
-    // }
-    //this.listaServicos[i].checked = true;
-    //console.log("lista1: ",this.listaServicos);
-
+    
   }
 
 

@@ -1,10 +1,10 @@
 regras para prevenção de cadastro duplicado
-condominio      
+condominio
         *nome
 funcionario
         *cpf
 fornecedor
-        *???
+        telefone
 condomino
         condominio + unidade
 serviço/cargo/banco

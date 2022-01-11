@@ -20,14 +20,14 @@ import { Generico } from 'src/app/models/generico';
 })
 
 export class ConsultaComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['nome', 'condominio'];
+  displayedColumns: string[] = ['nome'];
   dataSource2!: MatTableDataSource<Generico>;
   lista: string[] = ['Condominio', 'Funcionario', 'Fornecedor', 'Condomino', 'Outros'];
   escolha: string = "";
   public tipo : string = "";
   expandedElement: Generico = {
     id: '', nome: '', conta: '', agencia: '', banco: '',
-    chavepix: '', cnpj: '', conselhofiscal1: '', 
+    chavepix: '', cnpj: '', conselhofiscal1: '', proprietariocpf:'', locatariocpf: '',
     conselhofiscal2: '', conselhofiscal3: '', 
     cpfconselhofiscal1: '', cpfconselhofiscal2: '',
     cpfconselhofiscal3: '', cpfsindico: '', email: '',
@@ -41,9 +41,10 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private fs: FirestoreService,
-  ) {
+              ) 
+      {
 
-  }
+      }
 
   ngOnInit(): void {
 
@@ -71,7 +72,7 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
   }
 
   opcao(banco:string, cargo: string) {
-    console.log(banco,cargo)
+    //console.log(banco,cargo)
     if (banco) {this.tipo = "banco"}
     if (cargo) {this.tipo = "cargo"}
   }

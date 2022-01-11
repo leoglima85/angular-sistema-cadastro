@@ -44,6 +44,8 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { EditarComponent } from './components/editar/editar.component';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { LogEventosComponent } from './components/log-eventos/log-eventos.component'
 
 
 
@@ -60,6 +62,7 @@ import { EditarComponent } from './components/editar/editar.component';
     ExtratoComponent,
     ConsultaComponent,
     EditarComponent,
+    LogEventosComponent,
 
   ],
   imports: [
@@ -91,7 +94,8 @@ import { EditarComponent } from './components/editar/editar.component';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([]),
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgxMaskModule.forRoot({}),
   ],
 
   providers: [],

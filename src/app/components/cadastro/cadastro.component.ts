@@ -25,11 +25,11 @@ export class CadastroComponent implements OnInit {
   pix: any;
   //pixSel : any;
   constructor(private fb: FormBuilder,
-              private fs: FirestoreService,
+    private fs: FirestoreService,
   ) {
 
     this.cadastroCondominioForm = this.fb.group({
-      cnpj: ['', []], ///^(\d{3}\.){2}\d{3}\-\d{2}$/
+      cnpj: ['', []],
       nome: ['', [Validators.required]],
       endereco: ['', [Validators.required]],
       telefone: ['', []],
@@ -39,7 +39,7 @@ export class CadastroComponent implements OnInit {
       operacao: ['', []],
       pix: ['', []],
       chavepix: ['', []],
-      email: ['', [Validators.required,Validators.email]],
+      email: ['', [Validators.email]],
       sindico: ['', [Validators.required]],
       cpfsindico: ['', [Validators.required]],
       conselhofiscal1: ['', []],
@@ -51,10 +51,10 @@ export class CadastroComponent implements OnInit {
       observacao: ['', []],
     });
     this.cadastroFuncionarioForm = this.fb.group({
-      cpf: ['', [Validators.required,]], //Validators.pattern(/^(\d{3}\.){2}\d{3}\-\d{2}$/)
+      cpf: ['', [Validators.required,]],
       nome: ['', [Validators.required]],
       endereco: ['', [Validators.required]],
-      telefone: ['', [Validators.required,]], //Validators.pattern("[0-9]{11}")
+      telefone: ['', [Validators.required,]],
       cargo: ['', [Validators.required]],
       banco: ['', []],
       condominio: ['', []],
@@ -65,7 +65,7 @@ export class CadastroComponent implements OnInit {
       pix: ['', []],
       chavepix: ['', []],
       admissao: ['', [Validators.required]],
-      email: ['', []],
+      email: ['', [Validators.email]],
       observacao: ['', []],
     });
     this.cadastroFornecedorForm = this.fb.group({
@@ -74,7 +74,7 @@ export class CadastroComponent implements OnInit {
       apelido: ['', []],
       nome: ['', [Validators.required]],
       endereco: ['', []],
-      telefone: ['', [Validators.required,]], //Validators.pattern("[0-9]{11}")
+      telefone: ['', [Validators.required,]],
       banco: ['', []],
       agencia: ['', []],
       conta: ['', []],
@@ -88,12 +88,14 @@ export class CadastroComponent implements OnInit {
     this.cadastroCondominoForm = this.fb.group({
       telefone: ['', []],
       observacao: ['', []],
-      email: ['', []],
+      email: ['', [Validators.email]],
       unidade: ['', [Validators.required]],
       nome: ['', [Validators.required]],
+      proprietariocpf: ['', [Validators.required]],
       locatario: ['', []],
+      locatariocpf: ['', []],
       condominio: ['', [Validators.required]],
-      
+
     });
     this.cadastroCargoForm = this.fb.group({
       nome: ['', [Validators.required]],
@@ -155,7 +157,7 @@ export class CadastroComponent implements OnInit {
 
   cadServico(i: number) {
     this.listaServicos[i].checked = true;
-    
+
   }
 
 }

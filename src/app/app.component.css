@@ -43,18 +43,18 @@ button{
   .container {
     height: 90%;
     border: 0px solid rgba(0, 0, 0, 0.5);
-    
+    background-color: rgb(245, 241, 241);
   }
   .example-sidenav-content {
     display: flex;
     height: 100%;
     align-items: center;
     justify-content: center;
-    background-color: lightgrey;
+    background-color: rgb(197, 181, 181);
   }
   .sidenav {
      user-select: none;
-     
+     background-color: rgb(245, 241, 241);
   }
 
   .fontsize{

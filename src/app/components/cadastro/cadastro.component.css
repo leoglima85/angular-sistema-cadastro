@@ -79,11 +79,17 @@
 }
 
 .cnpj {
-  width: 49%; padding-right: 2%;
+  width: 30%;
+  padding-right: 2%;
 }
 
 .telefone {
-  width: 49%;
+  width: 30%;
+  padding-right: 2%;
+}
+
+.email-cond {
+  width: 36%;
 }
 
 .sindico{
@@ -140,16 +146,17 @@
 
 .cpf-forn{
   width: 50%;
-
+  
 }
 
 .end-forn{
-  width: 48%;
-  padding-right: 2%;
+  width: 50%;
+  
 }
 
 .tel-forn{
-  width: 50%;
+  width: 48%;
+  padding-right: 2%;
 
 }
 

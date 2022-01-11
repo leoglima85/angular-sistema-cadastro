@@ -1,31 +1,177 @@
 .example-full-width {
-    padding-left: 5px;
-}
+    width: 100%;
 
-.box-servicos{
-    border: 2px solid black;
+  }
+
+  .conta {
+    width: 13%;
+    padding-right: 2%;
+  }
+
+  .agencia {
+    width: 13%;
+    padding-right: 2%;
+  }
+
+  .operacao {
+    width: 5%;
+    padding-right: 2%;
+  }
+
+   .pix {
+    width: 15%;
+    padding-right: 2%;
+  }
+  .chavepix {
+    width: 23%;
+
+  }
+
+  .banco{
+    padding-top: 5px;
+    width: 21%;
+    padding-right: 2%;
+  }
+
+  .cnpj {
+    width: 30%;
+    padding-right: 2%;
+  }
+  
+  .telefone {
+    width: 30%;
+    padding-right: 2%;
+  }
+  
+  .email-cond {
+    width: 36%;
+  }
+  
+  .sindico{
+    width: 75%;
+    padding-right: 2%;
+  }
+  
+  .sindicocpf{
+    width: 23%;
+  }
+  
+  .nome{
+    width: 70%;
+    padding-right: 2%;
+  }
+  
+  .cpf{
+    width: 28%;
+  }
+  
+  .email-func{
+    width: 44%;
+    padding-right: 2%;
+  }
+  
+  .telefone-func{
+    width: 15%;
+    padding-right: 2%;
+  }
+  
+  .admissao{
+    width: 15%;
+  
+  }
+  
+  .cargo{
+    width: 20%;
+    padding-right: 2%;
+  }
+  
+  .nome-forn{
+    width: 48%;
+    padding-right: 2%;
+  }
+  
+  .apelido-forn{
+    width: 50%;
+  }
+  
+  .cnpj-forn{
+    width: 48%;
+    padding-right: 2%;
+  }
+  
+  .cpf-forn{
+    width: 50%;
     
+  }
+  
+  .end-forn{
+    width: 50%;
+    
+  }
+  
+  .tel-forn{
+    width: 48%;
+    padding-right: 2%;
+  
+  }
+  
+  .condominio-cond{
+    width: 80%;
+    padding-right: 2%;
+  }
+  
+  .unidade{
+    width: 18%;
+  
+  }
+  
+  .proprietario{
+    width: 80%;
+    padding-right: 2%;
+  }
+  
+  .proprietariocpf{
+    width: 18%;
+  
+  }
+  
+  .locatario-nome{
+    width: 80%;
+    padding-right: 2%;
+  }
+  
+  .locatario-cpf{
+    width: 18%;
+  }
+  .email-condo{
+    width: 80%;
+    padding-right: 2%;
+  }
+  .telefone-condo{
+    width: 18%;
+  }
 
-}
+  .box-servicos{
+    border: 2px solid black;
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+
+  }
 
 .h2-box-servico{
     text-align: center;
     border: 2px solid black;
+
+
+}
+
+.caixa-servicos{
+  padding: 0px;
+  padding-bottom: 15px;
 }
 
 .box-servico-itens{
-    display: inline-flex;
-    padding-left: 15px;
-    padding-top: 15px;
-    
-}
+  padding-left: 10px;
 
-.h1-titulo{
-    text-align: center;
-    padding-top: 10px;
-}
 
-.botao-salvar{
-    display: flex;
-    margin-right: auto;
 }

@@ -11,6 +11,7 @@ import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { AngularFireAuthGuard } from '@angular/fire/compat/auth-guard';
 import { EditarComponent } from './components/editar/editar.component';
+import { LogEventosComponent } from './components/log-eventos/log-eventos.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '', pathMatch:'full' },
@@ -22,6 +23,7 @@ const routes: Routes = [
     { path: 'cadastro', canActivate: [AngularFireAuthGuard], component: CadastroComponent },
     { path: 'extrato', canActivate: [AngularFireAuthGuard], component: ExtratoComponent },
     { path: 'consulta', canActivate: [AngularFireAuthGuard], component: ConsultaComponent },
+    { path: 'logs', canActivate: [AngularFireAuthGuard], component: LogEventosComponent },
     { path: 'editar/:id/:escolha', canActivate: [AngularFireAuthGuard], component: EditarComponent },
     { path: '**', component: PagenotfoundComponent },
 ];

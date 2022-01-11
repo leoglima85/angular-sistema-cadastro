@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import {
   collection, addDoc, getFirestore, getDocs,
-  query, updateDoc, doc, orderBy
+  query, updateDoc, doc, orderBy, where
 } from "firebase/firestore";
 import { Extrato } from 'src/app/models/extrato';
 import { Generico } from '../models/generico';
@@ -40,7 +40,7 @@ export class FirestoreService {
         deb_cred: mov.deb_cred,
         check: mov.check
       });
-      console.log("Document written with ID: ", docRef.id);
+      //console.log("Document written with ID: ", docRef.id);
       this._snackBar.open("Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -51,7 +51,7 @@ export class FirestoreService {
   async addCondominioDoc(dados: FormGroup) {
     try {
       const docRef = await addDoc(collection(this.db, "Condominio"), dados.value);
-      console.log("Document written with ID: ", docRef.id);
+      //console.log("Document written with ID: ", docRef.id);
       this._snackBar.open("Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -64,7 +64,7 @@ export class FirestoreService {
     try {
       const docRef = await addDoc(collection(this.db, "Funcionario"), dados.value
       );
-      console.log("Document written with ID: ", docRef.id);
+      //console.log("Document written with ID: ", docRef.id);
       this._snackBar.open("Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -95,7 +95,7 @@ export class FirestoreService {
   async addCondominoDoc(dados: FormGroup) {
     try {
       const docRef = await addDoc(collection(this.db, "Condomino"), dados.value);
-      console.log("Document written with ID: ", docRef.id);
+      //console.log("Document written with ID: ", docRef.id);
       this._snackBar.open("Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -104,17 +104,33 @@ export class FirestoreService {
   }
 
   async addCargoDoc(dados: FormGroup) {
+    //verrificar se o doC ja existe, se existir retornar erro na tela, senao,
+    //proseguir com o cadastro!. | where('nome', "==", nomeDesejado)
+    //q = query(collection(this.db, tipo), where('__name__', "==", id));
     try {
       const docRef = await addDoc(collection(this.db, "Cargo"),
         {
           nome: dados.value.nome,
         });
-      console.log("Document written with ID: ", docRef.id);
+      //console.log("Document written with ID: ", docRef.id);
       this._snackBar.open("Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
     } catch (e) {
       console.error("Error adding document: ", e);
       this._snackBar.open("Falha ao cadastrar", "", { duration: 4000, panelClass: ["snack-vermelho"] });
     }
+  }
+
+  async teste (){
+    
+    const q = query(collection(this.db, "Log"), where('nome', "==", "log0"));
+    const querySnapshot = await getDocs(q);
+    console.log("q",querySnapshot);
+    if (querySnapshot.empty) {
+      const docRef = await addDoc(collection(this.db, "Log"), {nome: "log1"});
+      console.log("logID: ", docRef.id);
+
+    }
+    
   }
 
   async addServicoDoc(dados: FormGroup) {
@@ -123,7 +139,7 @@ export class FirestoreService {
         {
           nome: dados.value.nome,
         });
-      console.log("Document written with ID: ", docRef.id);
+      //console.log("Document written with ID: ", docRef.id);
       this._snackBar.open("Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -138,7 +154,7 @@ export class FirestoreService {
         {
           nome: dados.value.nome,
         });
-      console.log("Document written with ID: ", docRef.id);
+      //console.log("Document written with ID: ", docRef.id);
       this._snackBar.open("Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -146,7 +162,7 @@ export class FirestoreService {
     }
   }
 
-  async getConsultaDocs(opt: string) {
+    async getConsultaDocs(opt: string) {
     this.itens = [];
     const outros = ['Servico', 'Banco', 'Cargo']
     if (opt == "Outros") {
@@ -156,9 +172,9 @@ export class FirestoreService {
         qsnp.forEach((doc) => {
           const item: any = { nome: '' };
           this.genericoTemp.push({ ...doc.data(), id: doc.id })
-          if (i == "Servico"){ item.servico = "Servico"}
-          if (i == "Banco"  ){ item.banco   = "Banco"}
-          if (i == "Cargo"  ){ item.cargo   = "Cargo"}
+          if (i == "Servico") { item.servico = "Servico" }
+          if (i == "Banco") { item.banco = "Banco" }
+          if (i == "Cargo") { item.cargo = "Cargo" }
           item.id = doc.id;
           item.nome = doc.data().nome;
           this.itens.push(item);
@@ -172,7 +188,7 @@ export class FirestoreService {
         const item: Generico = {
           id: '', nome: '', conta: '', agencia: '', banco: '',
           chavepix: '', cnpj: '', conselhofiscal1: '',
-          conselhofiscal2: '', conselhofiscal3: '',
+          conselhofiscal2: '', conselhofiscal3: '', proprietariocpf: '', locatariocpf: '',
           cpfconselhofiscal1: '', cpfconselhofiscal2: '',
           cpfconselhofiscal3: '', cpfsindico: '', email: '',
           endereco: '', operacao: '', pix: '', sindico: '',
@@ -263,7 +279,7 @@ export class FirestoreService {
   }
 
   async atualizaDoc(base: string, id: string, dados: any) {
-    console.log("dados: ", dados)
+    //console.log("dados: ", dados)
     try {
       await updateDoc(doc(this.db, base, id), dados);
       this._snackBar.open("Editado com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });

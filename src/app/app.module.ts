@@ -45,7 +45,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { EditarComponent } from './components/editar/editar.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
-import { LogEventosComponent } from './components/log-eventos/log-eventos.component'
+import { LogEventosComponent } from './components/log-eventos/log-eventos.component';
+import { AdministracaoComponent } from './components/administracao/administracao.component'
 
 
 
@@ -63,6 +64,7 @@ import { LogEventosComponent } from './components/log-eventos/log-eventos.compon
     ConsultaComponent,
     EditarComponent,
     LogEventosComponent,
+    AdministracaoComponent,
 
   ],
   imports: [

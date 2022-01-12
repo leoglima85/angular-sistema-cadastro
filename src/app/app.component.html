@@ -1,11 +1,11 @@
 <mat-toolbar class="nav-logout" color="primary">
     <div fxShow="true" fxHide.gt-sm="true">
-        <a mat-button routerLink="/home">Sistema de Gerenciamento de Condominios</a>
+        <a mat-button routerLink="/home">Sistema de Gerenciamento de Condomínios</a>
     </div>
     <span class="example-spacer"></span>
     <div fxShow="true" fxHide.lt-md="true">
         <button mat-icon-button>
-
+           {{username}}
             <mat-icon class="botoes" matSuffix>account_circle</mat-icon>
         </button>
         <button (click)="logout()" mat-icon-button routerLink="/home">

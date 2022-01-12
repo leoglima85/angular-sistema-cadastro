@@ -1,10 +1,10 @@
 <mat-card>
-  <h1>Formulários para cadastros</h1>
+  <h1 class="titulo">Formulários para cadastros</h1>
   <mat-tab-group class="mat-tab-group">
-    <mat-tab label="Condominio">
+    <mat-tab label="Condomínio">
       <form #fc="ngForm" [formGroup]="cadastroCondominioForm" class="example-form">
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Nome do Condominio</mat-label>
+          <mat-label>Nome do Condomínio</mat-label>
           <input matInput formControlName="nome" name="nome">
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
@@ -30,7 +30,7 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field class="agencia example-full-width" appearance="fill">
-          <mat-label>Agencia </mat-label>
+          <mat-label>Agência </mat-label>
           <input matInput type="number" formControlName="agencia" name="agencia">
         </mat-form-field>
         <mat-form-field class="conta example-full-width" appearance="fill">
@@ -55,11 +55,11 @@
           <input matInput formControlName="chavepix" name="chavepix">
         </mat-form-field>
         <mat-form-field class="example-full-width sindico" appearance="fill">
-          <mat-label>Sindico</mat-label>
+          <mat-label>Síndico</mat-label>
           <input matInput formControlName="sindico" name="sindico">
         </mat-form-field>
         <mat-form-field class="example-full-width sindicocpf" appearance="fill">
-          <mat-label>CPF Sindico</mat-label>
+          <mat-label>CPF Síndico</mat-label>
           <input matInput formControlName="cpfsindico" name="cpfsindico" mask="000.000.000-00">
         </mat-form-field>
         <mat-form-field class="example-full-width sindico" appearance="fill">
@@ -96,16 +96,16 @@
       </div>
     </mat-tab>
     <!-- ******************************* FUNCIONARIO ************************ -->
-    <mat-tab label="Funcionario">
+    <mat-tab label="Funcionário">
       <form #ff="ngForm" [formGroup]="cadastroFuncionarioForm" class="example-form">
         <mat-form-field class="example-full-width " appearance="fill">
-          <mat-label>Condominio</mat-label>
+          <mat-label>Condomínio</mat-label>
           <mat-select formControlName="condominio" name="funcionario">
             <mat-option *ngFor="let opt of listaCondominios" [value]="opt">{{ opt }}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="example-full-width nome" appearance="fill">
-          <mat-label>Nome do Funcionario </mat-label>
+          <mat-label>Nome do Funcionário </mat-label>
           <input matInput formControlName="nome" name="nome">
         </mat-form-field>
         <mat-form-field class="example-full-width cpf" appearance="fill">
@@ -131,7 +131,7 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field class="example-full-width admissao" appearance="fill">
-          <mat-label>Data Admissao </mat-label>
+          <mat-label>Data Admissão </mat-label>
           <input matInput formControlName="admissao" name="admissao" mask="d0/M0/0000">
         </mat-form-field>
         <mat-form-field class="example-full-width banco" appearance="fill">
@@ -141,7 +141,7 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field class="agencia" appearance="fill">
-          <mat-label>Agencia </mat-label>
+          <mat-label>Agência </mat-label>
           <input matInput formControlName="agencia" name="agencia">
         </mat-form-field>
         <mat-form-field class="conta" appearance="fill">
@@ -217,7 +217,7 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field class="agencia" appearance="fill">
-          <mat-label>Agencia </mat-label>
+          <mat-label>Agência </mat-label>
           <input matInput type="number" formControlName="agencia" name="agencia">
         </mat-form-field>
         <mat-form-field class="conta" appearance="fill">
@@ -265,7 +265,7 @@
     <mat-tab label="Condômino">
       <form #fco="ngForm" [formGroup]="cadastroCondominoForm" class="example-form">
         <mat-form-field class="example-full-width condominio-cond" appearance="fill">
-          <mat-label>Condominio</mat-label>
+          <mat-label>Condomínio</mat-label>
           <mat-select formControlName="condominio" name="condominio">
             <mat-option *ngFor="let opt of listaCondominios" [value]="opt">{{ opt }}</mat-option>
           </mat-select>
@@ -275,19 +275,19 @@
           <input matInput formControlName="unidade" name="unidade">
         </mat-form-field>
         <mat-form-field class="example-full-width proprietario" appearance="fill">
-          <mat-label>Proprietario </mat-label>
+          <mat-label>Proprietário </mat-label>
           <input matInput formControlName="nome" name="nome">
         </mat-form-field>
         <mat-form-field class="example-full-width proprietariocpf" appearance="fill">
-          <mat-label>Proprietario CPF </mat-label>
+          <mat-label>Proprietário CPF </mat-label>
           <input matInput formControlName="proprietariocpf" name="proprietariocpf" mask="000.000.000-00">
         </mat-form-field>
         <mat-form-field class="example-full-width locatario-nome" appearance="fill">
-          <mat-label>Locatario</mat-label>
+          <mat-label>Locatário</mat-label>
           <input matInput formControlName="locatario" name="locatario">
         </mat-form-field>
         <mat-form-field class="example-full-width locatario-cpf" appearance="fill">
-          <mat-label>Locatario CPF</mat-label>
+          <mat-label>Locatário CPF</mat-label>
           <input matInput formControlName="locatariocpf" name="locatariocpf" mask="000.000.000-00">
         </mat-form-field>
         <mat-form-field class="example-full-width email-condo" appearance="fill">

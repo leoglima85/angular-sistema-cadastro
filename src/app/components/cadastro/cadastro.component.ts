@@ -23,7 +23,6 @@ export class CadastroComponent implements OnInit {
   listaServicos: any[] = [];
 
   pix: any;
-  //pixSel : any;
   constructor(private fb: FormBuilder,
     private fs: FirestoreService,
   ) {
@@ -121,23 +120,27 @@ export class CadastroComponent implements OnInit {
   }
 
   async cadastrarCondominio() {
-    await this.fs.addCondominioDoc(this.cadastroCondominioForm);
-    this.cadastroCondominioForm.reset();
+    if (await this.fs.addCondominioDoc(this.cadastroCondominioForm)){
+      this.cadastroCondominioForm.reset();
+    }
   }
 
   async cadastrarFuncionario() {
-    await this.fs.addFuncionarioDoc(this.cadastroFuncionarioForm);
-    this.cadastroCondominioForm.reset();
+    if (await this.fs.addFuncionarioDoc(this.cadastroFuncionarioForm)){
+      this.cadastroCondominioForm.reset();
+    }
   }
 
   async cadastrarFornecedor() {
-    await this.fs.addFornecedorDoc(this.cadastroFornecedorForm, this.listaServicos);
-    this.cadastroFornecedorForm.reset();
+    if (await this.fs.addFornecedorDoc(this.cadastroFornecedorForm, this.listaServicos)){
+      this.cadastroFornecedorForm.reset();
+    }
   }
 
   async cadastrarCondomino() {
-    await this.fs.addCondominoDoc(this.cadastroCondominoForm);
-    this.cadastroCondominoForm.reset();
+    if (await this.fs.addCondominoDoc(this.cadastroCondominoForm)){
+      this.cadastroCondominoForm.reset();
+    }
   }
 
   async cadastrarCargo() {

@@ -15,9 +15,9 @@ export class LogEventosComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  teste(){
-    //console.log("teste");
-    this.fs.teste();
+  async teste(){
+    await this.fs.teste();
+    
   }
 
 }

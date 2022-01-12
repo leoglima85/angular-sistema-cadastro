@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import {
   collection, addDoc, getFirestore, getDocs,
-  query, updateDoc, doc, orderBy, where
+  query, updateDoc, doc, orderBy, where, setDoc
 } from "firebase/firestore";
 import { Extrato } from 'src/app/models/extrato';
 import { Generico } from '../models/generico';
@@ -40,7 +40,6 @@ export class FirestoreService {
         deb_cred: mov.deb_cred,
         check: mov.check
       });
-      //console.log("Document written with ID: ", docRef.id);
       this._snackBar.open("Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -49,120 +48,131 @@ export class FirestoreService {
   }
 
   async addCondominioDoc(dados: FormGroup) {
-    try {
-      const docRef = await addDoc(collection(this.db, "Condominio"), dados.value);
-      //console.log("Document written with ID: ", docRef.id);
-      this._snackBar.open("Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
-    } catch (e) {
-      console.error("Error adding document: ", e);
-      this._snackBar.open("Falha ao cadastrar", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+    if (await this.checarCadastro("Condominio", "nome", dados.value.telefone)) {
+      try {
+        const docRef = await addDoc(collection(this.db, "Condominio"), dados.value);
+        this._snackBar.open("Condomínio Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
+        return true;
+      } catch (e) {
+        this._snackBar.open("Falha ao cadastrar", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+        return false;
+      }
+    } else {
+      this._snackBar.open("Já existe um Condomínio cadastrado com esse nome. Favor verificar!", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+      return false;
     }
   }
 
-  async addFuncionarioDoc(dados: FormGroup) {
-    console.log("dados do form: ", dados)
-    try {
-      const docRef = await addDoc(collection(this.db, "Funcionario"), dados.value
-      );
-      //console.log("Document written with ID: ", docRef.id);
-      this._snackBar.open("Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
-    } catch (e) {
-      console.error("Error adding document: ", e);
-      this._snackBar.open("Falha ao cadastrar", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+  async addFuncionarioDoc(dados: FormGroup): Promise<boolean> {
+    if (await this.checarCadastro("Funcionario", "cpf", dados.value.telefone)) {
+      try {
+        const docRef = await addDoc(collection(this.db, "Funcionario"), dados.value);
+        this._snackBar.open("Funcionario Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
+        return true;
+      } catch (e) {
+        this._snackBar.open("Falha ao cadastrar", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+        return false;
+      }
+    } else {
+      this._snackBar.open("Já existe um Funcionario cadastrado com esse CPF. Favor verificar!", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+      return false;
     }
   }
 
-  async addFornecedorDoc(dados: FormGroup, lista: any[]) {
-    //console.log("lista :", lista);
+  async addFornecedorDoc(dados: FormGroup, lista: any[]): Promise<boolean> {
     let listaString = "";
     for (let i of lista) {
       if (i.checked == true) {
-        listaString += i.servico + " ";
+        listaString += i.nome + " ";
       }
     }
-    //console.log("listastring :",listaString);
-    try {
-      // const docRef = await addDoc(collection(this.db, "Fornecedor"),
-      //     {...dados.value, servicosPrestados : listaString});
-      // console.log("Document written with ID: ", docRef.id);
-      this._snackBar.open("Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
-    } catch (e) {
-      console.error("Error adding document: ", e);
-      this._snackBar.open("Falha ao cadastrar", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+    if (await this.checarCadastro("Fornecedor", "telefone", dados.value.telefone)) {
+      try {
+        const docRef = await addDoc(collection(this.db, "Fornecedor"),
+          { ...dados.value, servicosPrestados: listaString });
+        this._snackBar.open("Fornecedor Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
+        return true;
+      } catch (e) {
+        this._snackBar.open("Falha ao cadastrar", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+        return false;
+      }
+    } else {
+      this._snackBar.open("Já existe um Fornecedor cadastrado com esse telefone. Favor verificar!", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+      return false;
     }
   }
 
-  async addCondominoDoc(dados: FormGroup) {
-    try {
-      const docRef = await addDoc(collection(this.db, "Condomino"), dados.value);
-      //console.log("Document written with ID: ", docRef.id);
-      this._snackBar.open("Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
-    } catch (e) {
-      console.error("Error adding document: ", e);
-      this._snackBar.open("Falha ao cadastrar", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+  async addCondominoDoc(dados: FormGroup): Promise<boolean> {
+    if (await this.checarCadastro("Condômino", "nome", dados.value.nome)) {
+      try {
+        const docRef = await addDoc(collection(this.db, "Condomino"),
+          {
+            nome: dados.value.nome,
+          });
+        this._snackBar.open("Condômino Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
+        return true;
+      } catch (e) {
+        this._snackBar.open("Falha ao cadastrar", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+        return false;
+      }
+    } else {
+      this._snackBar.open("Já existe um Condômino cadastrado com esse nome. Favor verificar!", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+      return false;
     }
   }
 
   async addCargoDoc(dados: FormGroup) {
-    //verrificar se o doC ja existe, se existir retornar erro na tela, senao,
-    //proseguir com o cadastro!. | where('nome', "==", nomeDesejado)
-    //q = query(collection(this.db, tipo), where('__name__', "==", id));
-    try {
-      const docRef = await addDoc(collection(this.db, "Cargo"),
-        {
-          nome: dados.value.nome,
-        });
-      //console.log("Document written with ID: ", docRef.id);
-      this._snackBar.open("Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
-    } catch (e) {
-      console.error("Error adding document: ", e);
-      this._snackBar.open("Falha ao cadastrar", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+    if (await this.checarCadastro("Cargo", "nome", dados.value.nome)) {
+      try {
+        const docRef = await addDoc(collection(this.db, "Cargo"),
+          {
+            nome: dados.value.nome,
+          });
+        this._snackBar.open("Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
+      } catch (e) {
+        console.error("Error adding document: ", e);
+        this._snackBar.open("Falha ao cadastrar", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+      }
+    } else {
+      this._snackBar.open("Já existe um Cargo cadastrado com esse nome. Favor verificar!", "", { duration: 4000, panelClass: ["snack-vermelho"] });
     }
-  }
-
-  async teste (){
-    
-    const q = query(collection(this.db, "Log"), where('nome', "==", "log0"));
-    const querySnapshot = await getDocs(q);
-    console.log("q",querySnapshot);
-    if (querySnapshot.empty) {
-      const docRef = await addDoc(collection(this.db, "Log"), {nome: "log1"});
-      console.log("logID: ", docRef.id);
-
-    }
-    
   }
 
   async addServicoDoc(dados: FormGroup) {
-    try {
-      const docRef = await addDoc(collection(this.db, "Servico"),
-        {
-          nome: dados.value.nome,
-        });
-      //console.log("Document written with ID: ", docRef.id);
-      this._snackBar.open("Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
-    } catch (e) {
-      console.error("Error adding document: ", e);
-      this._snackBar.open("Falha ao cadastrar", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+    if (await this.checarCadastro("Servico", "nome", dados.value.nome)) {
+      try {
+        const docRef = await addDoc(collection(this.db, "Servico"),
+          {
+            nome: dados.value.nome,
+          });
+        this._snackBar.open("Servico Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
+      } catch (e) {
+        console.error("Error adding document: ", e);
+        this._snackBar.open("Falha ao cadastrar", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+      }
+    } else {
+      this._snackBar.open("Já existe um Servico cadastrado com esse nome. Favor verificar!", "", { duration: 4000, panelClass: ["snack-vermelho"] });
     }
   }
 
   async addBancoDoc(dados: FormGroup) {
-    //console.log("add banco",dados.value);
-    try {
-      const docRef = await addDoc(collection(this.db, "Banco"),
-        {
-          nome: dados.value.nome,
-        });
-      //console.log("Document written with ID: ", docRef.id);
-      this._snackBar.open("Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
-    } catch (e) {
-      console.error("Error adding document: ", e);
-      this._snackBar.open("Falha ao cadastrar", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+    if (await this.checarCadastro("Banco", "nome", dados.value.nome)) {
+      try {
+        const docRef = await addDoc(collection(this.db, "Banco"),
+          {
+            nome: dados.value.nome,
+          });
+        this._snackBar.open("Banco Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
+      } catch (e) {
+        console.error("Error adding document: ", e);
+        this._snackBar.open("Falha ao cadastrar", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+      }
+    } else {
+      this._snackBar.open("Já existe um Banco cadastrado com esse nome. Favor verificar!", "", { duration: 4000, panelClass: ["snack-vermelho"] });
     }
   }
 
-    async getConsultaDocs(opt: string) {
+  async getConsultaDocs(opt: string) {
     this.itens = [];
     const outros = ['Servico', 'Banco', 'Cargo']
     if (opt == "Outros") {
@@ -275,11 +285,9 @@ export class FirestoreService {
       lista.push({ nome: doc.data().nome, checked: false });
     });
     this.listaServicos = lista;
-    //console.log("lista de bancos", lista);
   }
 
   async atualizaDoc(base: string, id: string, dados: any) {
-    //console.log("dados: ", dados)
     try {
       await updateDoc(doc(this.db, base, id), dados);
       this._snackBar.open("Editado com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
@@ -288,6 +296,35 @@ export class FirestoreService {
       console.error("Error adding document: ", e);
       this._snackBar.open("Falha ao editar, verifique todas as informações e tente novamente", "", { duration: 4000, panelClass: ["snack-vermelho"] });
     }
+  }
+
+  async checarCadastro(base: string, campo: string, item: string): Promise<boolean> {
+    const q = query(collection(this.db, base), where(campo, "==", item));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
+      return true; // caso ok para cadastrar
+    } else {
+      return false; //já cadastrado.
+    }
+  }
+
+  async teste() {
+    // cadastra um doc com um ID especifico...
+    // const docRef = doc(this.db, "User", "dsfsdfsdf");
+    // await setDoc(docRef, { nome: "leo" })
+    
+
+  }
+
+  async getUserDoc(uid : any) {
+    let nome = "";
+    const q = query(collection(this.db, "User"), where('__name__', "==", uid));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+       //console.log("nome: ",doc.data().nome)  
+        nome = doc.data().nome;
+      });
+      return nome;
   }
 
 }

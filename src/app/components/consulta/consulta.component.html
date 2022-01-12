@@ -10,7 +10,7 @@
 </div>
 <div>
   <mat-form-field appearance="standard">
-    <mat-label>Filter</mat-label>
+    <mat-label>Filtro</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Condominio" #input>
   </mat-form-field>
   <div class="mat-elevation-z8">
@@ -36,12 +36,12 @@
                   href="https:\\wa.me\55{{element.telefone}}">{{element.telefone | mask:"(00) 0 0000-0000"}} </a> </div>
               <div class="example-element-endereco" *ngIf="element.endereco"><b>Endereço:</b> {{element.endereco}}
               </div>
-              <div class="example-element-sindico" *ngIf="element.sindico"><b> Sindico:</b> {{element.sindico}} </div>
-              <div class="example-element-cpfsindico" *ngIf="element.cpfsindico"><b>CPF Sindico:
+              <div class="example-element-sindico" *ngIf="element.sindico"><b> Síndico:</b> {{element.sindico}} </div>
+              <div class="example-element-cpfsindico" *ngIf="element.cpfsindico"><b>CPF Síndico:
                 </b>{{element.cpfsindico}} </div>
               <div class="example-element-banco" *ngIf="element.banco"><b> Banco:</b> {{element.banco}} </div>
               <div class="example-element-conta" *ngIf="element.conta"><b> Conta:</b> {{element.conta}} </div>
-              <div class="example-element-agencia" *ngIf="element.agencia"><b> Agencia:</b> {{element.agencia}} </div>
+              <div class="example-element-agencia" *ngIf="element.agencia"><b> Agência:</b> {{element.agencia}} </div>
               <div class="example-element-operacao" *ngIf="element.operacao"><b>Operação:</b> {{element.operacao}}
               </div>
               <div class="example-element-pix" *ngIf="element.pix"><b> Pix:</b> {{element.pix}} </div>
@@ -60,9 +60,9 @@
               <div class="example-element-cpfconselhofiscal3" *ngIf="element.cpfconselhofiscal3"><b>CPF Conselho Fiscal
                   3:</b> {{element.cpfconselhofiscal3 | mask:"000.000.000-00"}} </div>
               <div class="example-element-unidade" *ngIf="element.unidade"><b> Unidade:</b> {{element.unidade}} </div>
-              <div class="example-element-locatario" *ngIf="element.locatario"><b> Locatario:</b> {{element.locatario}}
+              <div class="example-element-locatario" *ngIf="element.locatario"><b> Locatário:</b> {{element.locatario}}
               </div>
-              <div class="example-element-locatariocpf" *ngIf="element.locatariocpf"><b> Locatario cpf:</b>
+              <div class="example-element-locatariocpf" *ngIf="element.locatariocpf"><b> Locatário cpf:</b>
                 {{element.locatariocpf}}</div>
               <div class="example-element-condominio" *ngIf="element.condominio"><b>
                   Condominio:</b>{{element.condominio}} </div>
@@ -72,7 +72,7 @@
                   Prestados:</b>{{element.servicosPrestados}} </div>
               <div class="example-element-cpf" *ngIf="element.cpf"><b> CPF:</b> {{element.cpf | mask:"000.000.000-00"}}
               </div>
-              <div class="example-element-admissao" *ngIf="element.admissao"><b> Admissao:</b> {{element.admissao}}
+              <div class="example-element-admissao" *ngIf="element.admissao"><b> Admissão:</b> {{element.admissao}}
               </div>
               <div class="example-element-cargo" *ngIf="element.cargo"><b> Cargo:</b> {{element.cargo}} </div>
               <div class="example-element-apelido" *ngIf="element.apelido"><b> Apelido:</b> {{element.apelido}} </div>

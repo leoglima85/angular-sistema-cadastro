@@ -15,7 +15,7 @@ import { LogEventosComponent } from './components/log-eventos/log-eventos.compon
 import { AdministracaoComponent } from './components/administracao/administracao.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: '', pathMatch:'full' },
+    { path: '', redirectTo: 'home', pathMatch:'full' },
     { path: 'signin', component: SigninComponent },
     { path: 'signup', component: SignupComponent },
     { path: 'home', component: HomeComponent },

@@ -214,6 +214,10 @@ export class EditarComponent implements OnInit {
 
   }
 
+  cancelarAlteracao(){
+    
+  }
+
 
 }
 

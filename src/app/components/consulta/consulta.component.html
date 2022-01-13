@@ -26,6 +26,7 @@
           <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
             <div class="example-element-box-detalhe">
               <!-- <div class="example-element-id" *ngIf="element.id" ><b>ID:</b> {{element.id}} </div> -->
+              <div class="example-element-condominio" *ngIf="element.condominio"><b>Condominio:</b>{{element.condominio}} </div>
               <div class="example-element-nome" *ngIf="element.nome"><b> Nome:</b> {{element.nome}} </div>
               <div class="example-element-proprietariocpf" *ngIf="element.proprietariocpf"><b> Proprietario cpf:</b>
                 {{element.proprietariocpf}} </div>
@@ -64,8 +65,7 @@
               </div>
               <div class="example-element-locatariocpf" *ngIf="element.locatariocpf"><b> Locatário cpf:</b>
                 {{element.locatariocpf}}</div>
-              <div class="example-element-condominio" *ngIf="element.condominio"><b>
-                  Condominio:</b>{{element.condominio}} </div>
+              
               <div class="example-element-observacao" *ngIf="element.observacao"><b> Observacao:
                 </b>{{element.observacao}} </div>
               <div class="example-element-servicosPrestados" *ngIf="element.servicosPrestados"><b> Servicos

@@ -93,6 +93,8 @@
             <input matInput [(ngModel)]="docInfos.observacao" name="observacao">
         </mat-form-field>
         <br>
+        <button class="botao-cancelar" (click)="cancelarAlteracao()"
+            mat-raised-button color="warn">Cancelar</button>
         <button class="botao-salvar" [disabled]="!updateCond.valid" (click)="salvarAlteracaoCondominio()"
             mat-raised-button color="primary">Salvar</button>
     </mat-card>

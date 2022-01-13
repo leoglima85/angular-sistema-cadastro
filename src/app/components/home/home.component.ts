@@ -27,13 +27,13 @@ export class HomeComponent implements OnInit {
   }
 
   onSignin(email: string, password:string){
-    //console.log('signIn no home component');
+    //console.log('signIn no home component',email,password);
     this.fas.signin(email,password)
     
   } 
 
   onSignup(email: string, password:string){
-    //console.log('signUp no home component');
+    //onsole.log('signUp no home component');
     this.fas.signup(email, password)
     
   } 

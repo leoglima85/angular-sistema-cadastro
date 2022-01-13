@@ -1,2 +1,109 @@
-<p>Visualização do Log de Eventos!</p>
-<button mat-button color="warn" (click)="teste()"> Testar</button>
+<div class="titulo"> <h1> Visualização do Log de Eventos!</h1> </div>
+<!-- {{listaLogs | json}} -->
+
+<mat-form-field appearance="standard">
+    <mat-label>Filtro</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Condominio" #input>
+  </mat-form-field>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows>
+      <!-- novo -->
+      <ng-container matColumnDef="data">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar">Data </th>
+        <td mat-cell *matCellDef="let element" [attr.title]="element.data">{{element.data | date:'dd/MM/yyyy, hh:mm'}}</td>
+    </ng-container>
+    <ng-container matColumnDef="usuarioNome">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario </th>
+        <td mat-cell *matCellDef="let element" [attr.title]="element.usuarioNome">{{element.usuarioNome}}</td>
+    </ng-container>
+    <ng-container matColumnDef="tipo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo </th>
+        <td mat-cell *matCellDef="let element" [attr.title]="element.tipo">{{element.tipo}}</td>
+    </ng-container>
+    <ng-container matColumnDef="tabela">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Tabela </th>
+        <td mat-cell *matCellDef="let element" [attr.title]="element.tabela">{{element.tabela}}</td>
+    </ng-container>
+    <!-- <ng-container matColumnDef="registro">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Registro </th>
+        <td mat-cell *matCellDef="let element" [attr.title]="element.registro.registro">{{element.registro.registro | json}}</td>
+    </ng-container>  -->
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+          <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+            <div class="example-element-box-detalhe">
+              <!-- <div class="example-element-id" *ngIf="element.registro.id" ><b>ID:</b> {{element.registro.id}} </div> -->
+              <div class="example-element-nome" *ngIf="element.registro.nome"><b> Nome:</b> {{element.registro.nome}} </div>
+              <div class="example-element-proprietariocpf" *ngIf="element.registro.proprietariocpf"><b> Proprietario cpf:</b>
+                {{element.registro.proprietariocpf}} </div>
+              <div class="example-element-cnpj" *ngIf="element.registro.cnpj"><b>CNPJ: </b> {{element.registro.cnpj |
+                mask:"00.000.000/0000-00"}} </div>
+              <div class="example-element-email" *ngIf="element.registro.email"><b> Email:</b> {{element.registro.email}} </div>
+              <div class="example-element-telefone" *ngIf="element.registro.telefone"><b>Telefone:</b><a target=”_blank”
+                  href="https:\\wa.me\55{{element.registro.telefone}}">{{element.registro.telefone | mask:"(00) 0 0000-0000"}} </a> </div>
+              <div class="example-element-endereco" *ngIf="element.registro.endereco"><b>Endereço:</b> {{element.registro.endereco}}
+              </div>
+              <div class="example-element-sindico" *ngIf="element.registro.sindico"><b> Síndico:</b> {{element.registro.sindico}} </div>
+              <div class="example-element-cpfsindico" *ngIf="element.registro.cpfsindico"><b>CPF Síndico:
+                </b>{{element.registro.cpfsindico}} </div>
+              <div class="example-element-banco" *ngIf="element.registro.banco"><b> Banco:</b> {{element.registro.banco}} </div>
+              <div class="example-element-conta" *ngIf="element.registro.conta"><b> Conta:</b> {{element.registro.conta}} </div>
+              <div class="example-element-agencia" *ngIf="element.registro.agencia"><b> Agência:</b> {{element.registro.agencia}} </div>
+              <div class="example-element-operacao" *ngIf="element.registro.operacao"><b>Operação:</b> {{element.registro.operacao}}
+              </div>
+              <div class="example-element-pix" *ngIf="element.registro.pix"><b> Pix:</b> {{element.registro.pix}} </div>
+              <div class="example-element-chavepix" *ngIf="element.registro.chavepix"><b>Chave Pix:</b> {{element.registro.chavepix}}
+              </div>
+              <div class="example-element-conselhofiscal1" *ngIf="element.registro.conselhofiscal1"><b> Conselho Fiscal 1:
+                </b>{{element.registro.conselhofiscal1}} </div>
+              <div class="example-element-cpfconselhofiscal1" *ngIf="element.registro.cpfconselhofiscal1"><b>CPF Conselho Fiscal
+                  1:</b> {{element.registro.cpfconselhofiscal1 | mask:"000.000.000-00"}} </div>
+              <div class="example-element-conselhofiscal2" *ngIf="element.registro.conselhofiscal2"><b>Conselho Fiscal 2:
+                </b>{{element.registro.conselhofiscal2}} </div>
+              <div class="example-element-cpfconselhofiscal2" *ngIf="element.registro.cpfconselhofiscal2"><b>CPF Conselho Fiscal
+                  2:</b> {{element.registro.cpfconselhofiscal2 | mask:"000.000.000-00"}} </div>
+              <div class="example-element-conselhofiscal3" *ngIf="element.registro.conselhofiscal3"><b>Conselho Fiscal 3:
+                </b>{{element.registro.conselhofiscal3}} </div>
+              <div class="example-element-cpfconselhofiscal3" *ngIf="element.registro.cpfconselhofiscal3"><b>CPF Conselho Fiscal
+                  3:</b> {{element.registro.cpfconselhofiscal3 | mask:"000.000.000-00"}} </div>
+              <div class="example-element-unidade" *ngIf="element.registro.unidade"><b> Unidade:</b> {{element.registro.unidade}} </div>
+              <div class="example-element-locatario" *ngIf="element.registro.locatario"><b> Locatário:</b> {{element.registro.locatario}}
+              </div>
+              <div class="example-element-locatariocpf" *ngIf="element.registro.locatariocpf"><b> Locatário cpf:</b>
+                {{element.registro.locatariocpf}}</div>
+              <div class="example-element-condominio" *ngIf="element.registro.condominio"><b>
+                  Condominio:</b>{{element.registro.condominio}} </div>
+              <div class="example-element-observacao" *ngIf="element.registro.observacao"><b> Observacao:
+                </b>{{element.registro.observacao}} </div>
+              <div class="example-element-servicosPrestados" *ngIf="element.registro.servicosPrestados"><b> Servicos
+                  Prestados:</b>{{element.registro.servicosPrestados}} </div>
+              <div class="example-element-cpf" *ngIf="element.registro.cpf"><b> CPF:</b> {{element.registro.cpf | mask:"000.000.000-00"}}
+              </div>
+              <div class="example-element-admissao" *ngIf="element.registro.admissao"><b> Admissão:</b> {{element.registro.admissao}}
+              </div>
+              <div class="example-element-cargo" *ngIf="element.registro.cargo"><b> Cargo:</b> {{element.registro.cargo}} </div>
+              <div class="example-element-apelido" *ngIf="element.registro.apelido"><b> Apelido:</b> {{element.registro.apelido}} </div>
+            </div>
+            <div class="example-element-editar">
+              
+            </div>
+          </div>
+        </td>
+      </ng-container>
+      <!-- novo -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row"
+        [class.example-expanded-row]="expandedElement === row"
+        (click)="expandedElement = expandedElement === row ? null : row">
+      </tr>
+      <tr mat-row *matRowDef="let row;
+              columns: ['expandedDetail']" class="example-detail-row">
+      </tr>
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">Nada encontrado! "{{input.value}}"</td>
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page"></mat-paginator>
+  </div>

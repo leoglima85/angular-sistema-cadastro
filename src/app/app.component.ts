@@ -12,7 +12,7 @@ import { FirestoreService } from './services/firestore.service';
 })
 export class AppComponent implements OnInit {
   title = 'angular-sistema-cadastro';
-  public username = "";
+  username = "";
   uid : any;
 
   @ViewChild('sidenav') sidenav: MatSidenav | undefined;
@@ -45,10 +45,15 @@ export class AppComponent implements OnInit {
   }
 
   async getUserName (uid : any) {
-     //console.log("AQUI")
+     //console.log("AQUI",uid)
+
      this.username = await this.fs.getUserDoc(uid);
      //console.log("username: ",this.username)
-    
+  }
+
+  getNomeUsuario (){
+      return this,this.username;
+
   }
 }
 

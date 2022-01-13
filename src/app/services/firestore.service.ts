@@ -8,6 +8,7 @@ import {
 } from "firebase/firestore";
 import { Extrato } from 'src/app/models/extrato';
 import { Generico } from '../models/generico';
+import { FireauthservService } from './fireauthserv.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,9 +24,21 @@ export class FirestoreService {
   public listaCargos: string[] = [];
   public listaBancos: string[] = [];
   public listaServicos: any[] = [];
+  public listaLogs: any[] = [];
+
+  public listaExportCondominios: any[] = [];
+  public listaExportFuncionarios: any[] = [];
+  public listaExportFornecedores: any[] = [];
+  public listaExportCondominos: any[] = [];
+  public listaExportCargos: any[] = [];
+  public listaExportBancos: any[] = [];
+  public listaExportLogs: any[] = [];
+
+
 
   constructor(private _snackBar: MatSnackBar,
-    private router: Router) {
+    private router: Router,
+    private fas: FireauthservService) {
 
   }
 
@@ -50,7 +63,18 @@ export class FirestoreService {
   async addCondominioDoc(dados: FormGroup) {
     if (await this.checarCadastro("Condominio", "nome", dados.value.telefone)) {
       try {
-        const docRef = await addDoc(collection(this.db, "Condominio"), dados.value);
+        await addDoc(collection(this.db, "Condominio"), dados.value);
+        let nomeID = await this.fas.getUser();
+        let userNome = this.fas.userName;
+        await addDoc(collection(this.db, "Log"),
+          {
+            usuarioID: nomeID,
+            usuarioNome: userNome,
+            data: new Date(),
+            tipo: "Criação",
+            tabela: "Condominio",
+            registro: dados.value,
+          });
         this._snackBar.open("Condomínio Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
         return true;
       } catch (e) {
@@ -66,7 +90,18 @@ export class FirestoreService {
   async addFuncionarioDoc(dados: FormGroup): Promise<boolean> {
     if (await this.checarCadastro("Funcionario", "cpf", dados.value.telefone)) {
       try {
-        const docRef = await addDoc(collection(this.db, "Funcionario"), dados.value);
+        await addDoc(collection(this.db, "Funcionario"), dados.value);
+        let nomeID = await this.fas.getUser();
+        let userNome = this.fas.userName;
+        await addDoc(collection(this.db, "Log"),
+          {
+            usuarioID: nomeID,
+            usuarioNome: userNome,
+            data: new Date(),
+            tipo: "Criação",
+            tabela: "Funcionario",
+            registro: dados.value,
+          });
         this._snackBar.open("Funcionario Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
         return true;
       } catch (e) {
@@ -88,8 +123,19 @@ export class FirestoreService {
     }
     if (await this.checarCadastro("Fornecedor", "telefone", dados.value.telefone)) {
       try {
-        const docRef = await addDoc(collection(this.db, "Fornecedor"),
+        await addDoc(collection(this.db, "Fornecedor"),
           { ...dados.value, servicosPrestados: listaString });
+        let nomeID = await this.fas.getUser();
+        let userNome = this.fas.userName;
+        await addDoc(collection(this.db, "Log"),
+          {
+            usuarioID: nomeID,
+            usuarioNome: userNome,
+            data: new Date(),
+            tipo: "Criação",
+            tabela: "Fornecedor",
+            registro: { ...dados.value, servicosPrestados: listaString }
+          });
         this._snackBar.open("Fornecedor Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
         return true;
       } catch (e) {
@@ -105,9 +151,17 @@ export class FirestoreService {
   async addCondominoDoc(dados: FormGroup): Promise<boolean> {
     if (await this.checarCadastro("Condômino", "nome", dados.value.nome)) {
       try {
-        const docRef = await addDoc(collection(this.db, "Condomino"),
+        await addDoc(collection(this.db, "Condomino"), dados.value);
+        let nomeID = await this.fas.getUser();
+        let userNome = this.fas.userName;
+        await addDoc(collection(this.db, "Log"),
           {
-            nome: dados.value.nome,
+            usuarioID: nomeID,
+            usuarioNome: userNome,
+            data: new Date(),
+            tipo: "Criação",
+            tabela: "Condomino",
+            registro: dados.value,
           });
         this._snackBar.open("Condômino Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
         return true;
@@ -124,9 +178,20 @@ export class FirestoreService {
   async addCargoDoc(dados: FormGroup) {
     if (await this.checarCadastro("Cargo", "nome", dados.value.nome)) {
       try {
-        const docRef = await addDoc(collection(this.db, "Cargo"),
+        await addDoc(collection(this.db, "Cargo"),
           {
             nome: dados.value.nome,
+          });
+        let nomeID = await this.fas.getUser();
+        let userNome = this.fas.userName;
+        await addDoc(collection(this.db, "Log"),
+          {
+            usuarioID: nomeID,
+            usuarioNome: userNome,
+            data: new Date(),
+            tipo: "Criação",
+            tabela: "Cargo",
+            registro: dados.value.nome,
           });
         this._snackBar.open("Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
       } catch (e) {
@@ -141,9 +206,20 @@ export class FirestoreService {
   async addServicoDoc(dados: FormGroup) {
     if (await this.checarCadastro("Servico", "nome", dados.value.nome)) {
       try {
-        const docRef = await addDoc(collection(this.db, "Servico"),
+        await addDoc(collection(this.db, "Servico"),
           {
             nome: dados.value.nome,
+          });
+        let nomeID = await this.fas.getUser();
+        let userNome = this.fas.userName;
+        await addDoc(collection(this.db, "Log"),
+          {
+            usuarioID: nomeID,
+            usuarioNome: userNome,
+            data: new Date(),
+            tipo: "Criação",
+            tabela: "Servico",
+            registro: dados.value.nome,
           });
         this._snackBar.open("Servico Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
       } catch (e) {
@@ -158,9 +234,20 @@ export class FirestoreService {
   async addBancoDoc(dados: FormGroup) {
     if (await this.checarCadastro("Banco", "nome", dados.value.nome)) {
       try {
-        const docRef = await addDoc(collection(this.db, "Banco"),
+        await addDoc(collection(this.db, "Banco"),
           {
             nome: dados.value.nome,
+          });
+        let nomeID = await this.fas.getUser();
+        let userNome = this.fas.userName;
+        await addDoc(collection(this.db, "Log"),
+          {
+            usuarioID: nomeID,
+            usuarioNome: userNome,
+            data: new Date(),
+            tipo: "Criação",
+            tabela: "Banco",
+            registro: dados.value.nome,
           });
         this._snackBar.open("Banco Cadastrato com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
       } catch (e) {
@@ -287,9 +374,30 @@ export class FirestoreService {
     this.listaServicos = lista;
   }
 
+  async getLogsDocs() {
+    const lista: any[] = [];
+    const q = query(collection(this.db, "Log"), orderBy("data", "desc"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      lista.push( {...doc.data(),data:doc.data().data.toDate()} );
+    });
+    this.listaLogs = lista;
+  }
+
   async atualizaDoc(base: string, id: string, dados: any) {
     try {
       await updateDoc(doc(this.db, base, id), dados);
+      let nomeID = await this.fas.getUser();
+      let userNome = this.fas.userName;
+      await addDoc(collection(this.db, "Log"),
+        {
+          usuarioID: nomeID,
+          usuarioNome: userNome,
+          data: new Date(),
+          tipo: "Alteração",
+          tabela: base,
+          registro: dados,
+        });
       this._snackBar.open("Editado com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
       this.router.navigate(['consulta']);
     } catch (e) {
@@ -308,23 +416,62 @@ export class FirestoreService {
     }
   }
 
-  async teste() {
-    // cadastra um doc com um ID especifico...
-    // const docRef = doc(this.db, "User", "dsfsdfsdf");
-    // await setDoc(docRef, { nome: "leo" })
-    
-
-  }
-
-  async getUserDoc(uid : any) {
+  async getUserDoc(uid: any) {
     let nome = "";
     const q = query(collection(this.db, "User"), where('__name__', "==", uid));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-       //console.log("nome: ",doc.data().nome)  
-        nome = doc.data().nome;
-      });
-      return nome;
+      //console.log("nome: ",doc.data().nome)  
+      nome = doc.data().nome;
+    });
+    return nome;
+  }
+
+  async carregarBaseCompleta (){
+    const listaCondominios: any[] = [];
+    const listaFuncionarios: any[] = [];
+    const listaFornecedores: any[] = [];
+    const listaCondominos: any[] = [];
+    const listaCargos: any[] = [];
+    const listaBancos: any[] = [];
+    const listaLogs: any[] = [];
+
+    const queryCondominios = query(collection(this.db, "Condominio"), orderBy("nome", "asc"));
+    const queryFuncionarios = query(collection(this.db, "Funcionario"), orderBy("nome", "asc"));
+    const queryFornecedores = query(collection(this.db, "Fornecedor"), orderBy("nome", "asc"));
+    const queryCondominos = query(collection(this.db, "Condomino"), orderBy("nome", "asc"));
+    const queryCargos = query(collection(this.db, "Cargo"), orderBy("nome", "asc"));
+    const queryBancos = query(collection(this.db, "Banco"), orderBy("nome", "asc"));
+    const queryLogs = query(collection(this.db, "Log"), orderBy("data", "desc"));
+    
+    const querySnapshotCondominios = await getDocs(queryCondominios);
+    querySnapshotCondominios.forEach((doc) => {listaCondominios.push( doc.data())});
+    this.listaExportCondominios = listaCondominios;
+
+    const querySnapshotFuncionario = await getDocs(queryFuncionarios);
+    querySnapshotFuncionario.forEach((doc) => {listaFuncionarios.push( doc.data())});
+    this.listaExportFuncionarios = listaFuncionarios;
+
+    const querySnapshotFornecedor = await getDocs(queryFornecedores);
+    querySnapshotFornecedor.forEach((doc) => {listaFornecedores.push( doc.data())});
+    this.listaExportFornecedores = listaFornecedores;
+
+    const querySnapshotCondomino = await getDocs(queryCondominos);
+    querySnapshotCondomino.forEach((doc) => {listaCondominos.push( doc.data())});
+    this.listaExportCondominos = listaCondominos;
+
+    const querySnapshotCargos = await getDocs(queryCargos);
+    querySnapshotCargos.forEach((doc) => {listaCargos.push( doc.data())});
+    this.listaExportCargos = listaCargos;
+
+    const querySnapshotBancos = await getDocs(queryBancos);
+    querySnapshotBancos.forEach((doc) => {listaBancos.push( doc.data())});
+    this.listaExportBancos = listaBancos;
+
+    const querySnapshotLogs = await getDocs(queryLogs);
+    querySnapshotLogs.forEach((doc) => {listaLogs.push( {...doc.data(),registro:JSON.stringify(doc.data().registro) })});
+    this.listaExportLogs = listaLogs;
+       
   }
 
 }

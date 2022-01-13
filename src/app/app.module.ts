@@ -23,8 +23,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { HomeComponent } from './components/home/home.component';
 import { SigninComponent } from './components/signin/signin.component';
@@ -34,6 +34,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { ExtratoComponent } from './components/extrato/extrato.component';
+import { EditarComponent } from './components/editar/editar.component';
+import { LogEventosComponent } from './components/log-eventos/log-eventos.component';
+import { AdministracaoComponent } from './components/administracao/administracao.component'
 import { ConsultaComponent } from './components/consulta/consulta.component';
 
 import { environment } from 'src/environments/environment';
@@ -43,10 +46,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { EditarComponent } from './components/editar/editar.component';
-import { NgxMaskModule, IConfig } from 'ngx-mask';
-import { LogEventosComponent } from './components/log-eventos/log-eventos.component';
-import { AdministracaoComponent } from './components/administracao/administracao.component'
+import { NgxMaskModule } from 'ngx-mask';
 
 
 

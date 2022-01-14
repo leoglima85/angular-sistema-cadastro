@@ -72,7 +72,7 @@
                   Prestados:</b>{{element.servicosPrestados}} </div>
               <div class="example-element-cpf" *ngIf="element.cpf"><b> CPF:</b> {{element.cpf | mask:"000.000.000-00"}}
               </div>
-              <div class="example-element-admissao" *ngIf="element.admissao"><b> Admissão:</b> {{element.admissao}}
+              <div class="example-element-admissao" *ngIf="element.admissao"><b> Admissão:</b> {{element.admissao | mask:"00/00/0000"}}
               </div>
               <div class="example-element-cargo" *ngIf="element.cargo"><b> Cargo:</b> {{element.cargo}} </div>
               <div class="example-element-apelido" *ngIf="element.apelido"><b> Apelido:</b> {{element.apelido}} </div>

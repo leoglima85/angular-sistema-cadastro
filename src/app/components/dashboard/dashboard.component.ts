@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { getFirestore, collection, getDocs } from 'firebase/firestore'
 import { FireauthservService } from 'src/app/services/fireauthserv.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
 
 export interface Servico {
   nome : string ;
@@ -42,7 +43,8 @@ export class DashboardComponent implements OnInit {
   lista2 : any[] = ['teste', 'dois','tres','quatro'];
   vart = "";
 
-   constructor(private fas: FireauthservService) 
+   constructor(private fas: FireauthservService,
+               private fs: FirestoreService) 
       { 
          
       }
@@ -58,5 +60,7 @@ export class DashboardComponent implements OnInit {
     });
   }
  
-
+  cancelarAlteracao(){
+    this.fs.teste();
+  }
 }

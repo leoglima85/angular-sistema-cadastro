@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { collection, doc, getDocs, getFirestore, query, where } from 'firebase/firestore';
 import { Generico } from 'src/app/models/generico';
 import { FirestoreService } from 'src/app/services/firestore.service';
@@ -21,9 +21,9 @@ export class EditarComponent implements OnInit {
   docEscolha = "";
   docTipo = "";
   db = getFirestore();
-  listaCondominios: string[] = [];
-  listaCargos: string[] = [];
-  listaBancos: string[] = [];
+  listaCondominios: any[] = [];
+  listaCargos: any[] = [];
+  listaBancos: any[] = [];
   listaServicos: listaServico[] = [];
   listaServicosPrestados: listaServico[] = [];
   docInfos: Generico = {
@@ -38,12 +38,13 @@ export class EditarComponent implements OnInit {
     servicosPrestados: '', cpf: '', admissao: '', cargo: '',
   };
 
-  constructor(private route: ActivatedRoute,
-    private fs: FirestoreService,
+  constructor(private ar: ActivatedRoute,
+              private router: Router,
+              private fs: FirestoreService,
   ) { }
 
   async ngOnInit() {
-    this.route.params.subscribe((obj) => {
+    this.ar.params.subscribe((obj) => {
       this.docID = obj.id;
       this.docEscolha = obj.escolha;
       //this.docTipo = this.fs.tipo;
@@ -58,7 +59,7 @@ export class EditarComponent implements OnInit {
     this.listaCargos = this.fs.listaCargos;
     this.listaBancos = this.fs.listaBancos;
     this.listaServicos = this.fs.listaServicos;
-    // console.log("cons.tipo: ",this.cons.tipo)
+    //console.log("lista cond: ",this.listaCondominios)
     // if (this.cons.tipo == "banco") {console.log("é Banco")}
     // if (this.cons.tipo == 'Cargo') {console.log("é Cargo")}
     await this.getDoc(this.docID, this.docEscolha)
@@ -160,6 +161,7 @@ export class EditarComponent implements OnInit {
       pix: this.docInfos.pix,
       chavepix: this.docInfos.chavepix,
       email: this.docInfos.email,
+      condominio: this.docInfos.condominio
     };
     await this.fs.atualizaDoc(this.docEscolha, this.docID, data);
   }
@@ -215,7 +217,7 @@ export class EditarComponent implements OnInit {
   }
 
   cancelarAlteracao(){
-    
+    this.router.navigate(['consulta']);
   }
 
 

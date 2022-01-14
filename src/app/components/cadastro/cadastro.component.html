@@ -101,7 +101,7 @@
         <mat-form-field class="example-full-width " appearance="fill">
           <mat-label>Condomínio</mat-label>
           <mat-select formControlName="condominio" name="funcionario">
-            <mat-option *ngFor="let opt of listaCondominios" [value]="opt">{{ opt }}</mat-option>
+            <mat-option *ngFor="let opt of listaCondominios" [value]="opt.condominioID">{{ opt.nome }}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="example-full-width nome" appearance="fill">
@@ -267,7 +267,7 @@
         <mat-form-field class="example-full-width condominio-cond" appearance="fill">
           <mat-label>Condomínio</mat-label>
           <mat-select formControlName="condominio" name="condominio">
-            <mat-option *ngFor="let opt of listaCondominios" [value]="opt">{{ opt }}</mat-option>
+            <mat-option *ngFor="let opt of listaCondominios" [value]="opt.condominioID">{{ opt.nome }}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="example-full-width unidade" appearance="fill">

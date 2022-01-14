@@ -105,8 +105,8 @@
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Condomínio</mat-label>
             <mat-select [(ngModel)]="docInfos.condominio" name="condominio" required>
-                <mat-option *ngFor="let opt of listaCondominios" [value]="opt">
-                    {{ opt }}
+                <mat-option *ngFor="let opt of listaCondominios" [value]="opt.condominioID">
+                    {{ opt.nome }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
@@ -182,6 +182,8 @@
             <input matInput [(ngModel)]="docInfos.observacao" name="observacao">
         </mat-form-field>
         <br>
+        <button class="botao-cancelar" (click)="cancelarAlteracao()"
+            mat-raised-button color="warn">Cancelar</button>
         <button [disabled]="!updateFunc.valid" (click)="salvarAlteracaoFuncionario()" mat-raised-button
             color="primary">Salvar</button>
     </mat-card>
@@ -265,6 +267,8 @@
             </div>
         </div>
         <br>
+        <button class="botao-cancelar" (click)="cancelarAlteracao()"
+            mat-raised-button color="warn">Cancelar</button>
         <button class="botao-salvar" [disabled]="!updateForn.valid" (click)="salvarAlteracaoFornecedor()"
             mat-raised-button color="primary">Salvar</button>
     </mat-card>
@@ -275,8 +279,8 @@
         <mat-form-field class="example-full-width condominio-cond" appearance="fill">
             <mat-label>Condomínio</mat-label>
             <mat-select [(ngModel)]="docInfos.condominio" name="condominio" required>
-                <mat-option *ngFor="let opt of listaCondominios" [value]="opt">
-                    {{ opt }}
+                <mat-option *ngFor="let opt of listaCondominios" [value]="opt.condominioID">
+                    {{ opt.nome }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
@@ -313,6 +317,8 @@
             <input matInput [(ngModel)]="docInfos.observacao" name="observacao">
         </mat-form-field>
         <br>
+        <button class="botao-cancelar" (click)="cancelarAlteracao()"
+            mat-raised-button color="warn">Cancelar</button>
         <button [disabled]="!updateCondomino.valid" (click)="salvarAlteracaoCondomino()" mat-raised-button
             color="primary">Salvar</button>
     </mat-card>

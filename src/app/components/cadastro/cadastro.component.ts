@@ -17,7 +17,7 @@ export class CadastroComponent implements OnInit {
   cadastroServicoForm: FormGroup;
   cadastroBancoForm: FormGroup;
 
-  listaCondominios: string[] = [];
+  listaCondominios: any[] = [];
   listaCargos: string[] = [];
   listaBancos: string[] = [];
   listaServicos: any[] = [];

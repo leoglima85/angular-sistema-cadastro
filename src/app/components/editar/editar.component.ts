@@ -8,6 +8,7 @@ import { FirestoreService } from 'src/app/services/firestore.service';
 export interface listaServico {
   nome: string;
   checked: boolean;
+  servicoID : string;
 }
 
 @Component({
@@ -65,10 +66,15 @@ export class EditarComponent implements OnInit {
     await this.getDoc(this.docID, this.docEscolha)
     if (this.docInfos.servicosPrestados) {
       const listaArr = this.docInfos.servicosPrestados.split(' ');
-      for (let serv of listaArr) {
-        if (serv != "") {
+      listaArr.pop();
+      //console.log("listaArr",listaArr)
+      for (let servicoID of listaArr) {
+        //console.log("serv:",servicoID);
+        if (servicoID != "") {
           for (let ls of this.listaServicos) {
-            if (ls.nome == serv)
+            //console.log("ls:",ls);
+            //console.log("ls.nome:",ls.nome,"serv:",servicoID);
+            if (ls.servicoID == servicoID)
               ls.checked = true;
           }
         }
@@ -171,7 +177,7 @@ export class EditarComponent implements OnInit {
     let listaString = "";
     for (let i of this.listaServicos) {
       if (i.checked == true) {
-        listaString += i.nome + " ";
+        listaString += i.servicoID + " ";
       }
     }
     //console.log("listastring :",listaString);

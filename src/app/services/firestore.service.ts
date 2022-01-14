@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { consultarCep } from 'correios-brasil/dist';
 import {
   collection, addDoc, getFirestore, getDocs,
   query, updateDoc, doc, orderBy, where, setDoc
@@ -24,6 +25,7 @@ export class FirestoreService {
   public listaCargos: any[] = [];
   public listaBancos: any[] = [];
   public listaServicos: any[] = [];
+  public listaServicosNomes: any[] = [];
   public listaLogs: any[] = [];
 
   public listaExportCondominios: any[] = [];
@@ -61,7 +63,7 @@ export class FirestoreService {
   }
 
   async addCondominioDoc(dados: FormGroup) {
-    if (await this.checarCadastro("Condominio", "nome", dados.value.telefone)) {
+    if (await this.checarCadastro("Condominio", "nome", dados.value.nome)) {
       try {
         await addDoc(collection(this.db, "Condominio"), dados.value);
         let nomeID = await this.fas.getUser();
@@ -88,7 +90,7 @@ export class FirestoreService {
   }
 
   async addFuncionarioDoc(dados: FormGroup): Promise<boolean> {
-    if (await this.checarCadastro("Funcionario", "cpf", dados.value.telefone)) {
+    if (await this.checarCadastro("Funcionario", "cpf", dados.value.cpf)) {
       try {
         await addDoc(collection(this.db, "Funcionario"), dados.value);
         let nomeID = await this.fas.getUser();
@@ -118,7 +120,7 @@ export class FirestoreService {
     let listaString = "";
     for (let i of lista) {
       if (i.checked == true) {
-        listaString += i.nome + " ";
+        listaString += i.servicoID + " ";
       }
     }
     if (await this.checarCadastro("Fornecedor", "telefone", dados.value.telefone)) {
@@ -326,14 +328,24 @@ export class FirestoreService {
         item.titular = doc.data().titular;
         this.itens.push(item);
       });
-      
+
     }
-    
+
     this.itens.forEach(async (item) => {
-      if (item.condominio) { 
+      if (item.condominio) {
         item.condominio = await this.getCondominioNome(item.condominio)
       }
+      if (item.cargo) {
+        item.cargo = await this.getCargoNome(item.cargo)
+      }
+      if (item.banco) {
+        item.banco = await this.getBancoNome(item.banco)
+      }
+      if (item.servicosPrestados) {
+        item.servicosPrestados = await this.getServicoNome(item.servicosPrestados)
+      }
     });
+
   }
 
   async getCondominioDocs() {
@@ -341,24 +353,83 @@ export class FirestoreService {
     const q = query(collection(this.db, "Condominio"), orderBy("nome", "asc"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      lista.push({nome: doc.data().nome, condominioID: doc.id});
+      lista.push({ nome: doc.data().nome, condominioID: doc.id });
     });
     this.listaCondominios = lista;
     //console.log("lista de con", lista);
   }
 
-  async getCondominioNome(id:string) : Promise<string> {
+  async getCondominioNome(id: string): Promise<string> {
     let nome = "-";
-    //console.log("aquiiii", id);
-    const q = query(collection(this.db, "Condominio"), where('__name__', "==", id));
-    const querySnapshot = await getDocs(q);
-    //console.log("snap: ",querySnapshot.docs)
-    querySnapshot.forEach((doc) => {
-      //console.log("nome do condo: ",doc.data().nome)
-      nome = doc.data().nome;
-      return doc.data().nome;
-    });
+    if (id.length >= 18) {
+      //console.log("aquiiii", id);
+      const q = query(collection(this.db, "Condominio"), where('__name__', "==", id));
+      const querySnapshot = await getDocs(q);
+      //console.log("snap: ",querySnapshot.docs)
+      querySnapshot.forEach((doc) => {
+        //console.log("nome do condo: ",doc.data().nome)
+        nome = doc.data().nome;
+        return doc.data().nome;
+      });
+    }
     return nome;
+  }
+
+  async getCargoNome(id: string): Promise<string> {
+    let nome = "-";
+    if (id.length >= 18) {
+      //console.log("aquiiii");
+      const q = query(collection(this.db, "Cargo"), where('__name__', "==", id));
+      const querySnapshot = await getDocs(q);
+      //console.log("snap: ",querySnapshot.docs)
+      querySnapshot.forEach((doc) => {
+        //console.log("nome do condo: ",doc.data().nome)
+        nome = doc.data().nome;
+        return doc.data().nome;
+      });
+    }
+    return nome;
+  }
+
+  async getBancoNome(id: string): Promise<string> {
+    let nome = "-";
+    if (id.length >= 18) {
+      //console.log("aquiiii");
+      const q = query(collection(this.db, "Banco"), where('__name__', "==", id));
+      const querySnapshot = await getDocs(q);
+      //console.log("snap: ",querySnapshot.docs)
+      querySnapshot.forEach((doc) => {
+        //console.log("nome do banco: ",doc.data().nome)
+        nome = doc.data().nome;
+        return doc.data().nome;
+      });
+    }
+    return nome;
+  }
+
+  async getServicoNome(lista: string): Promise<string> {
+    let listaString = [];
+    let litaServicoConsulta = "";
+    //console.log("lista: ", lista);
+    listaString = lista.split(" ");
+    //console.log("lista split: ", listaString);
+     listaString.pop();
+    for (let i of listaString) {
+      //listaString += i.servicoID + " ";
+      //console.log("item lista: ", i)
+      const q = query(collection(this.db, "Servico"), where('__name__', "==", i));
+      const querySnapshot = await getDocs(q);
+      //console.log("snap: ",querySnapshot.docs)
+      querySnapshot.forEach((doc) => {
+        //console.log("nome do servico: ", doc.data())
+        litaServicoConsulta += doc.data().nome+" ";
+        //console.log("lista inc: ",litaServicoConsulta);
+        //nome = doc.data().nome;
+        return litaServicoConsulta;
+      });
+    }
+    
+    return litaServicoConsulta;
   }
 
   async getCargosDocs() {
@@ -366,7 +437,7 @@ export class FirestoreService {
     const q = query(collection(this.db, "Cargo"), orderBy("nome", "asc"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      lista.push(doc.data().nome);
+      lista.push({ ...doc.data(), cargoID: doc.id });
     });
     this.listaCargos = lista;
     //console.log("lista de cargos", lista);
@@ -377,7 +448,7 @@ export class FirestoreService {
     const q = query(collection(this.db, "Banco"), orderBy("nome", "asc"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      lista.push(doc.data().nome);
+      lista.push({ ...doc.data(), bancoID: doc.id });
     });
     this.listaBancos = lista;
     //console.log("lista de bancos", lista);
@@ -388,9 +459,10 @@ export class FirestoreService {
     const q = query(collection(this.db, "Servico"), orderBy("nome", "asc"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      lista.push({ nome: doc.data().nome, checked: false });
+      lista.push({ ...doc.data(), checked: false, servicoID: doc.id });
     });
     this.listaServicos = lista;
+    //console.log("lista de servicos", lista);
   }
 
   async getLogsDocs() {
@@ -398,7 +470,7 @@ export class FirestoreService {
     const q = query(collection(this.db, "Log"), orderBy("data", "desc"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      lista.push( {...doc.data(),data:doc.data().data.toDate()} );
+      lista.push({ ...doc.data(), data: doc.data().data.toDate() });
     });
     this.listaLogs = lista;
   }
@@ -446,7 +518,7 @@ export class FirestoreService {
     return nome;
   }
 
-  async carregarBaseCompleta (){
+  async carregarBaseCompleta() {
     const listaCondominios: any[] = [];
     const listaFuncionarios: any[] = [];
     const listaFornecedores: any[] = [];
@@ -462,44 +534,44 @@ export class FirestoreService {
     const queryCargos = query(collection(this.db, "Cargo"), orderBy("nome", "asc"));
     const queryBancos = query(collection(this.db, "Banco"), orderBy("nome", "asc"));
     const queryLogs = query(collection(this.db, "Log"), orderBy("data", "desc"));
-    
+
     const querySnapshotCondominios = await getDocs(queryCondominios);
-    querySnapshotCondominios.forEach((doc) => {listaCondominios.push( doc.data())});
+    querySnapshotCondominios.forEach((doc) => { listaCondominios.push(doc.data()) });
     this.listaExportCondominios = listaCondominios;
 
     const querySnapshotFuncionario = await getDocs(queryFuncionarios);
-    querySnapshotFuncionario.forEach((doc) => {listaFuncionarios.push( doc.data())});
+    querySnapshotFuncionario.forEach((doc) => { listaFuncionarios.push(doc.data()) });
     this.listaExportFuncionarios = listaFuncionarios;
 
     const querySnapshotFornecedor = await getDocs(queryFornecedores);
-    querySnapshotFornecedor.forEach((doc) => {listaFornecedores.push( doc.data())});
+    querySnapshotFornecedor.forEach((doc) => { listaFornecedores.push(doc.data()) });
     this.listaExportFornecedores = listaFornecedores;
 
     const querySnapshotCondomino = await getDocs(queryCondominos);
-    querySnapshotCondomino.forEach((doc) => {listaCondominos.push( doc.data())});
+    querySnapshotCondomino.forEach((doc) => { listaCondominos.push(doc.data()) });
     this.listaExportCondominos = listaCondominos;
 
     const querySnapshotCargos = await getDocs(queryCargos);
-    querySnapshotCargos.forEach((doc) => {listaCargos.push( doc.data())});
+    querySnapshotCargos.forEach((doc) => { listaCargos.push(doc.data()) });
     this.listaExportCargos = listaCargos;
 
     const querySnapshotBancos = await getDocs(queryBancos);
-    querySnapshotBancos.forEach((doc) => {listaBancos.push( doc.data())});
+    querySnapshotBancos.forEach((doc) => { listaBancos.push(doc.data()) });
     this.listaExportBancos = listaBancos;
 
     const querySnapshotLogs = await getDocs(queryLogs);
-    querySnapshotLogs.forEach((doc) => {listaLogs.push( {...doc.data(),registro:JSON.stringify(doc.data().registro) })});
+    querySnapshotLogs.forEach((doc) => { listaLogs.push({ ...doc.data(), registro: JSON.stringify(doc.data().registro) }) });
     this.listaExportLogs = listaLogs;
-       
+
   }
 
-  async teste (){
+  async teste() {
     let nome = "";
-    const q = query(collection(this.db, "Funcionario"), where('__name__', "==", "Pid1nrYzoLfw1dKuLeu8"));
+    const q = query(collection(this.db, "Funcionario"), where('__name__', "==", "SpKAekQofji046FoLQMa"));
     const querySnapshot = await getDocs(q);
-    
+    console.log("aquii: ", querySnapshot.docs);
     querySnapshot.forEach((doc) => {
-      console.log("dados: ",doc.data())  
+      console.log("dados: ", doc.data())
       nome = doc.data().nome;
     });
   }

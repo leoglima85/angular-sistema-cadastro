@@ -26,7 +26,7 @@
         <mat-form-field class="example-full-width banco" appearance="fill">
           <mat-label>Banco</mat-label>
           <mat-select formControlName="banco" name="banco">
-            <mat-option *ngFor="let opt of listaBancos" [value]="opt">{{ opt }}</mat-option>
+            <mat-option *ngFor="let opt of listaBancos" [value]="opt.bancoID">{{ opt.nome }}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="agencia example-full-width" appearance="fill">
@@ -127,7 +127,7 @@
         <mat-form-field class="example-full-width cargo" appearance="fill">
           <mat-label>Cargo</mat-label>
           <mat-select formControlName="cargo" name="cargo">
-            <mat-option *ngFor="let opt of listaCargos" [value]="opt">{{ opt }}</mat-option>
+            <mat-option *ngFor="let opt of listaCargos" [value]="opt.cargoID">{{ opt.nome }}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="example-full-width admissao" appearance="fill">
@@ -137,7 +137,7 @@
         <mat-form-field class="example-full-width banco" appearance="fill">
           <mat-label>Banco</mat-label>
           <mat-select formControlName="banco">
-            <mat-option *ngFor="let opt of listaBancos" [value]="opt">{{ opt }}</mat-option>
+            <mat-option *ngFor="let opt of listaBancos" [value]="opt.bancoID">{{ opt.nome }}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="agencia" appearance="fill">
@@ -213,7 +213,7 @@
         <mat-form-field class="example-full-width banco" appearance="fill">
           <mat-label>Banco</mat-label>
           <mat-select formControlName="banco" name="banco">
-            <mat-option *ngFor="let opt of listaBancos" [value]="opt">{{ opt }}</mat-option>
+            <mat-option *ngFor="let opt of listaBancos" [value]="opt.bancoID">{{ opt.nome }}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="agencia" appearance="fill">

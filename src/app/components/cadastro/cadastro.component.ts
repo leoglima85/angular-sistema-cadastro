@@ -18,13 +18,14 @@ export class CadastroComponent implements OnInit {
   cadastroBancoForm: FormGroup;
 
   listaCondominios: any[] = [];
-  listaCargos: string[] = [];
-  listaBancos: string[] = [];
+  listaCargos: any[] = [];
+  listaBancos: any[] = [];
   listaServicos: any[] = [];
 
   pix: any;
+
   constructor(private fb: FormBuilder,
-    private fs: FirestoreService,
+              private fs: FirestoreService,
   ) {
 
     this.cadastroCondominioForm = this.fb.group({
@@ -127,7 +128,7 @@ export class CadastroComponent implements OnInit {
 
   async cadastrarFuncionario() {
     if (await this.fs.addFuncionarioDoc(this.cadastroFuncionarioForm)){
-      this.cadastroCondominioForm.reset();
+      this.cadastroFuncionarioForm.reset();
     }
   }
 
@@ -160,7 +161,6 @@ export class CadastroComponent implements OnInit {
 
   cadServico(i: number) {
     this.listaServicos[i].checked = true;
-
   }
 
 }

@@ -26,8 +26,7 @@
         <mat-form-field class="example-full-width banco" appearance="fill">
             <mat-label>Banco</mat-label>
             <mat-select [(ngModel)]="docInfos.banco" name="banco">
-                <mat-option *ngFor="let opt of listaBancos" [value]="opt">
-                    {{ opt }}
+                <mat-option *ngFor="let opt of listaBancos" [value]="opt.bancoID">{{ opt.nome }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
@@ -93,10 +92,16 @@
             <input matInput [(ngModel)]="docInfos.observacao" name="observacao">
         </mat-form-field>
         <br>
-        <button class="botao-cancelar" (click)="cancelarAlteracao()"
-            mat-raised-button color="warn">Cancelar</button>
-        <button class="botao-salvar" [disabled]="!updateCond.valid" (click)="salvarAlteracaoCondominio()"
+        <div class="botoes">
+            <div class="botao-salvar">
+                <button  [disabled]="!updateCond.valid" (click)="salvarAlteracaoCondominio()"
             mat-raised-button color="primary">Salvar</button>
+            </div>
+            <div class="botao-cancelar">
+                <button  (click)="cancelarAlteracao()" mat-raised-button
+                    color="warn">Cancelar</button>
+            </div>
+        </div>
     </mat-card>
 </form>
 <!--  *********************** FUNCIONARIO **************************** -->
@@ -133,7 +138,7 @@
         <mat-form-field class="example-full-width cargo" appearance="fill">
             <mat-label>Cargo</mat-label>
             <mat-select [(ngModel)]="docInfos.cargo" name="cargo" required>
-                <mat-option *ngFor="let opt of listaCargos" [value]="opt">{{ opt }}</mat-option>
+                <mat-option *ngFor="let opt of listaCargos" [value]="opt.cargoID">{{ opt.nome }}</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field class="example-full-width admissao" appearance="fill">
@@ -143,8 +148,7 @@
         <mat-form-field class="example-full-width banco" appearance="fill">
             <mat-label>Banco</mat-label>
             <mat-select [(ngModel)]="docInfos.banco" name="banco">
-                <mat-option *ngFor="let opt of listaBancos" [value]="opt">
-                    {{ opt }}
+                <mat-option *ngFor="let opt of listaBancos" [value]="opt.bancoID">{{ opt.nome }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
@@ -182,10 +186,17 @@
             <input matInput [(ngModel)]="docInfos.observacao" name="observacao">
         </mat-form-field>
         <br>
-        <button class="botao-cancelar" (click)="cancelarAlteracao()"
-            mat-raised-button color="warn">Cancelar</button>
-        <button [disabled]="!updateFunc.valid" (click)="salvarAlteracaoFuncionario()" mat-raised-button
-            color="primary">Salvar</button>
+        <div class="botoes">
+            <div class="botao-salvar">
+                <button [disabled]="!updateFunc.valid" (click)="salvarAlteracaoFuncionario()" mat-raised-button
+                    color="primary">Salvar</button>
+            </div>
+            <div class="botao-cancelar">
+                <button  (click)="cancelarAlteracao()" mat-raised-button
+                    color="warn">Cancelar</button>
+            </div>
+        </div>
+
     </mat-card>
 </form>
 <!-- **********************  FORNECEDOR ********************************** -->
@@ -222,8 +233,7 @@
         <mat-form-field class="example-full-width banco" appearance="fill">
             <mat-label>Banco</mat-label>
             <mat-select [(ngModel)]="docInfos.banco" name="banco">
-                <mat-option *ngFor="let opt of listaBancos" [value]="opt">
-                    {{ opt }}
+                <mat-option *ngFor="let opt of listaBancos" [value]="opt.bancoID">{{ opt.nome }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
@@ -267,10 +277,17 @@
             </div>
         </div>
         <br>
-        <button class="botao-cancelar" (click)="cancelarAlteracao()"
-            mat-raised-button color="warn">Cancelar</button>
-        <button class="botao-salvar" [disabled]="!updateForn.valid" (click)="salvarAlteracaoFornecedor()"
+
+        <div class="botoes">
+            <div class="botao-salvar">
+                <button [disabled]="!updateForn.valid" (click)="salvarAlteracaoFornecedor()"
             mat-raised-button color="primary">Salvar</button>
+            </div>
+            <div class="botao-cancelar">
+                <button  (click)="cancelarAlteracao()" mat-raised-button
+                    color="warn">Cancelar</button>
+            </div>
+        </div>
     </mat-card>
 </form>
 <!-- ******************** CONDOMINO ********************************** -->
@@ -317,10 +334,17 @@
             <input matInput [(ngModel)]="docInfos.observacao" name="observacao">
         </mat-form-field>
         <br>
-        <button class="botao-cancelar" (click)="cancelarAlteracao()"
-            mat-raised-button color="warn">Cancelar</button>
-        <button [disabled]="!updateCondomino.valid" (click)="salvarAlteracaoCondomino()" mat-raised-button
+        <div class="botoes">
+            <div class="botao-salvar">
+                <button [disabled]="!updateCondomino.valid" (click)="salvarAlteracaoCondomino()" mat-raised-button
             color="primary">Salvar</button>
+            </div>
+            <div class="botao-cancelar">
+                <button  (click)="cancelarAlteracao()" mat-raised-button
+                    color="warn">Cancelar</button>
+            </div>
+        </div>
+		
     </mat-card>
 </form>
 <!-- ******************** OUTROS ********************************** -->

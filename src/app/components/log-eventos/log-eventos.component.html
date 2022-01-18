@@ -13,7 +13,7 @@
         <td mat-cell *matCellDef="let element" [attr.title]="element.data">{{element.data | date:'dd/MM/yyyy, hh:mm a'}}</td>
     </ng-container>
     <ng-container matColumnDef="usuarioNome">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuário </th>
         <td mat-cell *matCellDef="let element" [attr.title]="element.usuarioNome">{{element.usuarioNome}}</td>
     </ng-container>
     <ng-container matColumnDef="tipo">
@@ -35,7 +35,7 @@
             <div class="example-element-box-detalhe">
               <!-- <div class="example-element-id" *ngIf="element.registro.id" ><b>ID:</b> {{element.registro.id}} </div> -->
               <div class="example-element-nome" *ngIf="element.registro.nome"><b> Nome:</b> {{element.registro.nome}} </div>
-              <div class="example-element-proprietariocpf" *ngIf="element.registro.proprietariocpf"><b> Proprietario cpf:</b>
+              <div class="example-element-proprietariocpf" *ngIf="element.registro.proprietariocpf"><b> Proprietário cpf:</b>
                 {{element.registro.proprietariocpf}} </div>
               <div class="example-element-cnpj" *ngIf="element.registro.cnpj"><b>CNPJ: </b> {{element.registro.cnpj |
                 mask:"00.000.000/0000-00"}} </div>

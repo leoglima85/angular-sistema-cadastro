@@ -91,8 +91,15 @@
           <input matInput formControlName="observacao" name="observacao">
         </mat-form-field>
       </form>
-      <div mat-dialog-actions class="botao-salvar">
-        <button [disabled]="!fc.valid" mat-raised-button color="primary" (click)="cadastrarCondominio()">Salvar</button>
+
+      <div class="botoes">
+        <div class="botao-salvar">
+          <button [disabled]="!fc.valid" mat-raised-button color="primary"
+            (click)="cadastrarCondominio()">Salvar</button>
+        </div>
+        <div class="botao-cancelar">
+          <button (click)="cancelarForm(this.fc)" mat-raised-button color="warn">Cancelar</button>
+        </div>
       </div>
     </mat-tab>
     <!-- ******************************* FUNCIONARIO ************************ -->
@@ -174,9 +181,14 @@
           <input matInput formControlName="observacao" name="observacao">
         </mat-form-field>
       </form>
-      <div mat-dialog-actions>
-        <button [disabled]="!ff.valid" mat-raised-button color="primary"
-          (click)="cadastrarFuncionario()">Salvar</button>
+      <div class="botoes">
+        <div class="botao-salvar">
+          <button [disabled]="!ff.valid" mat-raised-button color="primary"
+            (click)="cadastrarFuncionario()">Salvar</button>
+        </div>
+        <div class="botao-cancelar">
+          <button (click)="cancelarForm(this.ff)" mat-raised-button color="warn">Cancelar</button>
+        </div>
       </div>
     </mat-tab>
     <!-- **************************** FORNECEDOR *********************************** -->
@@ -256,9 +268,14 @@
           </div>
         </div>
       </form>
-      <div mat-dialog-actions>
-        <button [disabled]="!ffo.valid" mat-raised-button color="primary"
+      <div class="botoes">
+        <div class="botao-salvar">
+          <button [disabled]="!ffo.valid" mat-raised-button color="primary"
           (click)="cadastrarFornecedor()">Salvar</button>
+        </div>
+        <div class="botao-cancelar">
+          <button (click)="cancelarForm(this.ffo)" mat-raised-button color="warn">Cancelar</button>
+        </div>
       </div>
     </mat-tab>
     <!-- ***************************** CONDOMINO ************************* -->
@@ -303,8 +320,13 @@
           <input matInput formControlName="observacao" name="observacao">
         </mat-form-field>
       </form>
-      <div mat-dialog-actions>
-        <button [disabled]="!fco.valid" mat-raised-button color="primary" (click)="cadastrarCondomino()">Salvar</button>
+      <div class="botoes">
+        <div class="botao-salvar">
+          <button [disabled]="!fco.valid" mat-raised-button color="primary" (click)="cadastrarCondomino()">Salvar</button>
+        </div>
+        <div class="botao-cancelar">
+          <button (click)="cancelarForm(this.fco)" mat-raised-button color="warn">Cancelar</button>
+        </div>
       </div>
     </mat-tab>
     <!-- **************************** OUTROS ********************************** -->
@@ -316,8 +338,13 @@
           <input matInput formControlName="nome" name="nome">
         </mat-form-field>
       </form>
-      <div mat-dialog-actions>
-        <button [disabled]="!fca.valid" mat-raised-button color="primary" (click)="cadastrarCargo()">Salvar</button>
+      <div class="botoes">
+        <div class="botao-salvar">
+          <button [disabled]="!fca.valid" mat-raised-button color="primary" (click)="cadastrarCargo()">Salvar</button>
+        </div>
+        <div class="botao-cancelar">
+          <button (click)="cancelarForm(this.fca)" mat-raised-button color="warn">Cancelar</button>
+        </div>
       </div>
       <hr>
       <h1>Cadastro de Serviços</h1>
@@ -327,8 +354,13 @@
           <input matInput formControlName="nome" name="nome">
         </mat-form-field>
       </form>
-      <div mat-dialog-actions>
-        <button [disabled]="!fse.valid" mat-raised-button color="primary" (click)="cadastrarServico()">Salvar</button>
+      <div class="botoes">
+        <div class="botao-salvar">
+          <button [disabled]="!fse.valid" mat-raised-button color="primary" (click)="cadastrarServico()">Salvar</button>
+        </div>
+        <div class="botao-cancelar">
+          <button (click)="cancelarForm(this.fse)" mat-raised-button color="warn">Cancelar</button>
+        </div>
       </div>
       <hr>
       <h1>Cadastro de Bancos</h1>
@@ -338,8 +370,13 @@
           <input matInput formControlName="nome" name="nome">
         </mat-form-field>
       </form>
-      <div mat-dialog-actions>
-        <button [disabled]="!fba.valid" mat-raised-button color="primary" (click)="cadastrarBanco()">Salvar</button>
+      <div class="botoes">
+        <div class="botao-salvar">
+          <button [disabled]="!fba.valid" mat-raised-button color="primary" (click)="cadastrarBanco()">Salvar</button>
+        </div>
+        <div class="botao-cancelar">
+          <button (click)="cancelarForm(this.fba)" mat-raised-button color="warn">Cancelar</button>
+        </div>
       </div>
     </mat-tab>
   </mat-tab-group>

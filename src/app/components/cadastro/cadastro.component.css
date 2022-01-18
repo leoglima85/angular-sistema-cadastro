@@ -77,11 +77,6 @@
 
 }
 
-.botao-salvar{
-  align-items: center;
-  padding-top: 15px;
-}
-
 .cnpj {
   width: 30%;
   padding-right: 2%;
@@ -208,3 +203,16 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0; 
 }
 
+.botoes{
+  display: flex;
+  
+  
+}
+
+.botao-cancelar{
+  padding-left: 15px;
+}
+
+.botao-salvar{
+  
+}

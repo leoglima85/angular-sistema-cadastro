@@ -1,4 +1,82 @@
-<h1>Painel Administrativo</h1>
-<p>Exportar base de dados</p>
-<button mat-raised-button color="warn" (click)="exportarBase()" >Exportar Base</button>
-<app-log-eventos></app-log-eventos>
+<div class="titulo">
+    <h1>Painel Administrativo</h1>
+</div>
+<mat-tab-group class="tab-group-main">
+    <mat-card>
+        <mat-tab label="Usuários">
+            <mat-tab-group class="tab-group-usuarios">
+                <mat-card>
+                    <mat-tab label="Criar Usuário">
+                        conteudo
+                    </mat-tab>
+                </mat-card>
+                <mat-card>
+                    <mat-tab label="Editar Usuário">
+                        conteudo
+                    </mat-tab>
+                </mat-card>
+            </mat-tab-group>   
+        </mat-tab>
+    </mat-card>
+    <mat-card class="exclusao-registros">
+        <mat-tab label="Exclusão de Registros">
+            <mat-tab-group>
+                <mat-card>
+                    <mat-tab label="Condomínios">
+                        conteudo
+                    </mat-tab>
+                </mat-card>
+                <mat-card>
+                    <mat-tab label="Funcionários">
+                        conteudo
+                    </mat-tab>
+                </mat-card>
+                <mat-card>
+                    <mat-tab label="Fornecedores">
+                        conteudo
+                    </mat-tab>
+                </mat-card>
+                <mat-card>
+                    <mat-tab label="Condôminos">
+                        conteudo
+                    </mat-tab>
+                </mat-card>
+                <mat-card>
+                    <mat-tab label="Cargos">
+                        conteudo
+                    </mat-tab>
+                </mat-card>
+                <mat-card>
+                    <mat-tab label="Bancos">
+                        conteudo
+                    </mat-tab>
+                </mat-card>
+                <mat-card>
+                    <mat-tab label="Serviços">
+                        conteudo
+                    </mat-tab>
+                </mat-card>
+                
+            </mat-tab-group>
+        </mat-tab>
+    </mat-card>
+    <mat-card class="card-exportar-base">
+        <mat-tab label="Exportar Base de Dados">
+            <div class="exportar-base">
+                <div class="exportar-base">
+                    <p>Exportar base de dados</p>
+                </div>
+                <div class="botao">
+                    <button mat-raised-button color="warn" (click)="exportarBase()">Exportar Base</button>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-card>
+    <mat-card>
+        <mat-tab label="Logs do Sistema">
+            <div class="tabela">
+                <app-log-eventos></app-log-eventos>
+            </div>
+        </mat-tab>
+    </mat-card>
+</mat-tab-group>

@@ -22,7 +22,7 @@ import { Generico } from 'src/app/models/generico';
 export class ConsultaComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['nome'];
   dataSource2!: MatTableDataSource<Generico>;
-  lista: string[] = ['Condominio', 'Funcionario', 'Fornecedor', 'Condomino', 'Outros'];
+  lista: string[] = ['Condomínio', 'Funcionário', 'Fornecedor', 'Condômino', 'Outros'];
   escolha: string = "";
   public tipo : string = "";
   expandedElement: Generico = {

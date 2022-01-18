@@ -1,0 +1,31 @@
+.titulo{
+    text-align: center;
+    padding: 10px;
+}
+
+.exportar-base{
+    display: flex;
+    
+    padding-left: 20px;
+    padding-top: 10px;
+}
+
+.botao{
+    padding-left: 10px;
+}
+
+.tabela{
+    padding: 10px;
+}
+
+.tab-group-usuarios{
+  display: flex;
+  
+}
+
+.exclusao-registros{
+    display: flex;
+  align-items: center;
+  
+}
+

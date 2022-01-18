@@ -1,4 +1,4 @@
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormGroupDirective } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from 'src/app/services/firestore.service';
 
@@ -161,6 +161,10 @@ export class CadastroComponent implements OnInit {
 
   cadServico(i: number) {
     this.listaServicos[i].checked = true;
+  }
+
+  cancelarForm(form : FormGroupDirective){
+    form.resetForm()
   }
 
 }

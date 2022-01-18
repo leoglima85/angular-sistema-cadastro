@@ -3,12 +3,16 @@
     <mat-form-field appearance="fill">
       <mat-label>Pesquisar:</mat-label>
       <mat-select [(ngModel)]="escolha">
-        <mat-option *ngFor="let opt of lista" [value]="opt" (click)="filtrar(opt)">{{ opt }}</mat-option>
+        <mat-option [value]="'Condominio'" (click)="filtrar('Condominio')" >Condomínio</mat-option>
+        <mat-option [value]="'Funcionario'" (click)="filtrar('Funcionario')" >Funcionário</mat-option>
+        <mat-option [value]="'Fornecedor'" (click)="filtrar('Fornecedor')" >Fornecedor</mat-option>
+        <mat-option [value]="'Condomino'" (click)="filtrar('Condomino')" >Condômino</mat-option>
+        <mat-option [value]="'Outros'" (click)="filtrar('Outros')" >Outros</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
 </div>
-<div>
+<div class="tabela">
   <mat-form-field appearance="standard">
     <mat-label>Filtro</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Condominio" #input>
@@ -26,7 +30,7 @@
           <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
             <div class="example-element-box-detalhe">
               <!-- <div class="example-element-id" *ngIf="element.id" ><b>ID:</b> {{element.id}} </div> -->
-              <div class="example-element-condominio" *ngIf="element.condominio"><b>Condominio:</b>{{element.condominio}} </div>
+              <div class="example-element-condominio" *ngIf="element.condominio"><b>Condomínio:</b>{{element.condominio}} </div>
               <div class="example-element-nome" *ngIf="element.nome"><b> Nome:</b> {{element.nome}} </div>
               <div class="example-element-proprietariocpf" *ngIf="element.proprietariocpf"><b> Proprietario cpf:</b>
                 {{element.proprietariocpf}} </div>
@@ -66,7 +70,7 @@
               <div class="example-element-locatariocpf" *ngIf="element.locatariocpf"><b> Locatário cpf:</b>
                 {{element.locatariocpf}}</div>
               
-              <div class="example-element-observacao" *ngIf="element.observacao"><b> Observacao:
+              <div class="example-element-observacao" *ngIf="element.observacao"><b> Observação:
                 </b>{{element.observacao}} </div>
               <div class="example-element-servicosPrestados" *ngIf="element.servicosPrestados"><b> Servicos
                   Prestados:</b>{{element.servicosPrestados}} </div>

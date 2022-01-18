@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { consultarCep } from 'correios-brasil/dist';
 import {
   collection, addDoc, getFirestore, getDocs,
-  query, updateDoc, doc, orderBy, where, setDoc
+  query, updateDoc, doc, orderBy, where, setDoc, deleteDoc
 } from "firebase/firestore";
 import { Extrato } from 'src/app/models/extrato';
 import { Generico } from '../models/generico';
@@ -574,6 +574,19 @@ export class FirestoreService {
       console.log("dados: ", doc.data())
       nome = doc.data().nome;
     });
+  }
+
+  async deleteDoc(baseName: string, docID:string){
+      const q = query(collection(this.db, baseName), where('__name__', "==", docID));
+      const querySnapshot = await getDocs(q);
+      if (querySnapshot.docs.length == 1){
+        const resu = await deleteDoc(doc(this.db, baseName, docID))
+        this._snackBar.open("Deletado com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
+        console.log(resu);
+      }else {  
+      this._snackBar.open("Falha ao deletar, verifique todas as informações e tente novamente", "", { duration: 4000, panelClass: ["snack-vermelho"] });
+      }
+    
   }
 
 }

@@ -12,6 +12,7 @@ export class AdministracaoComponent implements OnInit {
   { nome: "entrada 2", valor: 20 },
   { nome: "entrada 3", valor: 30 }];
   fileName = 'BaseDeDados.xlsx';
+
   constructor(private fs: FirestoreService) { }
 
   ngOnInit(): void {
@@ -52,5 +53,9 @@ export class AdministracaoComponent implements OnInit {
     XLSX.utils.book_append_sheet(wb, wsLogs, 'Logs');
     /* save to file */
     XLSX.writeFile(wb, this.fileName);
+  }
+
+  teste (){
+    this.fs.deleteDoc("","");
   }
 }

@@ -77,4 +77,8 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
     if (cargo) {this.tipo = "cargo"}
   }
 
+  deletarDoc(base:string, id:string){
+    this.fs.deleteDoc(base,id);
+  }
+
 }

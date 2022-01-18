@@ -46,6 +46,7 @@ table {
     flex-direction: row;
     border: 2px solid black;
     margin: 8px 0;
+    padding: 5px;
   }
 
   .example-element-box-detalhe-outros {
@@ -75,4 +76,12 @@ table {
   
   .tabela{
     padding: 15px;
+  }
+
+  .botoes{
+    padding: 5px;
+  }
+
+  .botao-deletar{
+    padding-top: 5px;
   }

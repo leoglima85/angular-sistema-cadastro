@@ -3,11 +3,11 @@
     <mat-form-field appearance="fill">
       <mat-label>Pesquisar:</mat-label>
       <mat-select [(ngModel)]="escolha">
-        <mat-option [value]="'Condominio'" (click)="filtrar('Condominio')" >Condomínio</mat-option>
-        <mat-option [value]="'Funcionario'" (click)="filtrar('Funcionario')" >Funcionário</mat-option>
-        <mat-option [value]="'Fornecedor'" (click)="filtrar('Fornecedor')" >Fornecedor</mat-option>
-        <mat-option [value]="'Condomino'" (click)="filtrar('Condomino')" >Condômino</mat-option>
-        <mat-option [value]="'Outros'" (click)="filtrar('Outros')" >Outros</mat-option>
+        <mat-option [value]="'Condominio'" (click)="filtrar('Condominio')">Condomínio</mat-option>
+        <mat-option [value]="'Funcionario'" (click)="filtrar('Funcionario')">Funcionário</mat-option>
+        <mat-option [value]="'Fornecedor'" (click)="filtrar('Fornecedor')">Fornecedor</mat-option>
+        <mat-option [value]="'Condomino'" (click)="filtrar('Condomino')">Condômino</mat-option>
+        <!-- <mat-option [value]="'Outros'" (click)="filtrar('Outros')" >Outros</mat-option> -->
       </mat-select>
     </mat-form-field>
   </div>
@@ -15,7 +15,7 @@
 <div class="tabela">
   <mat-form-field appearance="standard">
     <mat-label>Filtro</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Condominio" #input>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Palavra" #input>
   </mat-form-field>
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource2" matSort multiTemplateDataRows>
@@ -30,7 +30,8 @@
           <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
             <div class="example-element-box-detalhe">
               <!-- <div class="example-element-id" *ngIf="element.id" ><b>ID:</b> {{element.id}} </div> -->
-              <div class="example-element-condominio" *ngIf="element.condominio"><b>Condomínio:</b>{{element.condominio}} </div>
+              <div class="example-element-condominio" *ngIf="element.condominio">
+                <b>Condomínio:</b>{{element.condominio}} </div>
               <div class="example-element-nome" *ngIf="element.nome"><b> Nome:</b> {{element.nome}} </div>
               <div class="example-element-proprietariocpf" *ngIf="element.proprietariocpf"><b> Proprietario cpf:</b>
                 {{element.proprietariocpf}} </div>
@@ -69,23 +70,31 @@
               </div>
               <div class="example-element-locatariocpf" *ngIf="element.locatariocpf"><b> Locatário cpf:</b>
                 {{element.locatariocpf}}</div>
-              
+
               <div class="example-element-observacao" *ngIf="element.observacao"><b> Observação:
                 </b>{{element.observacao}} </div>
               <div class="example-element-servicosPrestados" *ngIf="element.servicosPrestados"><b> Servicos
                   Prestados:</b>{{element.servicosPrestados}} </div>
               <div class="example-element-cpf" *ngIf="element.cpf"><b> CPF:</b> {{element.cpf | mask:"000.000.000-00"}}
               </div>
-              <div class="example-element-admissao" *ngIf="element.admissao"><b> Admissão:</b> {{element.admissao | mask:"00/00/0000"}}
+              <div class="example-element-admissao" *ngIf="element.admissao"><b> Admissão:</b> {{element.admissao |
+                mask:"00/00/0000"}}
               </div>
               <div class="example-element-cargo" *ngIf="element.cargo"><b> Cargo:</b> {{element.cargo}} </div>
               <div class="example-element-apelido" *ngIf="element.apelido"><b> Apelido:</b> {{element.apelido}} </div>
             </div>
-            <div class="example-element-editar">
-              <button (click)="opcao(element.banco,element.cargo)" routerLink="/editar/{{element.id}}/{{escolha}}"
-                mat-button color="primary">
-                <mat-icon>edit</mat-icon>Editar
-              </button>
+            <div class="botoes">
+              <div class="botao-editar">
+                <button (click)="opcao(element.banco,element.cargo)" routerLink="/editar/{{element.id}}/{{escolha}}"
+                  mat-button color="primary">
+                  <mat-icon>edit</mat-icon>Editar
+                </button>
+              </div>
+              <div class="botao-deletar">
+                <button (click)="deletarDoc(escolha,element.id)" mat-raised-button color="warn" routerLink="/consulta">
+                  <mat-icon>delete_forever</mat-icon>Excluir
+                </button>
+              </div>
             </div>
           </div>
         </td>

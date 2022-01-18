@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { Generico } from 'src/app/models/generico';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-consulta',
@@ -41,6 +42,7 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private fs: FirestoreService,
+              public dialog: MatDialog
               ) 
       {
 
@@ -78,7 +80,12 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
   }
 
   deletarDoc(base:string, id:string){
-    this.fs.deleteDoc(base,id);
+    //alert("Tem certeza que deseja deletar esse registro ?")
+    //this.fs.deleteDoc(base,id);
+  }
+
+  openDialog() {
+    //this.dialog.open();
   }
 
 }

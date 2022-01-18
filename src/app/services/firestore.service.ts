@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { consultarCep } from 'correios-brasil/dist';
@@ -40,7 +41,8 @@ export class FirestoreService {
 
   constructor(private _snackBar: MatSnackBar,
     private router: Router,
-    private fas: FireauthservService) {
+    private fas: FireauthservService,
+    ) {
 
   }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import * as XLSX from 'xlsx';
 
@@ -13,7 +14,8 @@ export class AdministracaoComponent implements OnInit {
   { nome: "entrada 3", valor: 30 }];
   fileName = 'BaseDeDados.xlsx';
 
-  constructor(private fs: FirestoreService) { }
+  constructor(private fs: FirestoreService,
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -55,7 +57,9 @@ export class AdministracaoComponent implements OnInit {
     XLSX.writeFile(wb, this.fileName);
   }
 
-  teste (){
-    this.fs.deleteDoc("","");
+  openDialog (){
+    //this.fs.deleteDoc("","");
+    const DialogElementsExampleDialog = '<div mat-dialog-actions> <button mat-button mat-dialog-close>Close</button>  </div>';
+    //this.dialog.open(DialogElementsExampleDialog);
   }
 }

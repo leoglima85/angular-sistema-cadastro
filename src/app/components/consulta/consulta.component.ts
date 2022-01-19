@@ -51,9 +51,9 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
     
     }
 
-  async ngOnInit() {
-    this.perfil = await this.fs.perfil;
-    console.log("perfil no consulta",this.perfil);
+  ngOnInit() {
+    this.perfil = this.fs.perfil;
+    //console.log("perfil no consulta",this.perfil);
   }
 
   ngAfterViewInit() {

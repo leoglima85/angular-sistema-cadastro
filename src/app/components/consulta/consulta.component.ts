@@ -6,6 +6,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { Generico } from 'src/app/models/generico';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-consulta',
@@ -25,16 +27,16 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
   dataSource2!: MatTableDataSource<Generico>;
   lista: string[] = ['Condomínio', 'Funcionário', 'Fornecedor', 'Condômino', 'Outros'];
   escolha: string = "";
-  public tipo : string = "";
+  public tipo: string = "";
   expandedElement: Generico = {
     id: '', nome: '', conta: '', agencia: '', banco: '',
-    chavepix: '', cnpj: '', conselhofiscal1: '', proprietariocpf:'', locatariocpf: '',
-    conselhofiscal2: '', conselhofiscal3: '', 
+    chavepix: '', cnpj: '', conselhofiscal1: '', proprietariocpf: '', locatariocpf: '',
+    conselhofiscal2: '', conselhofiscal3: '',
     cpfconselhofiscal1: '', cpfconselhofiscal2: '',
     cpfconselhofiscal3: '', cpfsindico: '', email: '',
     endereco: '', operacao: '', pix: '', sindico: '',
     telefone: '', unidade: '', apelido: '', titular: '',
-    locatario: '', condominio: '', observacao: '', 
+    locatario: '', condominio: '', observacao: '',
     servicosPrestados: '', cpf: '', admissao: '', cargo: '',
   };
 
@@ -42,11 +44,11 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private fs: FirestoreService,
-              public dialog: MatDialog
-              ) 
-      {
+              public dialog: MatDialog,
+              
+  ) {
 
-      }
+  }
 
   ngOnInit(): void {
 
@@ -73,19 +75,21 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
 
   }
 
-  opcao(banco:string, cargo: string) {
+  opcao(banco: string, cargo: string) {
     //console.log(banco,cargo)
-    if (banco) {this.tipo = "banco"}
-    if (cargo) {this.tipo = "cargo"}
+    if (banco) { this.tipo = "banco" }
+    if (cargo) { this.tipo = "cargo" }
   }
 
-  deletarDoc(base:string, id:string){
-    //alert("Tem certeza que deseja deletar esse registro ?")
-    //this.fs.deleteDoc(base,id);
-  }
-
-  openDialog() {
-    //this.dialog.open();
+ openDialog(base: string, id: string) {
+    //console.log("base: ", base, "id: ", id);
+    const dialogRef = this.dialog.open(DialogComponent);
+    dialogRef.afterClosed().subscribe(async result => {
+      if (result) {
+        await this.fs.deleteDoc(base,id);
+        this.filtrar(this.escolha);
+      }
+    });
   }
 
 }

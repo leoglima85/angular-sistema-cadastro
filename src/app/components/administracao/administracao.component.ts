@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import * as XLSX from 'xlsx';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-administracao',
@@ -9,13 +10,15 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./administracao.component.css']
 })
 export class AdministracaoComponent implements OnInit {
-  lista = [{ nome: "entrada 1", valor: 10 },
-  { nome: "entrada 2", valor: 20 },
-  { nome: "entrada 3", valor: 30 }];
+  lista = [
+    { nome: "entrada 1", valor: 10 },
+    { nome: "entrada 2", valor: 20 },
+    { nome: "entrada 3", valor: 30 }
+  ];
   fileName = 'BaseDeDados.xlsx';
 
   constructor(private fs: FirestoreService,
-              public dialog: MatDialog) { }
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -36,7 +39,7 @@ export class AdministracaoComponent implements OnInit {
     const listaBancos = this.fs.listaExportBancos;
     const listaCargos = this.fs.listaExportCargos;
     const listaLogs = this.fs.listaExportLogs;
-      
+
     const wsCondominios: XLSX.WorkSheet = XLSX.utils.json_to_sheet(listaCondominios);
     XLSX.utils.book_append_sheet(wb, wsCondominios, 'Condominios');
     const wsFuncionarios: XLSX.WorkSheet = XLSX.utils.json_to_sheet(listaFuncionarios);
@@ -57,9 +60,8 @@ export class AdministracaoComponent implements OnInit {
     XLSX.writeFile(wb, this.fileName);
   }
 
-  openDialog (){
-    //this.fs.deleteDoc("","");
-    const DialogElementsExampleDialog = '<div mat-dialog-actions> <button mat-button mat-dialog-close>Close</button>  </div>';
-    //this.dialog.open(DialogElementsExampleDialog);
-  }
+  
+  
+
+  
 }

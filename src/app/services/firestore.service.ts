@@ -582,9 +582,8 @@ export class FirestoreService {
       const q = query(collection(this.db, baseName), where('__name__', "==", docID));
       const querySnapshot = await getDocs(q);
       if (querySnapshot.docs.length == 1){
-        const resu = await deleteDoc(doc(this.db, baseName, docID))
+        await deleteDoc(doc(this.db, baseName, docID))
         this._snackBar.open("Deletado com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
-        console.log(resu);
       }else {  
       this._snackBar.open("Falha ao deletar, verifique todas as informações e tente novamente", "", { duration: 4000, panelClass: ["snack-vermelho"] });
       }

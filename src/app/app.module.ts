@@ -47,6 +47,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { NgxMaskModule } from 'ngx-mask';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 
 
@@ -65,6 +66,7 @@ import { NgxMaskModule } from 'ngx-mask';
     EditarComponent,
     LogEventosComponent,
     AdministracaoComponent,
+    DialogComponent,
 
   ],
   imports: [

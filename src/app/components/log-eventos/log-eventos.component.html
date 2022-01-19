@@ -24,11 +24,6 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Tabela </th>
         <td mat-cell *matCellDef="let element" [attr.title]="element.tabela">{{element.tabela}}</td>
     </ng-container>
-    <!-- <ng-container matColumnDef="registro">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Registro </th>
-        <td mat-cell *matCellDef="let element" [attr.title]="element.registro.registro">{{element.registro.registro | json}}</td>
-    </ng-container>  -->
-      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
       <ng-container matColumnDef="expandedDetail">
         <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
           <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
@@ -46,7 +41,7 @@
               </div>
               <div class="example-element-sindico" *ngIf="element.registro.sindico"><b> Síndico:</b> {{element.registro.sindico}} </div>
               <div class="example-element-cpfsindico" *ngIf="element.registro.cpfsindico"><b>CPF Síndico:
-                </b>{{element.registro.cpfsindico}} </div>
+                </b>{{element.registro.cpfsindico | mask:"000.000.000-00"}} </div>
               <div class="example-element-banco" *ngIf="element.registro.banco"><b> Banco:</b> {{element.registro.banco}} </div>
               <div class="example-element-conta" *ngIf="element.registro.conta"><b> Conta:</b> {{element.registro.conta}} </div>
               <div class="example-element-agencia" *ngIf="element.registro.agencia"><b> Agência:</b> {{element.registro.agencia}} </div>
@@ -80,7 +75,7 @@
                   Prestados:</b>{{element.registro.servicosPrestados}} </div>
               <div class="example-element-cpf" *ngIf="element.registro.cpf"><b> CPF:</b> {{element.registro.cpf | mask:"000.000.000-00"}}
               </div>
-              <div class="example-element-admissao" *ngIf="element.registro.admissao"><b> Admissão:</b> {{element.registro.admissao}}
+              <div class="example-element-admissao" *ngIf="element.registro.admissao"><b> Admissão:</b> {{element.registro.admissao | mask:"d0/M0/0000"}}
               </div>
               <div class="example-element-cargo" *ngIf="element.registro.cargo"><b> Cargo:</b> {{element.registro.cargo}} </div>
               <div class="example-element-apelido" *ngIf="element.registro.apelido"><b> Apelido:</b> {{element.registro.apelido}} </div>
@@ -105,5 +100,5 @@
         <td class="mat-cell" colspan="4">Nada encontrado! "{{input.value}}"</td>
       </tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[20, 50, 100]" aria-label="Select page"></mat-paginator>
   </div>

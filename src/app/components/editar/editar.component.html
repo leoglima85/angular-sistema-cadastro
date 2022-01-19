@@ -5,7 +5,7 @@
     <mat-card *ngIf="docEscolha =='Condominio'">
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Nome do Condomínio</mat-label>
-            <input matInput [(ngModel)]="docInfos.nome" name="nome" required>
+            <input matInput [(ngModel)]="docInfos.nome" name="nome" >
         </mat-form-field>
         <mat-form-field class="example-full-width endereco" appearance="fill">
             <mat-label>Endereço </mat-label>
@@ -110,7 +110,7 @@
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Condomínio</mat-label>
             <mat-select [(ngModel)]="docInfos.condominio" name="condominio" required>
-                <mat-option *ngFor="let opt of listaCondominios" [value]="opt.condominioID">
+                <mat-option *ngFor="let opt of listaCondominios" [value]="opt.condominioID" >
                     {{ opt.nome }}
                 </mat-option>
             </mat-select>
@@ -196,7 +196,6 @@
                     color="warn">Cancelar</button>
             </div>
         </div>
-
     </mat-card>
 </form>
 <!-- **********************  FORNECEDOR ********************************** -->

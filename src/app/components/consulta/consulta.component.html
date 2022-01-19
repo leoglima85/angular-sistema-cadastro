@@ -1,12 +1,15 @@
 <div class="escolha">
   <div>
-    <mat-form-field appearance="fill">
+    <mat-form-field class="box-escolha" appearance="fill">
       <mat-label>Pesquisar:</mat-label>
       <mat-select [(ngModel)]="escolha">
         <mat-option [value]="'Condominio'" (click)="filtrar('Condominio')">Condomínio</mat-option>
         <mat-option [value]="'Funcionario'" (click)="filtrar('Funcionario')">Funcionário</mat-option>
         <mat-option [value]="'Fornecedor'" (click)="filtrar('Fornecedor')">Fornecedor</mat-option>
         <mat-option [value]="'Condomino'" (click)="filtrar('Condomino')">Condômino</mat-option>
+        <mat-option [value]="'Cargo'" (click)="filtrar('Cargo')">Cargo</mat-option>
+        <mat-option [value]="'Banco'" (click)="filtrar('Banco')">Banco</mat-option>
+        <mat-option [value]="'Servico'" (click)="filtrar('Servico')">Serviço</mat-option>
         <!-- <mat-option [value]="'Outros'" (click)="filtrar('Outros')" >Outros</mat-option> -->
       </mat-select>
     </mat-form-field>
@@ -44,7 +47,7 @@
               </div>
               <div class="example-element-sindico" *ngIf="element.sindico"><b> Síndico:</b> {{element.sindico}} </div>
               <div class="example-element-cpfsindico" *ngIf="element.cpfsindico"><b>CPF Síndico:
-                </b>{{element.cpfsindico}} </div>
+                </b>{{element.cpfsindico | mask:"000.000.000-00"}} </div>
               <div class="example-element-banco" *ngIf="element.banco"><b> Banco:</b> {{element.banco}} </div>
               <div class="example-element-conta" *ngIf="element.conta"><b> Conta:</b> {{element.conta}} </div>
               <div class="example-element-agencia" *ngIf="element.agencia"><b> Agência:</b> {{element.agencia}} </div>
@@ -113,6 +116,6 @@
         <td class="mat-cell" colspan="4">Nada encontrado! "{{input.value}}"</td>
       </tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[20, 50, 100]" aria-label="Select page"></mat-paginator>
   </div>
 </div>

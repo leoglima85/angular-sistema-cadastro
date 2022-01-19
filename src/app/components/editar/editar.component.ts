@@ -169,6 +169,7 @@ export class EditarComponent implements OnInit {
       email: this.docInfos.email,
       condominio: this.docInfos.condominio
     };
+    console.log("data:",data)
     await this.fs.atualizaDoc(this.docEscolha, this.docID, data);
   }
 

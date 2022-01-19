@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import * as XLSX from 'xlsx';
-import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-administracao',
@@ -10,21 +9,15 @@ import { DialogComponent } from '../dialog/dialog.component';
   styleUrls: ['./administracao.component.css']
 })
 export class AdministracaoComponent implements OnInit {
-  lista = [
-    { nome: "entrada 1", valor: 10 },
-    { nome: "entrada 2", valor: 20 },
-    { nome: "entrada 3", valor: 30 }
-  ];
   fileName = 'BaseDeDados.xlsx';
 
   constructor(private fs: FirestoreService,
-    public dialog: MatDialog) { }
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
   async exportarBase() {
-    //console.log (this.lista);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     await this.fs.carregarBaseCompleta();
     await this.fs.getBancosDocs();
@@ -61,7 +54,5 @@ export class AdministracaoComponent implements OnInit {
   }
 
   
-  
-
   
 }

@@ -10,16 +10,17 @@ import { FireauthservService } from 'src/app/services/fireauthserv.service';
 export class HomeComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.minLength(6)]);
-
+  perfil : any;
   
   constructor(private fas: FireauthservService,
     ) { }
 
-  ngOnInit(): void {
-     
+  ngOnInit() {
+    
+     //console.log("home comp:", this.perfil )
   }
 
-  getErrorMessage() {
+    getErrorMessage() {
     if (this.email.hasError('required')) {
       return 'You must enter a value';
     }

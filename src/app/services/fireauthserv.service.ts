@@ -1,19 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
-import {
-  collection, getDocs, getFirestore,
-  query, where
-} from 'firebase/firestore';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged,} from "firebase/auth";
+import { collection, getDocs, getFirestore, query, where} from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FireauthservService {
 
+export class FireauthservService {
   isLoggedIn = false;
   auth = getAuth();
   user: any;
@@ -21,6 +15,8 @@ export class FireauthservService {
   db = getFirestore();
   public userID: any;
   public userName: any;
+  public perfil = "";
+  
 
   constructor(private route: Router,
   ) {
@@ -43,7 +39,7 @@ export class FireauthservService {
         this.isLoggedIn = true;
         //console.log('user.uid:',userCredential.user.uid);
         //console.log('user.email:',userCredential.user.email);
-        this.route.navigate(['dashboard']);
+        this.route.navigate(['consulta']);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -69,25 +65,34 @@ export class FireauthservService {
 
   async getUser() {
     onAuthStateChanged(this.auth, async (userid) => {
+      //console.log("fa>getUser>onAuthStateChanged>userId: ",userid)
       if (userid) {
         this.uid = userid.uid;
         //console.log('**get user do fire auth:', this.uid);
         let nome = "";
+        let perfil = "";
         const q = query(collection(this.db, "User"), where('__name__', "==", this.uid));
         const querySnapshot = getDocs(q);
         (await querySnapshot).forEach((doc) => {
-          //console.log("nome: ",doc.data().nome)  
+          //console.log("user: ",doc.data())  
           nome = doc.data().nome;
+          // this.usuario.nome = doc.data().nome;
+          // this.usuario.perfil = doc.data().perfil;
+          //this.usuario = doc.data();
+          perfil = doc.data().perfil;
+          this.perfil = perfil;
+          //console.log("perfil: ",perfil)
           this.userName = doc.data().nome;
         });
         //console.log('**get user do fire auth (end-if):', this.uid);
-        return this.uid;
+        return perfil;
       } else {
         //console.log ('else do getuser')
+        return false
       }
     });
-    //console.log('get user do fire auth retorno uid:', this.uid);
-    return this.uid;
+    //console.log('get user do fire auth ultimo retorno uid:', this.uid);
+    //return false;
   }
 
   async teste() {

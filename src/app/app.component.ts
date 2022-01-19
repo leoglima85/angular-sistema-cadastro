@@ -13,7 +13,9 @@ import { FirestoreService } from './services/firestore.service';
 export class AppComponent implements OnInit {
   title = 'angular-sistema-cadastro';
   username = "";
+  perfil = "";
   uid : any;
+  usuario :any;
 
   @ViewChild('sidenav') sidenav: MatSidenav | undefined;
   user: string | undefined;
@@ -24,20 +26,26 @@ export class AppComponent implements OnInit {
               private fs: FirestoreService
                )
     {
+      //this.usuario = this.fas.getUser();
+      
       getAuth().onAuthStateChanged( (user) => {
         if (user) {
           // User logged in already or has just logged in.
           this.uid = user.uid
-          //console.log(" fas uid",user);
+          // this.usuario = user;
+          // console.log(" fas user",user);
           this.getUserName(user.uid);
         } else {
           // User not logged in or has just logged out.
         }
       });
+      //console.log("usuario no app comp:", this.username); //nao tem nada ainda
     }
-  ngOnInit() {
+
+  async ngOnInit() {
     //console.log('*** OnInit -> ',this.fas.getAuth());
-    
+    // const teste =  this.fas.perfil;
+    // console.log("teste: ",teste)
   }
 
   logout() {
@@ -45,9 +53,12 @@ export class AppComponent implements OnInit {
   }
 
   async getUserName (uid : any) {
-     //console.log("AQUI",uid)
-
-     this.username = await this.fs.getUserDoc(uid);
+    // onsole.log("AQUI",uid)
+    let user : any;
+    user = await this.fs.getUserDoc(uid);
+    //console.log("user", user)
+     this.username = user.nome;
+     this.perfil = user.perfil;
      //console.log("username: ",this.username)
   }
 

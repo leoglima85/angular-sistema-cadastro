@@ -28,6 +28,7 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
   lista: string[] = ['Condomínio', 'Funcionário', 'Fornecedor', 'Condômino', 'Outros'];
   escolha: string = "";
   public tipo: string = "";
+  perfil = "";
   expandedElement: Generico = {
     id: '', nome: '', conta: '', agencia: '', banco: '',
     chavepix: '', cnpj: '', conselhofiscal1: '', proprietariocpf: '', locatariocpf: '',
@@ -47,11 +48,12 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
               public dialog: MatDialog,
               
   ) {
+    
+    }
 
-  }
-
-  ngOnInit(): void {
-
+  async ngOnInit() {
+    this.perfil = await this.fs.perfil;
+    console.log("perfil no consulta",this.perfil);
   }
 
   ngAfterViewInit() {

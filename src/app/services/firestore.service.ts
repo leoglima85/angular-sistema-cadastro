@@ -20,6 +20,7 @@ export class FirestoreService {
   db = getFirestore();
   colRef = collection(this.db, 'extrato');
   tipo = "";
+  public perfil = "";
   genericoTemp: any[] = [];
   public itens: Generico[] = [];
   public listaCondominios: any[] = [];
@@ -507,13 +508,14 @@ export class FirestoreService {
   }
 
   async getUserDoc(uid: any) {
-    let nome = "";
+    let nome : any// "";
     const q = query(collection(this.db, "User"), where('__name__', "==", uid));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      //console.log("nome: ",doc.data().nome)  
-      nome = doc.data().nome;
+      nome = doc.data();
     });
+    this.perfil = nome.perfil;
+    //console.log("perfil no fs: ",this.perfil)
     return nome;
   }
 

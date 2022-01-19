@@ -93,7 +93,7 @@
                   <mat-icon>edit</mat-icon>Editar
                 </button>
               </div>
-              <div class="botao-deletar">
+              <div class="botao-deletar" *ngIf="perfil == 'admin'">
                 <button (click)="openDialog(escolha,element.id)" mat-raised-button color="warn" routerLink="/consulta">
                   <mat-icon>delete_forever</mat-icon>Excluir
                 </button>

@@ -350,7 +350,7 @@
       <h1>Cadastro de Serviços</h1>
       <form #fse="ngForm" [formGroup]="cadastroServicoForm" class="example-form" (keyup.enter)="cadastrarServico()">
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Serviço </mat-label>
+          <mat-label>Nome do Serviço </mat-label>
           <input matInput formControlName="nome" name="nome">
         </mat-form-field>
       </form>
@@ -366,7 +366,7 @@
       <h1>Cadastro de Bancos</h1>
       <form #fba="ngForm" [formGroup]="cadastroBancoForm" class="example-form" (keyup.enter)="cadastrarBanco()">
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Banco </mat-label>
+          <mat-label>Nome do Banco </mat-label>
           <input matInput formControlName="nome" name="nome">
         </mat-form-field>
       </form>

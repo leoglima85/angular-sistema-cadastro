@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { collection, addDoc, getFirestore, getDocs, query, updateDoc, doc, orderBy, where, deleteDoc} from "firebase/firestore";
+import { collection, addDoc, getFirestore, getDocs, query, updateDoc, doc, orderBy, where, deleteDoc } from "firebase/firestore";
 import { Extrato } from 'src/app/models/extrato';
 import { Generico } from '../models/generico';
 import { FireauthservService } from './fireauthserv.service';
@@ -38,7 +38,7 @@ export class FirestoreService {
   constructor(private _snackBar: MatSnackBar,
     private router: Router,
     private fas: FireauthservService,
-    ) {
+  ) {
 
   }
 
@@ -64,7 +64,7 @@ export class FirestoreService {
     if (await this.checarCadastro("Condominio", "nome", dados.value.nome)) {
       try {
         await addDoc(collection(this.db, "Condominio"), dados.value);
-        
+
         await addDoc(collection(this.db, "Log"),
           {
             uusuarioID: this.fas.uid,
@@ -90,11 +90,11 @@ export class FirestoreService {
     if (await this.checarCadastro("Funcionario", "cpf", dados.value.cpf)) {
       try {
         await addDoc(collection(this.db, "Funcionario"), dados.value);
-        
+
         await addDoc(collection(this.db, "Log"),
           {
             usuarioID: this.fas.uid,
-          usuarioNome: this.fas.userName,
+            usuarioNome: this.fas.userName,
             data: new Date(),
             tipo: "Criação",
             tabela: "Funcionario",
@@ -123,11 +123,11 @@ export class FirestoreService {
       try {
         await addDoc(collection(this.db, "Fornecedor"),
           { ...dados.value, servicosPrestados: listaString });
-        
+
         await addDoc(collection(this.db, "Log"),
           {
             usuarioID: this.fas.uid,
-          usuarioNome: this.fas.userName,
+            usuarioNome: this.fas.userName,
             data: new Date(),
             tipo: "Criação",
             tabela: "Fornecedor",
@@ -149,11 +149,11 @@ export class FirestoreService {
     if (await this.checarCadastro("Condômino", "nome", dados.value.nome)) {
       try {
         await addDoc(collection(this.db, "Condomino"), dados.value);
-        
+
         await addDoc(collection(this.db, "Log"),
           {
             usuarioID: this.fas.uid,
-          usuarioNome: this.fas.userName,
+            usuarioNome: this.fas.userName,
             data: new Date(),
             tipo: "Criação",
             tabela: "Condomino",
@@ -178,7 +178,7 @@ export class FirestoreService {
           {
             nome: dados.value.nome,
           });
-        
+
         await addDoc(collection(this.db, "Log"),
           {
             uusuarioID: this.fas.uid,
@@ -205,11 +205,11 @@ export class FirestoreService {
           {
             nome: dados.value.nome,
           });
-        
+
         await addDoc(collection(this.db, "Log"),
           {
             usuarioID: this.fas.uid,
-          usuarioNome: this.fas.userName,
+            usuarioNome: this.fas.userName,
             data: new Date(),
             tipo: "Criação",
             tabela: "Servico",
@@ -232,11 +232,11 @@ export class FirestoreService {
           {
             nome: dados.value.nome,
           });
-        
+
         await addDoc(collection(this.db, "Log"),
           {
             usuarioID: this.fas.uid,
-          usuarioNome: this.fas.userName,
+            usuarioNome: this.fas.userName,
             data: new Date(),
             tipo: "Criação",
             tabela: "Banco",
@@ -397,11 +397,11 @@ export class FirestoreService {
       const q = query(collection(this.db, "Servico"), where('__name__', "==", i));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-        litaServicoConsulta += doc.data().nome+" ";
+        litaServicoConsulta += doc.data().nome + " ";
         return litaServicoConsulta;
       });
     }
-    
+
     return litaServicoConsulta;
   }
 
@@ -462,7 +462,7 @@ export class FirestoreService {
   async atualizaDoc(base: string, id: string, dados: any) {
     try {
       await updateDoc(doc(this.db, base, id), dados);
-      
+
       await addDoc(collection(this.db, "Log"),
         {
           usuarioID: this.fas.uid,
@@ -491,7 +491,7 @@ export class FirestoreService {
   }
 
   async getUserDoc(uid: any) {
-    let nome : any// "";
+    let nome: any// "";
     const q = query(collection(this.db, "User"), where('__name__', "==", uid));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -521,12 +521,13 @@ export class FirestoreService {
     const queryLogs = query(collection(this.db, "Log"), orderBy("data", "desc"));
 
     const querySnapshotCondominios = await getDocs(queryCondominios);
-    querySnapshotCondominios.forEach((doc) => { listaCondominios.push(doc.data())});
+    querySnapshotCondominios.forEach((doc) => { listaCondominios.push(doc.data()) });
     this.listaExportCondominios = listaCondominios;
     this.listaExportCondominios.forEach(async (item) => {
       if (item.banco) {
         item.banco = await this.getBancoNome(item.banco)
-      }});
+      }
+    });
 
     const querySnapshotFuncionario = await getDocs(queryFuncionarios);
     querySnapshotFuncionario.forEach((doc) => { listaFuncionarios.push(doc.data()) });
@@ -593,28 +594,28 @@ export class FirestoreService {
     });
   }
 
-  async deleteDoc(baseName: string, docID:string){
-      const q = query(collection(this.db, baseName), where('__name__', "==", docID));
-      const querySnapshot = await getDocs(q);
-      let reg : any;
-      if (querySnapshot.docs.length == 1){
-        const del = await deleteDoc(doc(this.db, baseName, docID));
-        querySnapshot.forEach((doc) => {
-          reg = doc.data();
-        });
-        const add = await addDoc(collection(this.db, "Log"),
-          {
-            usuarioID: this.fas.uid,
+  async deleteDoc(baseName: string, docID: string) {
+    const q = query(collection(this.db, baseName), where('__name__', "==", docID));
+    const querySnapshot = await getDocs(q);
+    let reg: any;
+    if (querySnapshot.docs.length == 1) {
+      const del = await deleteDoc(doc(this.db, baseName, docID));
+      querySnapshot.forEach((doc) => {
+        reg = doc.data();
+      });
+      const add = await addDoc(collection(this.db, "Log"),
+        {
+          usuarioID: this.fas.uid,
           usuarioNome: this.fas.userName,
-            data: new Date(),
-            tipo: "Exclusão",
-            tabela: baseName,
-            registro: reg,
-          });
-        this._snackBar.open("Deletado com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
-      }else {  
+          data: new Date(),
+          tipo: "Exclusão",
+          tabela: baseName,
+          registro: reg,
+        });
+      this._snackBar.open("Deletado com Sucesso", "", { duration: 4000, panelClass: ["snack-verde"] });
+    } else {
       this._snackBar.open("Falha ao deletar, verifique todas as informações e tente novamente", "", { duration: 4000, panelClass: ["snack-vermelho"] });
-      }
+    }
   }
 
 }

@@ -12,7 +12,7 @@ import { FirestoreService } from './services/firestore.service';
 })
 export class AppComponent implements OnInit {
   title = 'MCSM';
-  titleNavBar = "MCSM - Gerenciado de Condomínios"
+  titleNavBar = "MCSM - Gerenciador de Condomínios"
   username = "";
   perfil = "";
   uid : any;

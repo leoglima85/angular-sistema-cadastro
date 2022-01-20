@@ -8,7 +8,8 @@
                 <mat-card>
                     <mat-tab label="Criar Usuário">
                         !!! EM DESENVOLVIMENTO !!!
-
+                        
+                        <!-- <mat-progress-spinner mode="indeterminate"></mat-progress-spinner> -->
                     </mat-tab>
                 </mat-card>
                 <mat-card>
@@ -29,6 +30,8 @@
                     <button mat-raised-button color="warn" (click)="exportarBase()">Exportar Base</button>
                 </div>
             </div>
+            <mat-progress-spinner [value]="spinner" mode="determinate">.
+            </mat-progress-spinner>
         </mat-tab>
 
     </mat-card>

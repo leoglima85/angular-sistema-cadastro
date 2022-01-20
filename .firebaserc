@@ -1,14 +1,14 @@
 {
   "targets": {
-    "angular-sistema-cadastro": {
+    "adminmcsm": {
       "hosting": {
-        "angular-sistema-cadastro": [
-          "angular-sistema-cadastro"
+        "adminmcsm": [
+          "adminmcsm"
         ]
       }
     }
   },
   "projects": {
-    "default": "angular-sistema-cadastro"
+    "default": "adminmcsm"
   }
 }

@@ -11,7 +11,8 @@ import { FirestoreService } from './services/firestore.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'angular-sistema-cadastro';
+  title = 'MCSM';
+  titleNavBar = "MCSM - Gerenciado de Condomínios"
   username = "";
   perfil = "";
   uid : any;

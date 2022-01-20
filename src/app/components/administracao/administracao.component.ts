@@ -31,6 +31,7 @@ export class AdministracaoComponent implements OnInit {
     const listaServicos = this.fs.listaServicos;
     const listaBancos = this.fs.listaExportBancos;
     const listaCargos = this.fs.listaExportCargos;
+    const listaUsers = this.fs.listaExportUsers;
     const listaLogs = this.fs.listaExportLogs;
 
     const wsCondominios: XLSX.WorkSheet = XLSX.utils.json_to_sheet(listaCondominios);
@@ -47,6 +48,8 @@ export class AdministracaoComponent implements OnInit {
     XLSX.utils.book_append_sheet(wb, wsBancos, 'Bancos');
     const wsCargos: XLSX.WorkSheet = XLSX.utils.json_to_sheet(listaCargos);
     XLSX.utils.book_append_sheet(wb, wsCargos, 'Cargos');
+    const wsUsers: XLSX.WorkSheet = XLSX.utils.json_to_sheet(listaUsers);
+    XLSX.utils.book_append_sheet(wb, wsUsers, 'Users');
     const wsLogs: XLSX.WorkSheet = XLSX.utils.json_to_sheet(listaLogs);
     XLSX.utils.book_append_sheet(wb, wsLogs, 'Logs');
     /* save to file */

@@ -77,11 +77,7 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
 
   }
 
-  opcao(banco: string, cargo: string) {
-    //console.log(banco,cargo)
-    if (banco) { this.tipo = "banco" }
-    if (cargo) { this.tipo = "cargo" }
-  }
+  
 
  openDialog(base: string, id: string) {
     //console.log("base: ", base, "id: ", id);

@@ -1,13 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { consultarCep } from 'correios-brasil/dist';
-import {
-  collection, addDoc, getFirestore, getDocs,
-  query, updateDoc, doc, orderBy, where, setDoc, deleteDoc
-} from "firebase/firestore";
+import { collection, addDoc, getFirestore, getDocs, query, updateDoc, doc, orderBy, where, deleteDoc} from "firebase/firestore";
 import { Extrato } from 'src/app/models/extrato';
 import { Generico } from '../models/generico';
 import { FireauthservService } from './fireauthserv.service';
@@ -36,6 +31,7 @@ export class FirestoreService {
   public listaExportCondominos: any[] = [];
   public listaExportCargos: any[] = [];
   public listaExportBancos: any[] = [];
+  public listaExportUsers: any[] = [];
   public listaExportLogs: any[] = [];
 
 
@@ -69,12 +65,11 @@ export class FirestoreService {
     if (await this.checarCadastro("Condominio", "nome", dados.value.nome)) {
       try {
         await addDoc(collection(this.db, "Condominio"), dados.value);
-        let nomeID = await this.fas.getUser();
-        let userNome = this.fas.userName;
+        
         await addDoc(collection(this.db, "Log"),
           {
-            usuarioID: nomeID,
-            usuarioNome: userNome,
+            uusuarioID: this.fas.uid,
+            usuarioNome: this.fas.userName,
             data: new Date(),
             tipo: "Criação",
             tabela: "Condominio",
@@ -96,12 +91,11 @@ export class FirestoreService {
     if (await this.checarCadastro("Funcionario", "cpf", dados.value.cpf)) {
       try {
         await addDoc(collection(this.db, "Funcionario"), dados.value);
-        let nomeID = await this.fas.getUser();
-        let userNome = this.fas.userName;
+        
         await addDoc(collection(this.db, "Log"),
           {
-            usuarioID: nomeID,
-            usuarioNome: userNome,
+            usuarioID: this.fas.uid,
+          usuarioNome: this.fas.userName,
             data: new Date(),
             tipo: "Criação",
             tabela: "Funcionario",
@@ -130,12 +124,11 @@ export class FirestoreService {
       try {
         await addDoc(collection(this.db, "Fornecedor"),
           { ...dados.value, servicosPrestados: listaString });
-        let nomeID = await this.fas.getUser();
-        let userNome = this.fas.userName;
+        
         await addDoc(collection(this.db, "Log"),
           {
-            usuarioID: nomeID,
-            usuarioNome: userNome,
+            usuarioID: this.fas.uid,
+          usuarioNome: this.fas.userName,
             data: new Date(),
             tipo: "Criação",
             tabela: "Fornecedor",
@@ -157,12 +150,11 @@ export class FirestoreService {
     if (await this.checarCadastro("Condômino", "nome", dados.value.nome)) {
       try {
         await addDoc(collection(this.db, "Condomino"), dados.value);
-        let nomeID = await this.fas.getUser();
-        let userNome = this.fas.userName;
+        
         await addDoc(collection(this.db, "Log"),
           {
-            usuarioID: nomeID,
-            usuarioNome: userNome,
+            usuarioID: this.fas.uid,
+          usuarioNome: this.fas.userName,
             data: new Date(),
             tipo: "Criação",
             tabela: "Condomino",
@@ -187,12 +179,11 @@ export class FirestoreService {
           {
             nome: dados.value.nome,
           });
-        let nomeID = await this.fas.getUser();
-        let userNome = this.fas.userName;
+        
         await addDoc(collection(this.db, "Log"),
           {
-            usuarioID: nomeID,
-            usuarioNome: userNome,
+            uusuarioID: this.fas.uid,
+            usuarioNome: this.fas.userName,
             data: new Date(),
             tipo: "Criação",
             tabela: "Cargo",
@@ -215,12 +206,11 @@ export class FirestoreService {
           {
             nome: dados.value.nome,
           });
-        let nomeID = await this.fas.getUser();
-        let userNome = this.fas.userName;
+        
         await addDoc(collection(this.db, "Log"),
           {
-            usuarioID: nomeID,
-            usuarioNome: userNome,
+            usuarioID: this.fas.uid,
+          usuarioNome: this.fas.userName,
             data: new Date(),
             tipo: "Criação",
             tabela: "Servico",
@@ -243,12 +233,11 @@ export class FirestoreService {
           {
             nome: dados.value.nome,
           });
-        let nomeID = await this.fas.getUser();
-        let userNome = this.fas.userName;
+        
         await addDoc(collection(this.db, "Log"),
           {
-            usuarioID: nomeID,
-            usuarioNome: userNome,
+            usuarioID: this.fas.uid,
+          usuarioNome: this.fas.userName,
             data: new Date(),
             tipo: "Criação",
             tabela: "Banco",
@@ -459,7 +448,6 @@ export class FirestoreService {
     });
     this.listaLogs = lista;
     this.listaLogs.forEach(async (item) => {
-      //console.log(item);
       if (item.registro.condominio) {
         item.registro.condominio = await this.getCondominioNome(item.registro.condominio)
       }
@@ -478,12 +466,13 @@ export class FirestoreService {
   async atualizaDoc(base: string, id: string, dados: any) {
     try {
       await updateDoc(doc(this.db, base, id), dados);
-      let nomeID = await this.fas.getUser();
-      let userNome = this.fas.userName;
+      //let nomeID = await this.fas.getUser();
+      //console.log("nomeID: ",this.fas.uid)
+      //let userNome = this.fas.userName;
       await addDoc(collection(this.db, "Log"),
         {
-          usuarioID: nomeID,
-          usuarioNome: userNome,
+          usuarioID: this.fas.uid,
+          usuarioNome: this.fas.userName,
           data: new Date(),
           tipo: "Alteração",
           tabela: base,
@@ -527,6 +516,7 @@ export class FirestoreService {
     const listaCargos: any[] = [];
     const listaBancos: any[] = [];
     const listaLogs: any[] = [];
+    const listaUsers: any[] = [];
 
     const queryCondominios = query(collection(this.db, "Condominio"), orderBy("nome", "asc"));
     const queryFuncionarios = query(collection(this.db, "Funcionario"), orderBy("nome", "asc"));
@@ -534,23 +524,52 @@ export class FirestoreService {
     const queryCondominos = query(collection(this.db, "Condomino"), orderBy("nome", "asc"));
     const queryCargos = query(collection(this.db, "Cargo"), orderBy("nome", "asc"));
     const queryBancos = query(collection(this.db, "Banco"), orderBy("nome", "asc"));
+    const queryUsers = query(collection(this.db, "User"), orderBy("nome", "asc"));
     const queryLogs = query(collection(this.db, "Log"), orderBy("data", "desc"));
 
     const querySnapshotCondominios = await getDocs(queryCondominios);
-    querySnapshotCondominios.forEach((doc) => { listaCondominios.push(doc.data()) });
+    querySnapshotCondominios.forEach((doc) => { listaCondominios.push(doc.data())});
     this.listaExportCondominios = listaCondominios;
+    this.listaExportCondominios.forEach(async (item) => {
+      if (item.banco) {
+        item.banco = await this.getBancoNome(item.banco)
+      }});
 
     const querySnapshotFuncionario = await getDocs(queryFuncionarios);
     querySnapshotFuncionario.forEach((doc) => { listaFuncionarios.push(doc.data()) });
     this.listaExportFuncionarios = listaFuncionarios;
+    this.listaExportFuncionarios.forEach(async (item) => {
+      if (item.condominio) {
+        item.condominio = await this.getCondominioNome(item.condominio)
+      }
+      if (item.cargo) {
+        item.cargo = await this.getCargoNome(item.cargo)
+      }
+      if (item.banco) {
+        item.banco = await this.getBancoNome(item.banco)
+      }
+    });
 
     const querySnapshotFornecedor = await getDocs(queryFornecedores);
     querySnapshotFornecedor.forEach((doc) => { listaFornecedores.push(doc.data()) });
     this.listaExportFornecedores = listaFornecedores;
+    this.listaExportFornecedores.forEach(async (item) => {
+      if (item.banco) {
+        item.banco = await this.getBancoNome(item.banco)
+      }
+      if (item.servicosPrestados) {
+        item.servicosPrestados = await this.getServicoNome(item.servicosPrestados)
+      }
+    });
 
     const querySnapshotCondomino = await getDocs(queryCondominos);
     querySnapshotCondomino.forEach((doc) => { listaCondominos.push(doc.data()) });
     this.listaExportCondominos = listaCondominos;
+    this.listaExportCondominos.forEach(async (item) => {
+      if (item.condominio) {
+        item.condominio = await this.getCondominioNome(item.condominio)
+      }
+    });
 
     const querySnapshotCargos = await getDocs(queryCargos);
     querySnapshotCargos.forEach((doc) => { listaCargos.push(doc.data()) });
@@ -559,6 +578,10 @@ export class FirestoreService {
     const querySnapshotBancos = await getDocs(queryBancos);
     querySnapshotBancos.forEach((doc) => { listaBancos.push(doc.data()) });
     this.listaExportBancos = listaBancos;
+
+    const querySnapshoUsers = await getDocs(queryUsers);
+    querySnapshoUsers.forEach((doc) => { listaUsers.push(doc.data()) });
+    this.listaExportUsers = listaUsers;
 
     const querySnapshotLogs = await getDocs(queryLogs);
     querySnapshotLogs.forEach((doc) => { listaLogs.push({ ...doc.data(), registro: JSON.stringify(doc.data().registro) }) });
@@ -580,8 +603,6 @@ export class FirestoreService {
   async deleteDoc(baseName: string, docID:string){
       const q = query(collection(this.db, baseName), where('__name__', "==", docID));
       const querySnapshot = await getDocs(q);
-      let nomeID = await this.fas.getUser();
-      let userNome = this.fas.userName;
       let reg : any;
       if (querySnapshot.docs.length == 1){
         const del = await deleteDoc(doc(this.db, baseName, docID));
@@ -590,8 +611,8 @@ export class FirestoreService {
         });
         const add = await addDoc(collection(this.db, "Log"),
           {
-            usuarioID: nomeID,
-            usuarioNome: userNome,
+            usuarioID: this.fas.uid,
+          usuarioNome: this.fas.userName,
             data: new Date(),
             tipo: "Exclusão",
             tabela: baseName,

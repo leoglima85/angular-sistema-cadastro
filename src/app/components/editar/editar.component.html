@@ -346,12 +346,66 @@
 		
     </mat-card>
 </form>
-<!-- ******************** OUTROS ********************************** -->
-<form #updateOutros="ngForm">
-    <mat-card *ngIf="docEscolha =='Outros' ">
-        <h3>EM DESENVOLVIMENTO!!!</h3>
+<!-- ******************** BANCO ********************************** -->
+<form #updateBanco="ngForm">
+    <mat-card *ngIf="docEscolha =='Banco' ">
+        <mat-form-field class="example-full-width proprietario" appearance="fill">
+            <mat-label>Banco </mat-label>
+            <input matInput [(ngModel)]="docInfos.nome" name="nome" required>
+        </mat-form-field>
 
         <br>
-        <!-- <button [disabled]="!updateOutros.valid" mat-raised-button color="primary">Salvar</button> -->
+        <div class="botoes">
+            <div class="botao-salvar">
+                <button [disabled]="!updateBanco.valid" (click)="salvarAlteracaoBanco()" mat-raised-button
+            color="primary">Salvar</button>
+            </div>
+            <div class="botao-cancelar">
+                <button  (click)="cancelarAlteracao()" mat-raised-button
+                    color="warn">Cancelar</button>
+            </div>
+        </div>
+    </mat-card>
+</form>
+<!-- ******************** CARGO ********************************** -->
+<form #updateCargo="ngForm">
+    <mat-card *ngIf="docEscolha =='Cargo' ">
+        <mat-form-field class="example-full-width proprietario" appearance="fill">
+            <mat-label>Cargo </mat-label>
+            <input matInput [(ngModel)]="docInfos.nome" name="nome" required>
+        </mat-form-field>
+
+        <br>
+        <div class="botoes">
+            <div class="botao-salvar">
+                <button [disabled]="!updateCargo.valid" (click)="salvarAlteracaoCargo()" mat-raised-button
+            color="primary">Salvar</button>
+            </div>
+            <div class="botao-cancelar">
+                <button  (click)="cancelarAlteracao()" mat-raised-button
+                    color="warn">Cancelar</button>
+            </div>
+        </div>
+    </mat-card>
+</form>
+<!-- ******************** SERVICO ********************************** -->
+<form #updateServico="ngForm">
+    <mat-card *ngIf="docEscolha =='Servico' ">
+        <mat-form-field class="example-full-width proprietario" appearance="fill">
+            <mat-label>Servico </mat-label>
+            <input matInput [(ngModel)]="docInfos.nome" name="nome" required>
+        </mat-form-field>
+
+        <br>
+        <div class="botoes">
+            <div class="botao-salvar">
+                <button [disabled]="!updateServico.valid" (click)="salvarAlteracaoServico()" mat-raised-button
+            color="primary">Salvar</button>
+            </div>
+            <div class="botao-cancelar">
+                <button  (click)="cancelarAlteracao()" mat-raised-button
+                    color="warn">Cancelar</button>
+            </div>
+        </div>
     </mat-card>
 </form>

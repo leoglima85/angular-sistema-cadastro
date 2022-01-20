@@ -217,6 +217,27 @@ export class EditarComponent implements OnInit {
     await this.fs.atualizaDoc(this.docEscolha, this.docID, data);
   }
 
+  async salvarAlteracaoBanco() {
+    const data = {
+      nome: this.docInfos.nome,
+    };
+    await this.fs.atualizaDoc(this.docEscolha, this.docID, data);
+  }
+
+  async salvarAlteracaoCargo() {
+    const data = {
+      nome: this.docInfos.nome,
+    };
+    await this.fs.atualizaDoc(this.docEscolha, this.docID, data);
+  }
+
+  async salvarAlteracaoServico() {
+    const data = {
+      nome: this.docInfos.nome,
+    };
+    await this.fs.atualizaDoc(this.docEscolha, this.docID, data);
+  }
+
   marcarServico(i: number, event: any) {
 
     this.listaServicos[i].checked = event.checked;

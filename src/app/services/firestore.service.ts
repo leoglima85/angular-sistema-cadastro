@@ -35,7 +35,6 @@ export class FirestoreService {
   public listaExportLogs: any[] = [];
 
 
-
   constructor(private _snackBar: MatSnackBar,
     private router: Router,
     private fas: FireauthservService,
@@ -414,7 +413,6 @@ export class FirestoreService {
       lista.push({ ...doc.data(), cargoID: doc.id });
     });
     this.listaCargos = lista;
-    //console.log("lista de cargos", lista);
   }
 
   async getBancosDocs() {
@@ -425,7 +423,6 @@ export class FirestoreService {
       lista.push({ ...doc.data(), bancoID: doc.id });
     });
     this.listaBancos = lista;
-    //console.log("lista de bancos", lista);
   }
 
   async getServicosDocs() {
@@ -436,7 +433,6 @@ export class FirestoreService {
       lista.push({ ...doc.data(), checked: false, servicoID: doc.id });
     });
     this.listaServicos = lista;
-    //console.log("lista de servicos", lista);
   }
 
   async getLogsDocs() {
@@ -466,9 +462,7 @@ export class FirestoreService {
   async atualizaDoc(base: string, id: string, dados: any) {
     try {
       await updateDoc(doc(this.db, base, id), dados);
-      //let nomeID = await this.fas.getUser();
-      //console.log("nomeID: ",this.fas.uid)
-      //let userNome = this.fas.userName;
+      
       await addDoc(collection(this.db, "Log"),
         {
           usuarioID: this.fas.uid,
@@ -504,7 +498,6 @@ export class FirestoreService {
       nome = doc.data();
     });
     this.perfil = nome.perfil;
-    //console.log("perfil no fs: ",this.perfil)
     return nome;
   }
 

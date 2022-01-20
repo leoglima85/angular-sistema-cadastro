@@ -109,6 +109,8 @@ export class EditarComponent implements OnInit {
       this.docInfos.endereco = doc.data().endereco;
       this.docInfos.id = doc.id;
       this.docInfos.locatario = doc.data().locatario;
+      this.docInfos.locatariocpf = doc.data().locatariocpf;
+      this.docInfos.proprietariocpf = doc.data().proprietariocpf;
       this.docInfos.nome = doc.data().nome;
       this.docInfos.observacao = doc.data().observacao;
       this.docInfos.operacao = doc.data().operacao;
@@ -169,7 +171,7 @@ export class EditarComponent implements OnInit {
       email: this.docInfos.email,
       condominio: this.docInfos.condominio
     };
-    console.log("data:",data)
+    //console.log("data:",data)
     await this.fs.atualizaDoc(this.docEscolha, this.docID, data);
   }
 

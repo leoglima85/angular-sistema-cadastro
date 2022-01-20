@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import * as XLSX from 'xlsx';
 
@@ -10,14 +11,17 @@ import * as XLSX from 'xlsx';
 })
 export class AdministracaoComponent implements OnInit {
   fileName = 'BaseDeDados.xlsx';
+  spinner = 0;
 
   constructor(private fs: FirestoreService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
 
   async exportarBase() {
+    this._snackBar.open("Carregando, aguarde!", "", { duration: 5000, panelClass: ["snack-vermelho"] });
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     await this.fs.carregarBaseCompleta();
     await this.fs.getBancosDocs();

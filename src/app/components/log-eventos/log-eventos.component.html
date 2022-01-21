@@ -75,13 +75,17 @@
                   Prestados:</b>{{element.registro.servicosPrestados}} </div>
               <div class="example-element-cpf" *ngIf="element.registro.cpf"><b> CPF:</b> {{element.registro.cpf | mask:"000.000.000-00"}}
               </div>
-              <div class="example-element-admissao" *ngIf="element.registro.admissao"><b> Admissão:</b> {{element.registro.admissao | mask:"d0/M0/0000"}}
-              </div>
+              <div class="example-element-rg" *ngIf="element.registro.rg"><b> RG:</b> {{element.registro.rg | mask:"00000000-00"}}</div>
+              <div class="example-element-pis" *ngIf="element.registro.pis"><b> PIS:</b> {{element.registro.pis | mask:"000.00000.00-0"}}</div>
+              <div class="example-element-filiacaopai" *ngIf="element.registro.filiacaopai"><b> Filiação Pai:</b> {{element.registro.filiacaopai}}</div>
+              <div class="example-element-filiacaomae" *ngIf="element.registro.filiacaomae"><b> Filiação Mãe:</b> {{element.registro.filiacaomae}}</div>
+              <div class="example-element-admissao" *ngIf="element.registro.admissao"><b> Admissão:</b> {{element.registro.admissao | mask:"00/00/0000"}}</div>
+              <div class="example-element-nascimento" *ngIf="element.registro.nascimento"><b> Nascimento:</b> {{element.registro.nascimento | mask:"00/00/0000"}}</div>
               <div class="example-element-cargo" *ngIf="element.registro.cargo"><b> Cargo:</b> {{element.registro.cargo}} </div>
               <div class="example-element-apelido" *ngIf="element.registro.apelido"><b> Apelido:</b> {{element.registro.apelido}} </div>
             </div>
             <div class="example-element-editar">
-              
+
             </div>
           </div>
         </td>

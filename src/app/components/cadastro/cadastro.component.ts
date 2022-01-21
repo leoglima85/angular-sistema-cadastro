@@ -67,6 +67,11 @@ export class CadastroComponent implements OnInit {
       admissao: ['', [Validators.required]],
       email: ['', [Validators.email]],
       observacao: ['', []],
+      filiacaopai: ['', []],
+      filiacaomae: ['', []],
+      pis: ['', []],
+      rg: ['', []],
+      nascimento: ['', []],
     });
     this.cadastroFornecedorForm = this.fb.group({
       cnpj: ['', []],

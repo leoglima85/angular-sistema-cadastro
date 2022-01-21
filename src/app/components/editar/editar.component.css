@@ -1,7 +1,7 @@
 .h1-titulo{
   text-align: center;
   padding-top: 15px;
-      
+
 }
 .example-full-width {
     width: 100%;
@@ -42,109 +42,133 @@
     width: 30%;
     padding-right: 2%;
   }
-  
+
   .telefone {
     width: 30%;
     padding-right: 2%;
   }
-  
+
   .email-cond {
     width: 36%;
   }
-  
+
   .sindico{
     width: 75%;
     padding-right: 2%;
   }
-  
+
   .sindicocpf{
     width: 23%;
   }
-  
+
   .nome{
-    width: 70%;
+    width: 80%;
     padding-right: 2%;
   }
-  
+
   .cpf{
-    width: 28%;
+    width: 32%;
   }
-  
+
+  .rg{
+    padding-left: 2%;
+    width: 32%;
+  }
+
+  .pis{
+    padding-left: 2%;
+    width: 32%;
+  }
+
+  .filiacaopai{
+    width: 48%;
+  }
+
+  .nascimento{
+    padding-left: 2%;
+    width: 16%;
+  }
+
+  .filiacaomae{
+    padding-left: 2%;
+    width: 50%;
+  }
+
   .email-func{
-    width: 44%;
-    padding-right: 2%;
+    width: 42%;
+    padding-left: 2%;
   }
-  
+
   .telefone-func{
-    width: 15%;
-    padding-right: 2%;
+    width: 18%;
+
   }
-  
+
   .admissao{
     width: 15%;
-  
+
   }
-  
+
   .cargo{
     width: 20%;
     padding-right: 2%;
   }
-  
+
   .nome-forn{
     width: 48%;
     padding-right: 2%;
   }
-  
+
   .apelido-forn{
     width: 50%;
   }
-  
+
   .cnpj-forn{
     width: 48%;
     padding-right: 2%;
   }
-  
+
   .cpf-forn{
     width: 50%;
-    
+
   }
-  
+
   .end-forn{
     width: 50%;
-    
+
   }
-  
+
   .tel-forn{
     width: 48%;
     padding-right: 2%;
-  
+
   }
-  
+
   .condominio-cond{
     width: 80%;
     padding-right: 2%;
   }
-  
+
   .unidade{
     width: 18%;
-  
+
   }
-  
+
   .proprietario{
     width: 80%;
     padding-right: 2%;
   }
-  
+
   .proprietariocpf{
     width: 18%;
-  
+
   }
-  
+
   .locatario-nome{
     width: 80%;
     padding-right: 2%;
   }
-  
+
   .locatario-cpf{
     width: 18%;
   }
@@ -179,19 +203,19 @@
   padding-left: 10px;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    margin: 0; 
+    margin: 0;
 }
 
 .botoes{
   padding-left: 10px;
   padding-right: 15px;
   display: flex;
-  
+
 }
 
 .botao-cancelar{
@@ -199,5 +223,5 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .botao-salvar{
-  
+
 }

@@ -1,26 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { collection, doc, getDocs, getFirestore, query, where } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from 'firebase/firestore';
 import { Generico } from 'src/app/models/generico';
 import { FirestoreService } from 'src/app/services/firestore.service';
-
 
 export interface listaServico {
   nome: string;
   checked: boolean;
-  servicoID : string;
+  servicoID: string;
 }
 
 @Component({
   selector: 'app-editar',
   templateUrl: './editar.component.html',
-  styleUrls: ['./editar.component.css']
+  styleUrls: ['./editar.component.css'],
 })
-
 export class EditarComponent implements OnInit {
-  docID = "";
-  docEscolha = "";
-  docTipo = "";
+  docID = '';
+  docEscolha = '';
+  docTipo = '';
   db = getFirestore();
   listaCondominios: any[] = [];
   listaCargos: any[] = [];
@@ -28,21 +33,50 @@ export class EditarComponent implements OnInit {
   listaServicos: listaServico[] = [];
   listaServicosPrestados: listaServico[] = [];
   docInfos: Generico = {
-    id: '', nome: '', conta: '', agencia: '', banco: '',
-    chavepix: '', cnpj: '', conselhofiscal1: '',
-    conselhofiscal2: '', conselhofiscal3: '', proprietariocpf: '', locatariocpf: '',
-    cpfconselhofiscal1: '', cpfconselhofiscal2: '',
-    cpfconselhofiscal3: '', cpfsindico: '', email: '',
-    endereco: '', operacao: '', pix: '', sindico: '',
-    telefone: '', unidade: '', apelido: '', titular: '',
-    locatario: '', observacao: '', condominio: '',
-    servicosPrestados: '', cpf: '', admissao: '', cargo: '',
+    id: '',
+    nome: '',
+    conta: '',
+    agencia: '',
+    banco: '',
+    chavepix: '',
+    cnpj: '',
+    conselhofiscal1: '',
+    conselhofiscal2: '',
+    conselhofiscal3: '',
+    proprietariocpf: '',
+    locatariocpf: '',
+    cpfconselhofiscal1: '',
+    cpfconselhofiscal2: '',
+    cpfconselhofiscal3: '',
+    cpfsindico: '',
+    email: '',
+    endereco: '',
+    operacao: '',
+    pix: '',
+    sindico: '',
+    telefone: '',
+    unidade: '',
+    apelido: '',
+    titular: '',
+    locatario: '',
+    observacao: '',
+    condominio: '',
+    servicosPrestados: '',
+    cpf: '',
+    admissao: '',
+    cargo: '',
+    filiacaomae: '',
+    pis: '',
+    rg: '',
+    nascimento: '',
+    filiacaopai: '',
   };
 
-  constructor(private ar: ActivatedRoute,
-              private router: Router,
-              private fs: FirestoreService,
-  ) { }
+  constructor(
+    private ar: ActivatedRoute,
+    private router: Router,
+    private fs: FirestoreService
+  ) {}
 
   async ngOnInit() {
     this.ar.params.subscribe((obj) => {
@@ -50,7 +84,6 @@ export class EditarComponent implements OnInit {
       this.docEscolha = obj.escolha;
       //this.docTipo = this.fs.tipo;
       //console.log("tipo: ",this.docTipo)
-
     });
     await this.fs.getCondominioDocs();
     await this.fs.getCargosDocs();
@@ -63,28 +96,26 @@ export class EditarComponent implements OnInit {
     //console.log("lista cond: ",this.listaCondominios)
     // if (this.cons.tipo == "banco") {console.log("é Banco")}
     // if (this.cons.tipo == 'Cargo') {console.log("é Cargo")}
-    await this.getDoc(this.docID, this.docEscolha)
+    await this.getDoc(this.docID, this.docEscolha);
     if (this.docInfos.servicosPrestados) {
       const listaArr = this.docInfos.servicosPrestados.split(' ');
       listaArr.pop();
       //console.log("listaArr",listaArr)
       for (let servicoID of listaArr) {
         //console.log("serv:",servicoID);
-        if (servicoID != "") {
+        if (servicoID != '') {
           for (let ls of this.listaServicos) {
             //console.log("ls:",ls);
             //console.log("ls.nome:",ls.nome,"serv:",servicoID);
-            if (ls.servicoID == servicoID)
-              ls.checked = true;
+            if (ls.servicoID == servicoID) ls.checked = true;
           }
         }
       }
     }
-
   }
 
   async getDoc(id: string, tipo: string) {
-    const q = query(collection(this.db, tipo), where('__name__', "==", id));
+    const q = query(collection(this.db, tipo), where('__name__', '==', id));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       //console.log(doc.id, " => ", doc.data());
@@ -120,10 +151,14 @@ export class EditarComponent implements OnInit {
       this.docInfos.telefone = doc.data().telefone;
       this.docInfos.titular = doc.data().titular;
       this.docInfos.unidade = doc.data().unidade;
+      this.docInfos.filiacaomae = doc.data().filiacaomae;
+      this.docInfos.filiacaopai = doc.data().filiacaopai;
+      this.docInfos.pis = doc.data().pis;
+      this.docInfos.rg = doc.data().rg;
+      this.docInfos.nascimento = doc.data().nascimento;
     });
     //preencher a listaServiços
     //console.log("lista serviços prestados: ",this.docInfos.servicosPrestados);
-
   }
 
   async salvarAlteracaoCondominio() {
@@ -147,7 +182,6 @@ export class EditarComponent implements OnInit {
       conselhofiscal3: this.docInfos.conselhofiscal3,
       cpfconselhofiscal3: this.docInfos.cpfconselhofiscal3,
       email: this.docInfos.email,
-
     };
     await this.fs.atualizaDoc(this.docEscolha, this.docID, data);
   }
@@ -169,7 +203,12 @@ export class EditarComponent implements OnInit {
       pix: this.docInfos.pix,
       chavepix: this.docInfos.chavepix,
       email: this.docInfos.email,
-      condominio: this.docInfos.condominio
+      condominio: this.docInfos.condominio,
+      filiacaomae: this.docInfos.filiacaomae,
+      pis: this.docInfos.pis,
+      rg: this.docInfos.rg,
+      nascimento: this.docInfos.nascimento,
+      filiacaopai: this.docInfos.filiacaopai,
     };
     //console.log("data:",data)
     await this.fs.atualizaDoc(this.docEscolha, this.docID, data);
@@ -177,10 +216,10 @@ export class EditarComponent implements OnInit {
 
   async salvarAlteracaoFornecedor() {
     //console.log("lista :", this.listaServicos);
-    let listaString = "";
+    let listaString = '';
     for (let i of this.listaServicos) {
       if (i.checked == true) {
-        listaString += i.servicoID + " ";
+        listaString += i.servicoID + ' ';
       }
     }
     //console.log("listastring :",listaString);
@@ -200,7 +239,6 @@ export class EditarComponent implements OnInit {
       conta: this.docInfos.conta,
       operacao: this.docInfos.operacao,
       observacao: this.docInfos.observacao,
-
     };
     await this.fs.atualizaDoc(this.docEscolha, this.docID, data);
   }
@@ -241,15 +279,10 @@ export class EditarComponent implements OnInit {
   }
 
   marcarServico(i: number, event: any) {
-
     this.listaServicos[i].checked = event.checked;
-
   }
 
-  cancelarAlteracao(){
+  cancelarAlteracao() {
     this.router.navigate(['consulta']);
   }
-
-
 }
-

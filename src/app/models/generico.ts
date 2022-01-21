@@ -31,4 +31,9 @@ export interface Generico {
   apelido: string;
   proprietariocpf: string;
   locatariocpf: string;
+  rg: string;
+  pis: string;
+  nascimento: string;
+  filiacaopai: string;
+  filiacaomae: string;
 }

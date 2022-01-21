@@ -101,26 +101,50 @@
 }
 
 .nome{
-  width: 70%;
+  width: 80%;
   padding-right: 2%;
 }
 
 .cpf{
-  width: 28%;
+  width: 32%;
+}
+
+.rg{
+  padding-left: 2%;
+  width: 32%;
+}
+
+.pis{
+  padding-left: 2%;
+  width: 32%;
+}
+
+.filiacaopai{
+  width: 48%;
+}
+
+.nascimento{
+  padding-left: 2%;
+  width: 16%;
+}
+
+.filiacaomae{
+  padding-left: 2%;
+  width: 50%;
 }
 
 .email-func{
-  width: 40%;
-  padding-right: 2%;
+  width: 42%;
+  padding-left: 2%;
 }
 
 .telefone-func{
-  width: 15%;
-  padding-right: 2%;
+  width: 18%;
+
 }
 
 .admissao{
-  width: 19%;
+  width: 16%;
 
 }
 
@@ -195,18 +219,18 @@
   width: 18%;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    margin: 0; 
+    margin: 0;
 }
 
 .botoes{
   display: flex;
-  
-  
+
+
 }
 
 .botao-cancelar{
@@ -214,5 +238,5 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .botao-salvar{
-  
+
 }

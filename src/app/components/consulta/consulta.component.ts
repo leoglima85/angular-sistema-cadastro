@@ -1,8 +1,20 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { Generico } from 'src/app/models/generico';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,48 +29,77 @@ import { Router } from '@angular/router';
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
       state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+      transition(
+        'expanded <=> collapsed',
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ),
     ]),
   ],
 })
-
 export class ConsultaComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['nome'];
   dataSource2!: MatTableDataSource<Generico>;
-  lista: string[] = ['Condomínio', 'Funcionário', 'Fornecedor', 'Condômino', 'Outros'];
-  escolha: string = "";
-  public tipo: string = "";
-  perfil = "";
+  lista: string[] = [
+    'Condomínio',
+    'Funcionário',
+    'Fornecedor',
+    'Condômino',
+    'Outros',
+  ];
+  escolha: string = '';
+  public tipo: string = '';
+  perfil = '';
   expandedElement: Generico = {
-    id: '', nome: '', conta: '', agencia: '', banco: '',
-    chavepix: '', cnpj: '', conselhofiscal1: '', proprietariocpf: '', locatariocpf: '',
-    conselhofiscal2: '', conselhofiscal3: '',
-    cpfconselhofiscal1: '', cpfconselhofiscal2: '',
-    cpfconselhofiscal3: '', cpfsindico: '', email: '',
-    endereco: '', operacao: '', pix: '', sindico: '',
-    telefone: '', unidade: '', apelido: '', titular: '',
-    locatario: '', condominio: '', observacao: '',
-    servicosPrestados: '', cpf: '', admissao: '', cargo: '',
+    id: '',
+    nome: '',
+    conta: '',
+    agencia: '',
+    banco: '',
+    chavepix: '',
+    cnpj: '',
+    conselhofiscal1: '',
+    proprietariocpf: '',
+    locatariocpf: '',
+    conselhofiscal2: '',
+    conselhofiscal3: '',
+    cpfconselhofiscal1: '',
+    cpfconselhofiscal2: '',
+    cpfconselhofiscal3: '',
+    cpfsindico: '',
+    email: '',
+    endereco: '',
+    operacao: '',
+    pix: '',
+    sindico: '',
+    telefone: '',
+    unidade: '',
+    apelido: '',
+    titular: '',
+    locatario: '',
+    condominio: '',
+    observacao: '',
+    servicosPrestados: '',
+    cpf: '',
+    admissao: '',
+    cargo: '',
+    filiacaomae: '',
+    pis: '',
+    rg: '',
+    nascimento: '',
+    filiacaopai: '',
   };
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private fs: FirestoreService,
-              public dialog: MatDialog,
-              
-  ) {
-    
-    }
+  constructor(private fs: FirestoreService, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.perfil = this.fs.perfil;
     //console.log("perfil no consulta",this.perfil);
   }
 
-  ngAfterViewInit() {
-
-  }
+  ngAfterViewInit() {}
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -74,20 +115,16 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
     this.dataSource2 = new MatTableDataSource(this.fs.itens);
     this.dataSource2.paginator = this.paginator;
     this.dataSource2.sort = this.sort;
-
   }
 
-  
-
- openDialog(base: string, id: string) {
+  openDialog(base: string, id: string) {
     //console.log("base: ", base, "id: ", id);
     const dialogRef = this.dialog.open(DialogComponent);
-    dialogRef.afterClosed().subscribe(async result => {
+    dialogRef.afterClosed().subscribe(async (result) => {
       if (result) {
-        await this.fs.deleteDoc(base,id);
+        await this.fs.deleteDoc(base, id);
         this.filtrar(this.escolha);
       }
     });
   }
-
 }

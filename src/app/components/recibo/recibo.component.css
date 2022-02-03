@@ -1,0 +1,27 @@
+.titulo{
+  text-align: center;
+}
+
+.texto{
+  padding: 25px;
+}
+
+.assinaturas{
+  display: flex;
+
+}
+
+.localData{
+  width: 30%;
+}
+
+.assinatura{
+
+  width: 30%;
+}
+
+.recebedor{
+
+  width: 30%;
+}
+

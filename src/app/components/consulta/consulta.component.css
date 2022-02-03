@@ -13,8 +13,8 @@ table {
 
   .escolha {
     width: 150px;
-    
-    
+
+
   }
 
   table {
@@ -75,7 +75,7 @@ table {
     padding: 15px;
   }
 
-  
+
   .tabela{
     padding: 15px;
   }
@@ -88,4 +88,22 @@ table {
     padding-top: 5px;
   }
 
-  
+  .tabela-contratos{
+    padding: 0px;
+    border: 1px solid black;
+    table-layout: auto;
+
+  }
+
+  .tabela-titulos{
+    text-align: center;
+
+    border: 1px solid black;
+  }
+
+  .tabela-dados{
+
+    border: 1px solid black;
+    text-align: center;
+  }
+

@@ -1,3 +1,4 @@
+import { Servico } from './../components/dashboard/dashboard.component';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -32,6 +33,8 @@ export class FirestoreService {
   public listaCargos: any[] = [];
   public listaBancos: any[] = [];
   public listaServicos: any[] = [];
+  public listaContratos: any[] = [];
+  public listaFornecedores: any[] = [];
   public listaServicosNomes: any[] = [];
   public listaLogs: any[] = [];
 
@@ -330,115 +333,66 @@ export class FirestoreService {
     }
   }
 
-  async getConsultaDocs(opt: string) {
-    this.itens = [];
-    const outros = ['Servico', 'Banco', 'Cargo'];
-    if (opt == 'Outros') {
-      for (let i of outros) {
-        const t = query(collection(this.db, i), orderBy('nome', 'asc'));
-        const qsnp = await getDocs(t);
-        qsnp.forEach((doc) => {
-          const item: any = { nome: '' };
-          this.genericoTemp.push({ ...doc.data(), id: doc.id });
-          if (i == 'Servico') {
-            item.servico = 'Servico';
-          }
-          if (i == 'Banco') {
-            item.banco = 'Banco';
-          }
-          if (i == 'Cargo') {
-            item.cargo = 'Cargo';
-          }
-          item.id = doc.id;
-          item.nome = doc.data().nome;
-          this.itens.push(item);
+  async addContratoDoc(dados: FormGroup) {
+    //console.log("contrato: ",dados.value)
+    if (true) {
+      try {
+        await addDoc(collection(this.db, 'Contrato'), dados.value);
+        //log
+        await addDoc(collection(this.db, 'Log'), {
+          usuarioID: this.fas.uid,
+          usuarioNome: this.fas.userName,
+          data: new Date(),
+          tipo: 'Criação',
+          tabela: 'Contrato',
+          registro: dados.value,
+        });
+        this._snackBar.open('Contrato Cadastrato com Sucesso', '', {
+          duration: 4000,
+          panelClass: ['snack-verde'],
+        });
+      } catch (e) {
+        console.error('Error adding document: ', e);
+        this._snackBar.open('Falha ao cadastrar', '', {
+          duration: 4000,
+          panelClass: ['snack-vermelho'],
         });
       }
-      this.itens.sort();
     } else {
-      const q = query(collection(this.db, opt), orderBy('nome', 'asc'));
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach(async (doc) => {
-        const item: Generico = {
-          id: '',
-          nome: '',
-          conta: '',
-          agencia: '',
-          banco: '',
-          chavepix: '',
-          cnpj: '',
-          conselhofiscal1: '',
-          conselhofiscal2: '',
-          conselhofiscal3: '',
-          proprietariocpf: '',
-          locatariocpf: '',
-          cpfconselhofiscal1: '',
-          cpfconselhofiscal2: '',
-          cpfconselhofiscal3: '',
-          cpfsindico: '',
-          email: '',
-          endereco: '',
-          operacao: '',
-          pix: '',
-          sindico: '',
-          telefone: '',
-          unidade: '',
-          apelido: '',
-          titular: '',
-          locatario: '',
-          condominio: '',
-          observacao: '',
-          servicosPrestados: '',
-          cpf: '',
-          admissao: '',
-          cargo: '',
-          filiacaomae: '',
-          pis: '',
-          rg: '',
-          nascimento: '',
-          filiacaopai: '',
-        };
-        this.genericoTemp.push({ ...doc.data(), id: doc.id });
-        item.id = doc.id;
-        item.conta = doc.data().conta;
-        item.agencia = doc.data().agencia;
-        item.banco = doc.data().banco;
-        item.chavepix = doc.data().chavepix;
-        item.conselhofiscal1 = doc.data().conselhofiscal1;
-        item.conselhofiscal2 = doc.data().conselhofiscal2;
-        item.conselhofiscal3 = doc.data().conselhofiscal3;
-        item.cpfconselhofiscal1 = doc.data().cpfconselhofiscal1;
-        item.cpfconselhofiscal2 = doc.data().cpfconselhofiscal2;
-        item.cpfconselhofiscal3 = doc.data().cpfconselhofiscal3;
-        item.cpfsindico = doc.data().cpfsindico;
-        item.endereco = doc.data().endereco;
-        item.operacao = doc.data().operacao;
-        item.pix = doc.data().pix;
-        item.sindico = doc.data().sindico;
-        item.nome = doc.data().nome;
-        item.email = doc.data().email;
-        item.telefone = doc.data().telefone;
-        item.cnpj = doc.data().cnpj;
-        item.unidade = doc.data().unidade;
-        item.locatario = doc.data().locatario;
-        item.condominio = doc.data().condominio;
-        item.observacao = doc.data().observacao;
-        item.servicosPrestados = doc.data().servicosPrestados;
-        item.cpf = doc.data().cpf;
-        item.admissao = doc.data().admissao;
-        item.cargo = doc.data().cargo;
-        item.apelido = doc.data().apelido;
-        item.titular = doc.data().titular;
-        item.filiacaomae = doc.data().filiacaomae;
-        item.pis = doc.data().pis;
-        item.rg = doc.data().rg;
-        item.nascimento = doc.data().nascimento;
-        item.filiacaopai = doc.data().filiacaopai;
-        this.itens.push(item);
-      });
+      this._snackBar.open(
+        'Já existe um Banco cadastrado com esse nome. Favor verificar!',
+        '',
+        { duration: 4000, panelClass: ['snack-vermelho'] }
+      );
     }
+  }
+
+  async getConsultaDocs(opt: string) {
+    this.itens = [];
+    const q = query(collection(this.db, opt), orderBy('nome', 'asc'));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(async (doc) => {
+      //console.log("doc:",doc)
+      let item: any = {};
+      this.genericoTemp.push({ ...doc.data(), id: doc.id });
+      item = doc.data();
+      item.id = doc.id;
+      this.itens.push(item);
+    });
+    //console.log("lista no get:",this.itens)
 
     this.itens.forEach(async (item) => {
+      if (opt == "Condominio") {
+        let temp = await this.getContratoDocs(item.id);
+        if (temp.length > 0) {
+          item.contratos = temp;
+          item.contratos.forEach(async (res) => {
+            res.servico = await this.getServicoNomeByID(res.nome);
+            res.fornecedor = await this.getFornecedorNomeByID(res.fornecedor);
+          });
+        }
+      }
+      //console.log("item:",item)
       if (item.condominio) {
         item.condominio = await this.getCondominioNome(item.condominio);
       }
@@ -453,7 +407,11 @@ export class FirestoreService {
           item.servicosPrestados
         );
       }
+      if (opt == 'Contrato') {
+        item.nome = await this.getServicoNomeByID(item.nome);
+      }
     });
+    //console.log("itens: ",this.itens)
   }
 
   async getCondominioDocs() {
@@ -461,9 +419,23 @@ export class FirestoreService {
     const q = query(collection(this.db, 'Condominio'), orderBy('nome', 'asc'));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      lista.push({ nome: doc.data().nome, condominioID: doc.id });
+
+      lista.push({ nome: doc.data().nome, condominioID: doc.id,  });
     });
+    //console.log("contratoDoc: ",lista)
     this.listaCondominios = lista;
+  }
+
+  async getContratoDocs(condID: any) {
+    const lista: any[] = [];
+    //console.log("condID: ",condID)
+    const q = query(collection(this.db, 'Contrato'), where('condominio', '==', condID));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      lista.push({...doc.data(), contratoID: doc.id });
+    });
+    //console.log("contratoDoc: ",lista)
+    return lista;
   }
 
   async getCondominioNome(id: string): Promise<string> {
@@ -503,6 +475,39 @@ export class FirestoreService {
     if (id.length >= 18) {
       const q = query(
         collection(this.db, 'Banco'),
+        where('__name__', '==', id)
+      );
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        nome = doc.data().nome;
+        return doc.data().nome;
+      });
+    }
+    return nome;
+  }
+
+  async getServicoNomeByID(id: string): Promise<string> {
+    let nome = '';
+    if (id.length >= 18) {
+      const q = query(
+        collection(this.db, 'Servico'),
+        where('__name__', '==', id)
+      );
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        nome = doc.data().nome;
+        //console.log("nomeServiço: ",doc.data().nome)
+        return doc.data().nome;
+      });
+    }
+    return nome;
+  }
+
+  async getFornecedorNomeByID(id: string): Promise<string> {
+    let nome = '';
+    if (id.length >= 18) {
+      const q = query(
+        collection(this.db, 'Fornecedor'),
         where('__name__', '==', id)
       );
       const querySnapshot = await getDocs(q);
@@ -562,6 +567,27 @@ export class FirestoreService {
       lista.push({ ...doc.data(), checked: false, servicoID: doc.id });
     });
     this.listaServicos = lista;
+  }
+
+  async getFornecedoresDocs() {
+    const lista: any[] = [];
+    const q = query(collection(this.db, 'Fornecedor'), orderBy('nome', 'asc'));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      lista.push({ ...doc.data(), fornecedorID: doc.id });
+    });
+    this.listaFornecedores = lista;
+  }
+
+  async getContratosDocs() {
+    const lista: any[] = [];
+    const q = query(collection(this.db, 'Contrato'), orderBy('nome', 'asc'));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      lista.push({ ...doc.data(), contratoID: doc.id });
+    });
+    this.listaContratos = lista;
+    //console.log("contratos",lista)
   }
 
   async getLogsDocs() {

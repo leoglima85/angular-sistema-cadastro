@@ -1,10 +1,5 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { FireauthservService } from './../../services/fireauthserv.service';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -19,8 +14,6 @@ import { FirestoreService } from 'src/app/services/firestore.service';
 import { Generico } from 'src/app/models/generico';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
-import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-consulta',
   styleUrls: ['./consulta.component.css'],
@@ -37,8 +30,9 @@ import { Router } from '@angular/router';
   ],
 })
 export class ConsultaComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['nome'];
+  displayedColumns: string[] = ['nome', 'condominio'];
   dataSource2!: MatTableDataSource<Generico>;
+  dataSourceTemp!: MatTableDataSource<Generico>;
   lista: string[] = [
     'Condomínio',
     'Funcionário',
@@ -49,76 +43,47 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
   escolha: string = '';
   public tipo: string = '';
   perfil = '';
-  expandedElement: Generico = {
-    id: '',
-    nome: '',
-    conta: '',
-    agencia: '',
-    banco: '',
-    chavepix: '',
-    cnpj: '',
-    conselhofiscal1: '',
-    proprietariocpf: '',
-    locatariocpf: '',
-    conselhofiscal2: '',
-    conselhofiscal3: '',
-    cpfconselhofiscal1: '',
-    cpfconselhofiscal2: '',
-    cpfconselhofiscal3: '',
-    cpfsindico: '',
-    email: '',
-    endereco: '',
-    operacao: '',
-    pix: '',
-    sindico: '',
-    telefone: '',
-    unidade: '',
-    apelido: '',
-    titular: '',
-    locatario: '',
-    condominio: '',
-    observacao: '',
-    servicosPrestados: '',
-    cpf: '',
-    admissao: '',
-    cargo: '',
-    filiacaomae: '',
-    pis: '',
-    rg: '',
-    nascimento: '',
-    filiacaopai: '',
-  };
+  expandedElement: any = {};
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private fs: FirestoreService, public dialog: MatDialog) {}
+  constructor(private fs: FirestoreService,
+              public dialog: MatDialog,
+              private fas : FireauthservService ) {}
 
-  ngOnInit() {
-    this.perfil = this.fs.perfil;
-    //console.log("perfil no consulta",this.perfil);
+  async ngOnInit() {
+
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() {
+    this.perfil = this.fas.perfil;
+    //console.log("perfil no consulta:",this.perfil)
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource2.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource2.paginator) {
-      this.dataSource2.paginator.firstPage();
-    }
+    let words = [];
+    this.dataSource2.data = this.dataSourceTemp.data;
+    words = filterValue.split(' ');
+    words.map((word) => {
+      this.dataSource2.filter = word.trim().toLowerCase();
+      this.dataSource2.data = this.dataSource2.filteredData;
+      if (this.dataSource2.paginator) {
+        this.dataSource2.paginator.firstPage();
+      }
+    });
   }
 
   async filtrar(opt: string) {
     await this.fs.getConsultaDocs(opt);
     this.dataSource2 = new MatTableDataSource(this.fs.itens);
+    this.dataSourceTemp = new MatTableDataSource(this.fs.itens);
     this.dataSource2.paginator = this.paginator;
     this.dataSource2.sort = this.sort;
   }
 
   openDialog(base: string, id: string) {
-    //console.log("base: ", base, "id: ", id);
     const dialogRef = this.dialog.open(DialogComponent);
     dialogRef.afterClosed().subscribe(async (result) => {
       if (result) {

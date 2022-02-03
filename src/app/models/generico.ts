@@ -1,4 +1,13 @@
+ interface Contratos{
+  servico: string;
+  numero:string;
+  fornecedor:string;
+  vencimento:string;
+  periodo:string;
+  dacc:boolean;
+}
 export interface Generico {
+  contratos: any[];
   id?: string;
   nome: string;
   conta: string;
@@ -12,12 +21,14 @@ export interface Generico {
   cpfconselhofiscal1: string;
   cpfconselhofiscal2: string;
   cpfconselhofiscal3: string;
+  sindico: string;
   cpfsindico: string;
+  subsindico: string;
+  cpfsubsindico: string;
   email: string;
   endereco: string;
   operacao: string;
   pix: string;
-  sindico: string;
   telefone: string;
   titular: string;
   unidade: string;

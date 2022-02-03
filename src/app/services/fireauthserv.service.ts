@@ -69,6 +69,7 @@ export class FireauthservService {
           nome = doc.data().nome;
           perfil = doc.data().perfil;
           this.perfil = perfil;
+          //console.log("perfil no getuser: ",perfil)
           this.userName = doc.data().nome;
         });
         return perfil;

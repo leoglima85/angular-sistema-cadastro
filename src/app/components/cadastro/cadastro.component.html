@@ -18,7 +18,7 @@
         <mat-form-field class="example-full-width telefone" appearance="fill">
           <mat-label>Telefone </mat-label>
           <input matInput formControlName="telefone" name="telefone"
-            mask="000||0000-0000||(00)0000-0000||(00) 0 0000-0000||0000 000 0000">
+            mask="(00) 0000-0000||(00) 0 0000-0000" [validation]="false">
         </mat-form-field>
         <mat-form-field class="example-full-width email-cond" appearance="fill">
           <mat-label>Email </mat-label>
@@ -62,6 +62,14 @@
         <mat-form-field class="example-full-width sindicocpf" appearance="fill">
           <mat-label>CPF Síndico</mat-label>
           <input matInput formControlName="cpfsindico" name="cpfsindico" mask="000.000.000-00">
+        </mat-form-field>
+        <mat-form-field class="example-full-width sindico" appearance="fill">
+          <mat-label>Sub Síndico</mat-label>
+          <input matInput formControlName="subsindico" name="subsindico">
+        </mat-form-field>
+        <mat-form-field class="example-full-width sindicocpf" appearance="fill">
+          <mat-label>CPF Sub Síndico</mat-label>
+          <input matInput formControlName="cpfsubsindico" name="cpfsubsindico" mask="000.000.000-00">
         </mat-form-field>
         <mat-form-field class="example-full-width sindico" appearance="fill">
           <mat-label>Conselho Fiscal 1</mat-label>
@@ -119,7 +127,7 @@
         <mat-form-field class="example-full-width telefone-func" appearance="fill">
           <mat-label>Telefone </mat-label>
           <input matInput formControlName="telefone" name="telefone"
-            mask="000||0000-0000||(00)0000-0000||(00) 0 0000-0000||0000 000 0000">
+          mask="(00) 0000-0000||(00) 0 0000-0000" [validation]="false">
         </mat-form-field>
         <mat-form-field class="example-full-width cpf" appearance="fill">
           <mat-label>CPF </mat-label>
@@ -235,7 +243,7 @@
         <mat-form-field class="example-full-width tel-forn" appearance="fill">
           <mat-label>Telefone </mat-label>
           <input matInput formControlName="telefone" name="telefone"
-            mask="000||0000-0000||(00)0000-0000||(00) 0 0000-0000||0000 000 0000">
+          mask="(00) 0000-0000||(00) 0 0000-0000" [validation]="false">
         </mat-form-field>
         <mat-form-field class="example-full-width end-forn" appearance="fill">
           <mat-label>Endereço </mat-label>
@@ -337,7 +345,7 @@
         <mat-form-field class="example-full-width telefone-condo" appearance="fill">
           <mat-label>Telefone </mat-label>
           <input matInput formControlName="telefone" name="telefone"
-            mask="000||0000-0000||(00)0000-0000||(00) 0 0000-0000||0000 000 0000">
+            mask="(00) 0000-0000||(00) 0 0000-0000" [validation]="false">
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Observação </mat-label>
@@ -356,53 +364,126 @@
     </mat-tab>
     <!-- **************************** OUTROS ********************************** -->
     <mat-tab label="Outros" class="outros">
-      <h1>Cadastro de Cargos</h1>
-      <form #fca="ngForm" [formGroup]="cadastroCargoForm" class="example-form" (keyup.enter)="cadastrarCargo()">
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Nome do Cargo </mat-label>
-          <input matInput formControlName="nome" name="nome">
-        </mat-form-field>
-      </form>
-      <div class="botoes">
-        <div class="botao-salvar">
-          <button [disabled]="!fca.valid" mat-raised-button color="primary" (click)="cadastrarCargo()">Salvar</button>
-        </div>
-        <div class="botao-cancelar">
-          <button (click)="cancelarForm(this.fca)" mat-raised-button color="warn">Cancelar</button>
-        </div>
-      </div>
-      <hr>
-      <h1>Cadastro de Serviços</h1>
-      <form #fse="ngForm" [formGroup]="cadastroServicoForm" class="example-form" (keyup.enter)="cadastrarServico()">
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Nome do Serviço </mat-label>
-          <input matInput formControlName="nome" name="nome">
-        </mat-form-field>
-      </form>
-      <div class="botoes">
-        <div class="botao-salvar">
-          <button [disabled]="!fse.valid" mat-raised-button color="primary" (click)="cadastrarServico()">Salvar</button>
-        </div>
-        <div class="botao-cancelar">
-          <button (click)="cancelarForm(this.fse)" mat-raised-button color="warn">Cancelar</button>
-        </div>
-      </div>
-      <hr>
-      <h1>Cadastro de Bancos</h1>
-      <form #fba="ngForm" [formGroup]="cadastroBancoForm" class="example-form" (keyup.enter)="cadastrarBanco()">
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Nome do Banco </mat-label>
-          <input matInput formControlName="nome" name="nome">
-        </mat-form-field>
-      </form>
-      <div class="botoes">
-        <div class="botao-salvar">
-          <button [disabled]="!fba.valid" mat-raised-button color="primary" (click)="cadastrarBanco()">Salvar</button>
-        </div>
-        <div class="botao-cancelar">
-          <button (click)="cancelarForm(this.fba)" mat-raised-button color="warn">Cancelar</button>
-        </div>
-      </div>
+      <mat-tab-group>
+        <mat-card>
+          <mat-tab label="Cargo">
+            <h1>Cadastro de Cargos</h1>
+            <form #fca="ngForm" [formGroup]="cadastroCargoForm" class="example-form" (keyup.enter)="cadastrarCargo()">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Nome do Cargo </mat-label>
+                <input matInput formControlName="nome" name="nome">
+              </mat-form-field>
+            </form>
+            <div class="botoes">
+              <div class="botao-salvar">
+                <button [disabled]="!fca.valid" mat-raised-button color="primary"
+                  (click)="cadastrarCargo()">Salvar</button>
+              </div>
+              <div class="botao-cancelar">
+                <button (click)="cancelarForm(this.fca)" mat-raised-button color="warn">Cancelar</button>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-card>
+        <mat-card>
+          <mat-tab label="Banco">
+            <h1>Cadastro de Bancos</h1>
+            <form #fba="ngForm" [formGroup]="cadastroBancoForm" class="example-form" (keyup.enter)="cadastrarBanco()">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Nome do Banco </mat-label>
+                <input matInput formControlName="nome" name="nome">
+              </mat-form-field>
+            </form>
+            <div class="botoes">
+              <div class="botao-salvar">
+                <button [disabled]="!fba.valid" mat-raised-button color="primary"
+                  (click)="cadastrarBanco()">Salvar</button>
+              </div>
+              <div class="botao-cancelar">
+                <button (click)="cancelarForm(this.fba)" mat-raised-button color="warn">Cancelar</button>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-card>
+        <mat-card>
+          <mat-tab label="Serviço">
+            <h1>Cadastro de Serviços</h1>
+            <form #fse="ngForm" [formGroup]="cadastroServicoForm" class="example-form"
+              (keyup.enter)="cadastrarServico()">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Nome do Serviço </mat-label>
+                <input matInput formControlName="nome" name="nome">
+              </mat-form-field>
+            </form>
+            <div class="botoes">
+              <div class="botao-salvar">
+                <button [disabled]="!fse.valid" mat-raised-button color="primary"
+                  (click)="cadastrarServico()">Salvar</button>
+              </div>
+              <div class="botao-cancelar">
+                <button (click)="cancelarForm(this.fse)" mat-raised-button color="warn">Cancelar</button>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-card>
+        <mat-card>
+          <mat-tab label="Contrato">
+            <form #fcadcontra="ngForm" [formGroup]="cadastroContratoForm" class="example-form"
+              (keyup.enter)="cadastrarContrato()">
+              <mat-form-field class="example-full-width " appearance="fill">
+                <mat-label>Condomínio</mat-label>
+                <mat-select formControlName="condominio" name="condominio">
+                  <mat-option *ngFor="let opt of listaCondominios" [value]="opt.condominioID">{{ opt.nome }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="example-full-width contratoFornecedor" appearance="fill">
+                <mat-label>Fornecedor</mat-label>
+                <mat-select formControlName="fornecedor" name="fornecedor">
+                  <mat-option *ngFor="let opt of listaFornecedores" [value]="opt.fornecedorID">{{ opt.nome }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="example-full-width contratoServico" appearance="fill">
+                <mat-label>Serviço</mat-label>
+                <mat-select formControlName="nome" name="nome">
+                  <mat-option *ngFor="let opt of listaServicos" [value]="opt.servicoID">{{ opt.nome }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="example-full-width contratoNumero" appearance="fill">
+                <mat-label>Número do Contrato</mat-label>
+                <input matInput formControlName="numeroContrato" name="numeroContrato">
+              </mat-form-field>
+              <mat-form-field class="example-full-width dataVencimento" appearance="fill">
+                <mat-label>Dia do Vencimento </mat-label>
+                <input matInput type="number" formControlName="dataVencimento" name="dataVencimento" >
+              </mat-form-field>
+              <mat-form-field class="example-full-width periodicidade" appearance="fill">
+                <mat-label>Periodicidade</mat-label>
+                <mat-select formControlName="periodicidade" name="periodicidade">
+                  <mat-option [value]="'Mensal'">Mensal</mat-option>
+                  <mat-option [value]="'Anual'">Anual</mat-option>
+                </mat-select>
+              </mat-form-field>
+                <mat-checkbox class="contratoDACC" formControlName="dacc" name="dacc">DACC</mat-checkbox>
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Observação </mat-label>
+                <input matInput formControlName="observacao" name="observacao">
+              </mat-form-field>
+            </form>
+            <div class="botoes">
+              <div class="botao-salvar">
+                <button [disabled]="!fcadcontra.valid" mat-raised-button color="primary"
+                  (click)="cadastrarContrato()">Salvar</button>
+              </div>
+              <div class="botao-cancelar">
+                <button (click)="cancelarForm(this.fcadcontra)" mat-raised-button color="warn">Cancelar</button>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-card>
+        <mat-card label="Controle">
+          !!! EM DESENVOLVIMENTO !!!
+        </mat-card>
+      </mat-tab-group>
     </mat-tab>
   </mat-tab-group>
 </mat-card>

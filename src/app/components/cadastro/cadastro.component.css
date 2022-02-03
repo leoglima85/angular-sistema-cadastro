@@ -240,3 +240,32 @@ input[type=number]::-webkit-outer-spin-button {
 .botao-salvar{
 
 }
+
+.contratoFornecedor{
+  width: 48%;
+  padding-right: 2%;
+}
+
+.contratoServico{
+  width: 30%;
+}
+
+.contratoNumero{
+ width: 30%;
+ padding-right: 2%;
+}
+
+.periodicidade{
+  width: 30%;
+}
+
+.dataVencimento{
+  width: 20%;
+ padding-right: 2%;
+}
+
+.contratoDACC{
+  padding-left: 15px;
+  width: 10%;
+
+}

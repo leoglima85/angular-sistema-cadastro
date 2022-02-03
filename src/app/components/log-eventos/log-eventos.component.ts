@@ -69,6 +69,9 @@ export class LogEventosComponent implements OnInit {
     rg: '',
     nascimento: '',
     filiacaopai: '',
+    subsindico: '',
+    cpfsubsindico: '',
+    contratos: []
   };
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

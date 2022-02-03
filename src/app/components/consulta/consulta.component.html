@@ -4,13 +4,13 @@
       <mat-label>Pesquisar:</mat-label>
       <mat-select [(ngModel)]="escolha">
         <mat-option [value]="'Condominio'" (click)="filtrar('Condominio')">Condomínio</mat-option>
+        <mat-option [value]="'Contrato'" (click)="filtrar('Contrato')">Contrato</mat-option>
         <mat-option [value]="'Funcionario'" (click)="filtrar('Funcionario')">Funcionário</mat-option>
         <mat-option [value]="'Fornecedor'" (click)="filtrar('Fornecedor')">Fornecedor</mat-option>
         <mat-option [value]="'Condomino'" (click)="filtrar('Condomino')">Condômino</mat-option>
         <mat-option [value]="'Cargo'" (click)="filtrar('Cargo')">Cargo</mat-option>
         <mat-option [value]="'Banco'" (click)="filtrar('Banco')">Banco</mat-option>
         <mat-option [value]="'Servico'" (click)="filtrar('Servico')">Serviço</mat-option>
-        <!-- <mat-option [value]="'Outros'" (click)="filtrar('Outros')" >Outros</mat-option> -->
       </mat-select>
     </mat-form-field>
   </div>
@@ -22,7 +22,6 @@
   </mat-form-field>
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource2" matSort multiTemplateDataRows>
-      <!-- novo -->
       <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar"> {{column}} </th>
         <td mat-cell *matCellDef="let row"> {{row[column]}} </td>
@@ -43,6 +42,8 @@
               <div class="example-element-endereco" *ngIf="element.endereco"><b>Endereço:</b> {{element.endereco}}</div>
               <div class="example-element-sindico" *ngIf="element.sindico"><b> Síndico:</b> {{element.sindico}} </div>
               <div class="example-element-cpfsindico" *ngIf="element.cpfsindico"><b>CPF Síndico:</b> {{element.cpfsindico | mask:"000.000.000-00"}} </div>
+              <div class="example-element-sindico" *ngIf="element.subsindico"><b> Sub Síndico:</b> {{element.subsindico}} </div>
+              <div class="example-element-cpfsindico" *ngIf="element.cpfsubsindico"><b>CPF Sub Síndico:</b> {{element.cpfsubsindico | mask:"000.000.000-00"}} </div>
               <div class="example-element-banco" *ngIf="element.banco"><b> Banco:</b> {{element.banco}} </div>
               <div class="example-element-conta" *ngIf="element.conta"><b> Conta:</b> {{element.conta}} </div>
               <div class="example-element-agencia" *ngIf="element.agencia"><b> Agência:</b> {{element.agencia}} </div>
@@ -60,6 +61,7 @@
               <div class="example-element-observacao" *ngIf="element.observacao"><b> Observação:</b> {{element.observacao}} </div>
               <div class="example-element-servicosPrestados" *ngIf="element.servicosPrestados"><b> Servicos Prestados:</b> {{element.servicosPrestados}} </div>
               <div class="example-element-cpf" *ngIf="element.cpf"><b> CPF:</b> {{element.cpf | mask:"000.000.000-00"}}</div>
+              <div class="example-element-cpf" *ngIf="element.proprietariocpf"><b> CPF:</b> {{element.proprietariocpf | mask:"000.000.000-00"}}</div>
               <div class="example-element-cpf" *ngIf="element.rg"><b> RG:</b> {{element.rg | mask:"00000000-00"}}</div>
               <div class="example-element-cpf" *ngIf="element.pis"><b> PIS:</b> {{element.pis | mask:"000.00000.00-0"}}</div>
               <div class="example-element-cpf" *ngIf="element.filiacaopai"><b> Filiação Pai:</b> {{element.filiacaopai}}</div>
@@ -68,6 +70,26 @@
               <div class="example-element-admissao" *ngIf="element.nascimento"><b> Nascimento:</b> {{element.nascimento | mask:"00/00/0000"}}</div>
               <div class="example-element-cargo" *ngIf="element.cargo"><b> Cargo:</b> {{element.cargo}} </div>
               <div class="example-element-apelido" *ngIf="element.apelido"><b> Apelido:</b> {{element.apelido}} </div>
+              <div class="example-element-tabela" *ngIf="element.contratos"><b> Contratos:</b>
+                <table class="tabela-contratos">
+                  <tr >
+                    <th class="tabela-titulos">Nº</th>
+                    <th class="tabela-titulos">Serviço</th>
+                    <th class="tabela-titulos">Fornecedor</th>
+                    <th class="tabela-titulos">Vencimento</th>
+                    <th class="tabela-titulos">Periodo</th>
+                    <th class="tabela-titulos">DACC</th>
+                  </tr>
+                  <tr *ngFor="let contrato of element.contratos">
+                    <td class="tabela-dados">{{contrato.numeroContrato}}</td>
+                    <td class="tabela-dados">{{contrato.servico}}</td>
+                    <td class="tabela-dados">{{contrato.fornecedor}}</td>
+                    <td class="tabela-dados">{{contrato.dataVencimento}}</td>
+                    <td class="tabela-dados">{{contrato.periodicidade}}</td>
+                    <td class="tabela-dados"><mat-checkbox disabled="true" [checked]="contrato.dacc"> </mat-checkbox>  </td>
+                  </tr>
+                </table>
+              </div>
             </div>
             <div class="botoes">
               <div class="botao-editar">
@@ -85,7 +107,6 @@
           </div>
         </td>
       </ng-container>
-      <!-- novo -->
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row"
         [class.example-expanded-row]="expandedElement === row"

@@ -16,11 +16,13 @@ export class CadastroComponent implements OnInit {
   cadastroCargoForm: FormGroup;
   cadastroServicoForm: FormGroup;
   cadastroBancoForm: FormGroup;
+  cadastroContratoForm: FormGroup;
 
   listaCondominios: any[] = [];
   listaCargos: any[] = [];
   listaBancos: any[] = [];
   listaServicos: any[] = [];
+  listaFornecedores: any[] = [];
 
   pix: any;
 
@@ -42,6 +44,8 @@ export class CadastroComponent implements OnInit {
       email: ['', [Validators.email]],
       sindico: ['', [Validators.required]],
       cpfsindico: ['', [Validators.required]],
+      subsindico: ['', []],
+      cpfsubsindico: ['', []],
       conselhofiscal1: ['', []],
       cpfconselhofiscal1: ['', []],
       conselhofiscal2: ['', []],
@@ -111,6 +115,16 @@ export class CadastroComponent implements OnInit {
     this.cadastroBancoForm = this.fb.group({
       nome: ['', [Validators.required]],
     });
+    this.cadastroContratoForm = this.fb.group({
+      fornecedor: ['', [Validators.required]],
+      condominio: ['', [Validators.required]],
+      nome: ['', [Validators.required]],
+      numeroContrato: ['', [Validators.required]],
+      dataVencimento: ['', []],
+      periodicidade: ['', []],
+      dacc: ['', []],
+      observacao: ['', []],
+    });
 
   }
 
@@ -119,10 +133,12 @@ export class CadastroComponent implements OnInit {
     await this.fs.getCargosDocs();
     await this.fs.getBancosDocs();
     await this.fs.getServicosDocs();
+    await this.fs.getFornecedoresDocs();
     this.listaCondominios = this.fs.listaCondominios;
     this.listaCargos = this.fs.listaCargos;
     this.listaBancos = this.fs.listaBancos;
     this.listaServicos = this.fs.listaServicos;
+    this.listaFornecedores = this.fs.listaFornecedores;
   }
 
   async cadastrarCondominio() {
@@ -162,6 +178,11 @@ export class CadastroComponent implements OnInit {
   async cadastrarBanco() {
     await this.fs.addBancoDoc(this.cadastroBancoForm);
     this.cadastroBancoForm.reset();
+  }
+
+  async cadastrarContrato() {
+    await this.fs.addContratoDoc(this.cadastroContratoForm);
+    this.cadastroContratoForm.reset();
   }
 
   cadServico(i: number) {

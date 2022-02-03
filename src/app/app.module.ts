@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 
+import {MatExpansionModule} from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -38,6 +39,8 @@ import { EditarComponent } from './components/editar/editar.component';
 import { LogEventosComponent } from './components/log-eventos/log-eventos.component';
 import { AdministracaoComponent } from './components/administracao/administracao.component'
 import { ConsultaComponent } from './components/consulta/consulta.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { ReciboComponent } from './components/recibo/recibo.component';
 
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -47,8 +50,6 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { NgxMaskModule } from 'ngx-mask';
-import { DialogComponent } from './components/dialog/dialog.component';
-
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     LogEventosComponent,
     AdministracaoComponent,
     DialogComponent,
+    ReciboComponent,
 
   ],
   imports: [
@@ -100,6 +102,8 @@ import { DialogComponent } from './components/dialog/dialog.component';
     MatDatepickerModule,
     MatNativeDateModule,
     NgxMaskModule.forRoot({}),
+    MatExpansionModule
+
   ],
 
   providers: [],

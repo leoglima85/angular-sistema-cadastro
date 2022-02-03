@@ -1,0 +1,45 @@
+FORNECEDOR <br>
+SERVIÇO<br>
+CONDOMINIO<br>
+DATA<br>
+VALOR<br>
+
+<mat-form-field class="example-full-width" appearance="fill">
+  <mat-label>Data</mat-label>
+  <input matInput [matDatepicker]="picker">
+  <mat-datepicker-toggle matSuffix [for]="picker">
+    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+  </mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+<mat-form-field class="example-full-width" appearance="fill">
+  <mat-label>Valor</mat-label>
+  <input matInput #valor placeholder="0" value="0">
+</mat-form-field>
+
+<div class="recibo">
+  <div class="titulo">
+    <h1>RECIBO DE PAGAMENTO DE PRESTAÇÃO DE SERVIÇO</h1>
+  </div>
+  <div class="texto">
+    <p>
+      Eu, (nome do recebedor), inscrito(a) no CPF/CNPJ sob o nº (informar), recebi de (condominio), inscrito(a) no CNPJ
+      sob
+      o nº (informar), a importância de R$ X.XXX,XX (valor por extenso), referente ao pagamento de (informe a que se refere o parcelamento), não restando nenhum pagamento pendente.
+    </p>
+    <br><br><br>
+
+    <div class="assinaturas">
+      <div class="localData">
+        Salvador,  {{ data | date:'dd/MM/yyyy'}}.
+      </div>
+      <br><br><br>
+      <div class="assinatura">
+        _____________________________________________________ <br>
+        (nome recebedor / cpf-cnpj)
+      </div>
+      <br><br><br>
+
+    </div>
+  </div>
+</div>

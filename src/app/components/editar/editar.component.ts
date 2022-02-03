@@ -16,7 +16,6 @@ export interface listaServico {
   checked: boolean;
   servicoID: string;
 }
-
 @Component({
   selector: 'app-editar',
   templateUrl: './editar.component.html',
@@ -31,46 +30,10 @@ export class EditarComponent implements OnInit {
   listaCargos: any[] = [];
   listaBancos: any[] = [];
   listaServicos: listaServico[] = [];
+  listaContratos: any[] = [];
+  listaFornecedores: any[] = [];
   listaServicosPrestados: listaServico[] = [];
-  docInfos: Generico = {
-    id: '',
-    nome: '',
-    conta: '',
-    agencia: '',
-    banco: '',
-    chavepix: '',
-    cnpj: '',
-    conselhofiscal1: '',
-    conselhofiscal2: '',
-    conselhofiscal3: '',
-    proprietariocpf: '',
-    locatariocpf: '',
-    cpfconselhofiscal1: '',
-    cpfconselhofiscal2: '',
-    cpfconselhofiscal3: '',
-    cpfsindico: '',
-    email: '',
-    endereco: '',
-    operacao: '',
-    pix: '',
-    sindico: '',
-    telefone: '',
-    unidade: '',
-    apelido: '',
-    titular: '',
-    locatario: '',
-    observacao: '',
-    condominio: '',
-    servicosPrestados: '',
-    cpf: '',
-    admissao: '',
-    cargo: '',
-    filiacaomae: '',
-    pis: '',
-    rg: '',
-    nascimento: '',
-    filiacaopai: '',
-  };
+  docInfos: any = {};
 
   constructor(
     private ar: ActivatedRoute,
@@ -89,10 +52,14 @@ export class EditarComponent implements OnInit {
     await this.fs.getCargosDocs();
     await this.fs.getBancosDocs();
     await this.fs.getServicosDocs();
+    await this.fs.getContratosDocs();
+    await this.fs.getFornecedoresDocs();
     this.listaCondominios = this.fs.listaCondominios;
     this.listaCargos = this.fs.listaCargos;
     this.listaBancos = this.fs.listaBancos;
     this.listaServicos = this.fs.listaServicos;
+    this.listaContratos = this.fs.listaContratos;
+    this.listaFornecedores = this.fs.listaFornecedores;
     //console.log("lista cond: ",this.listaCondominios)
     // if (this.cons.tipo == "banco") {console.log("é Banco")}
     // if (this.cons.tipo == 'Cargo') {console.log("é Cargo")}
@@ -119,43 +86,8 @@ export class EditarComponent implements OnInit {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       //console.log(doc.id, " => ", doc.data());
-      this.docInfos.admissao = doc.data().admissao;
-      this.docInfos.agencia = doc.data().agencia;
-      this.docInfos.apelido = doc.data().apelido;
-      this.docInfos.banco = doc.data().banco;
-      this.docInfos.cargo = doc.data().cargo;
-      this.docInfos.chavepix = doc.data().chavepix;
-      this.docInfos.cnpj = doc.data().cnpj;
-      this.docInfos.condominio = doc.data().condominio;
-      this.docInfos.conselhofiscal1 = doc.data().conselhofiscal1;
-      this.docInfos.conselhofiscal2 = doc.data().conselhofiscal2;
-      this.docInfos.conselhofiscal3 = doc.data().conselhofiscal3;
-      this.docInfos.conta = doc.data().conta;
-      this.docInfos.cpf = doc.data().cpf;
-      this.docInfos.cpfconselhofiscal1 = doc.data().cpfconselhofiscal1;
-      this.docInfos.cpfconselhofiscal2 = doc.data().cpfconselhofiscal2;
-      this.docInfos.cpfconselhofiscal3 = doc.data().cpfconselhofiscal3;
-      this.docInfos.cpfsindico = doc.data().cpfsindico;
-      this.docInfos.email = doc.data().email;
-      this.docInfos.endereco = doc.data().endereco;
-      this.docInfos.id = doc.id;
-      this.docInfos.locatario = doc.data().locatario;
-      this.docInfos.locatariocpf = doc.data().locatariocpf;
-      this.docInfos.proprietariocpf = doc.data().proprietariocpf;
-      this.docInfos.nome = doc.data().nome;
-      this.docInfos.observacao = doc.data().observacao;
-      this.docInfos.operacao = doc.data().operacao;
-      this.docInfos.pix = doc.data().pix;
-      this.docInfos.servicosPrestados = doc.data().servicosPrestados;
-      this.docInfos.sindico = doc.data().sindico;
-      this.docInfos.telefone = doc.data().telefone;
-      this.docInfos.titular = doc.data().titular;
-      this.docInfos.unidade = doc.data().unidade;
-      this.docInfos.filiacaomae = doc.data().filiacaomae;
-      this.docInfos.filiacaopai = doc.data().filiacaopai;
-      this.docInfos.pis = doc.data().pis;
-      this.docInfos.rg = doc.data().rg;
-      this.docInfos.nascimento = doc.data().nascimento;
+      this.docInfos = doc.data();
+
     });
     //preencher a listaServiços
     //console.log("lista serviços prestados: ",this.docInfos.servicosPrestados);
@@ -175,6 +107,8 @@ export class EditarComponent implements OnInit {
       chavepix: this.docInfos.chavepix,
       sindico: this.docInfos.sindico,
       cpfsindico: this.docInfos.cpfsindico,
+      subsindico: this.docInfos.subsindico,
+      cpfsubsindico: this.docInfos.cpfsubsindico,
       conselhofiscal1: this.docInfos.conselhofiscal1,
       cpfconselhofiscal1: this.docInfos.cpfconselhofiscal1,
       conselhofiscal2: this.docInfos.conselhofiscal2,
@@ -223,37 +157,13 @@ export class EditarComponent implements OnInit {
       }
     }
     //console.log("listastring :",listaString);
-    const data = {
-      nome: this.docInfos.nome,
-      apelido: this.docInfos.apelido,
-      cpf: this.docInfos.cpf,
-      cnpj: this.docInfos.cnpj,
-      telefone: this.docInfos.telefone,
-      endereco: this.docInfos.endereco,
-      email: this.docInfos.email,
-      pix: this.docInfos.pix,
-      chavepix: this.docInfos.chavepix,
-      servicosPrestados: listaString,
-      banco: this.docInfos.banco,
-      agencia: this.docInfos.agencia,
-      conta: this.docInfos.conta,
-      operacao: this.docInfos.operacao,
-      observacao: this.docInfos.observacao,
-    };
+    const data = this.docInfos;
+    //console.log("data fornecedor update: ",data)
     await this.fs.atualizaDoc(this.docEscolha, this.docID, data);
   }
 
   async salvarAlteracaoCondomino() {
-    const data = {
-      observacao: this.docInfos.observacao,
-      unidade: this.docInfos.unidade,
-      locatario: this.docInfos.locatario,
-      locatariocpf: this.docInfos.locatariocpf,
-      condominio: this.docInfos.condominio,
-      telefone: this.docInfos.telefone,
-      nome: this.docInfos.nome,
-      proprietariocpf: this.docInfos.proprietariocpf,
-    };
+    const data = this.docInfos;
     await this.fs.atualizaDoc(this.docEscolha, this.docID, data);
   }
 
@@ -276,6 +186,10 @@ export class EditarComponent implements OnInit {
       nome: this.docInfos.nome,
     };
     await this.fs.atualizaDoc(this.docEscolha, this.docID, data);
+  }
+
+  async salvarAlteracaoContrato() {
+    await this.fs.atualizaDoc(this.docEscolha, this.docID, this.docInfos);
   }
 
   marcarServico(i: number, event: any) {

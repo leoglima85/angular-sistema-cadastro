@@ -41,6 +41,7 @@ import { AdministracaoComponent } from './components/administracao/administracao
 import { ConsultaComponent } from './components/consulta/consulta.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { ReciboComponent } from './components/recibo/recibo.component';
+import { ControleComponent } from './components/controle/controle.component';
 
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -69,6 +70,7 @@ import { NgxMaskModule } from 'ngx-mask';
     AdministracaoComponent,
     DialogComponent,
     ReciboComponent,
+    ControleComponent,
 
   ],
   imports: [

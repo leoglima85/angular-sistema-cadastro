@@ -14,6 +14,7 @@ import { EditarComponent } from './components/editar/editar.component';
 import { LogEventosComponent } from './components/log-eventos/log-eventos.component';
 import { AdministracaoComponent } from './components/administracao/administracao.component';
 import { ReciboComponent } from './components/recibo/recibo.component';
+import { ControleComponent } from './components/controle/controle.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch:'full' },
@@ -25,6 +26,7 @@ const routes: Routes = [
     { path: 'cadastro', canActivate: [AngularFireAuthGuard], component: CadastroComponent },
     { path: 'extrato', canActivate: [AngularFireAuthGuard], component: ExtratoComponent },
     { path: 'consulta', canActivate: [AngularFireAuthGuard], component: ConsultaComponent },
+    { path: 'controle', canActivate: [AngularFireAuthGuard], component: ControleComponent },
     { path: 'logs', canActivate: [AngularFireAuthGuard], component: LogEventosComponent },
     { path: 'admin', canActivate: [AngularFireAuthGuard], component: AdministracaoComponent },
     { path: 'recibo', canActivate: [AngularFireAuthGuard], component: ReciboComponent },

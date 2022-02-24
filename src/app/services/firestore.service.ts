@@ -35,6 +35,7 @@ export class FirestoreService {
   public listaServicos: any[] = [];
   public listaContratos: any[] = [];
   public listaFornecedores: any[] = [];
+  public listaNotas: any[] = [];
   public listaServicosNomes: any[] = [];
   public listaLogs: any[] = [];
 
@@ -358,14 +359,50 @@ export class FirestoreService {
           panelClass: ['snack-vermelho'],
         });
       }
-    } else {
-      this._snackBar.open(
-        'Já existe um Banco cadastrado com esse nome. Favor verificar!',
-        '',
-        { duration: 4000, panelClass: ['snack-vermelho'] }
-      );
     }
   }
+
+  async addNotaDoc(dados : any) {
+        // console.log("dados: ",dados)
+        await addDoc(collection(this.db, 'Nota'), dados);
+        await addDoc(collection(this.db, 'Log'), {
+          usuarioID: this.fas.uid,
+          usuarioNome: this.fas.userName,
+          data: new Date(),
+          tipo: 'Criação',
+          tabela: 'Nota',
+          registro: dados,
+        });
+      
+    }
+  
+  // async addNotaDoc(dados: FormGroup) {
+  //   //console.log("contrato: ",dados.value)
+  //   if (true) {
+  //     try {
+  //       await addDoc(collection(this.db, 'Contrato'), dados.value);
+  //       //log
+  //       await addDoc(collection(this.db, 'Log'), {
+  //         usuarioID: this.fas.uid,
+  //         usuarioNome: this.fas.userName,
+  //         data: new Date(),
+  //         tipo: 'Criação',
+  //         tabela: 'Contrato',
+  //         registro: dados.value,
+  //       });
+  //       this._snackBar.open('Contrato Cadastrato com Sucesso', '', {
+  //         duration: 4000,
+  //         panelClass: ['snack-verde'],
+  //       });
+  //     } catch (e) {
+  //       console.error('Error adding document: ', e);
+  //       this._snackBar.open('Falha ao cadastrar', '', {
+  //         duration: 4000,
+  //         panelClass: ['snack-vermelho'],
+  //       });
+  //     }
+  //   }
+  // }
 
   async getConsultaDocs(opt: string) {
     this.itens = [];
@@ -587,7 +624,18 @@ export class FirestoreService {
       lista.push({ ...doc.data(), contratoID: doc.id });
     });
     this.listaContratos = lista;
-    //console.log("contratos",lista)
+    // console.log("contratos",lista)
+  }
+
+  async getNotasDocs() {
+    const lista: any[] = [];
+    const q = query(collection(this.db, 'Nota'));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      lista.push({ ...doc.data(), contratoID: doc.id });
+    });
+    this.listaNotas = lista;
+    // console.log("Notas",lista)
   }
 
   async getLogsDocs() {

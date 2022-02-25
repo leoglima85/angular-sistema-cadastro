@@ -632,8 +632,12 @@ export class FirestoreService {
     const q = query(collection(this.db, 'Nota'));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      lista.push({ ...doc.data(), contratoID: doc.id });
+      lista.push({ ...doc.data(), notaID: doc.id });
     });
+    lista.forEach(async doc => {
+      doc.condominio = await this.getCondominioNome(doc.condominio);
+      doc.servico = await this.getServicoNomeByID(doc.servico);
+    })
     this.listaNotas = lista;
     // console.log("Notas",lista)
   }
@@ -666,6 +670,23 @@ export class FirestoreService {
     });
   }
 
+  async atualizaNotaDoc(base: string, id: string, dados: any) {
+      // console.log("dados: ",dados)
+      await updateDoc(doc(this.db, base, id), {recebido:dados.recebido});
+
+      await addDoc(collection(this.db, 'Log'), {
+        usuarioID: this.fas.uid,
+        usuarioNome: this.fas.userName,
+        data: new Date(),
+        tipo: 'Alteração',
+        tabela: base,
+        registro: dados,
+      });
+      
+      
+    
+  }
+  
   async atualizaDoc(base: string, id: string, dados: any) {
     try {
       await updateDoc(doc(this.db, base, id), dados);

@@ -1,12 +1,39 @@
-table {
-    width: 100%;
+.tabela {
+    width: 98%;
+    padding: 15px;
+    Height: 10dp;
   }
   
   .mat-form-field {
     font-size: 14px;
     width: 100%;
+    
   }
   
   td, th {
-    width: 25%;
+    width: 15%;
+    
+  }
+  
+  /* td{
+    background-color: rgb(201, 99, 81);
+  } */
+
+  .nao{
+    background-color: rgb(201, 99, 81);
+    transition: 1s;
+  }
+
+  .sim{
+    background-color: rgb(74, 128, 83);
+    transition: 1s;
+  }
+
+  h1{
+    padding-top: 15px;
+    text-align: center;
+  }
+
+  .teste.ativo{
+    background-color: aqua;
   }

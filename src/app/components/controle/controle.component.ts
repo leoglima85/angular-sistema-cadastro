@@ -1,5 +1,6 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -15,21 +16,46 @@ import { DialogComponent } from '../dialog/dialog.component';
 export class ControleComponent implements OnInit {
   displayedColumns: string[] = ['contrato', 'condominio', 'servico', 'competencia', 'dataVencimento', 'valor', 'recebido', 'nota'];
   dataSource!: MatTableDataSource<any>;
+  dataSourceTemp!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   listaContratos: any[] = [];
+  listaServicos: any[] = [];
+  listaCondominios: any[] = [];
+  listaFornecedores: any[] = [];
+  buscaForm: FormGroup;
   notas: any[] = [];
+  meses = [{mes:'Janeiro', codigo: 1},{mes:'Fevereiro', codigo: 2},{mes:'Março', codigo: 3},
+          {mes:'Abril', codigo: 4},{mes:'Maio', codigo: 5},{mes:'Junho', codigo: 6},
+          {mes:'Julho', codigo: 7},{mes:'Agosto', codigo: 8},{mes:'Setembro', codigo: 91},
+          {mes:'Outubro', codigo: 10},{mes:'Novembro', codigo: 11},{mes:'Dezembro', codigo: 12},]
 
   constructor(private fs: FirestoreService,
-    private dialog: MatDialog) {
-
-  }
+              private dialog: MatDialog,
+              private fb: FormBuilder,) 
+    {
+      this.buscaForm = this.fb.group({
+        condominio:  [''],
+        fornecedor: [''],
+        servico:  [''],
+        mes:  [''],
+        recebido:  [''],
+        
+      });
+    }
 
   async ngOnInit(): Promise<void> {
     await this.fs.getContratosDocs()
-    this.listaContratos = this.fs.listaContratos
     await this.fs.getNotasDocs()
+    await this.fs.getCondominioDocs();
+    await this.fs.getServicosDocs();
+    await this.fs.getFornecedoresDocs();
+    this.listaCondominios = this.fs.listaCondominios;
+    this.listaServicos = this.fs.listaServicos;
+    this.listaFornecedores = this.fs.listaFornecedores;
+    this.listaContratos = this.fs.listaContratos
     this.notas = this.fs.listaNotas
+    
     let busca = false
     let mes = new Date().getMonth() + 1
     let mesAnterior = mes - 1
@@ -369,9 +395,12 @@ export class ControleComponent implements OnInit {
     })
     this.notas.sort((a, b) => { return a.competencia - b.competencia })
     // this.load()
-    this.dataSource = new MatTableDataSource(this.notas);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    setTimeout(() => {
+      // this.dataSource = new MatTableDataSource(this.notas);
+      // this.dataSource.paginator = this.paginator;
+      // this.dataSource.sort = this.sort;
+    }, 3000)
+
 
   }
 
@@ -379,7 +408,7 @@ export class ControleComponent implements OnInit {
 
   }
 
-  async teste(row: any) {
+  async setRecebido(row: any) {
     // console.log("teste",row)
     // const dialogConfig = new MatDialogConfig();
     // dialogConfig.disableClose = true;
@@ -397,11 +426,47 @@ export class ControleComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    let words = [];
+    this.dataSource.data = this.dataSourceTemp.data;
+    words = filterValue.split(' ');
+    words.map((word) => {
+      this.dataSource.filter = word.trim().toLowerCase();
+      this.dataSource.data = this.dataSource.filteredData;
+      if (this.dataSource.paginator) {
+        this.dataSource.paginator.firstPage();
+      }
+    });
+  }
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  filtros(){
+    // console.log(this.buscaForm.value)
+    // console.log(this.listaCondominios)
+    let notas2 = this.notas
+    if (this.buscaForm.value.condominio) {
+      notas2 = notas2.filter(x => x.condominio == this.buscaForm.value.condominio);
     }
+    if (this.buscaForm.value.servico) {
+      notas2 = notas2.filter(x => x.servico == this.buscaForm.value.servico);
+    }
+    if (this.buscaForm.value.fornecedor) {
+      notas2 = notas2.filter(x => x.fornecedor == this.buscaForm.value.fornecedor);
+    }
+    if (this.buscaForm.value.mes) {
+      notas2 = notas2.filter(x => x.mes == this.buscaForm.value.mes);
+    }
+    if (this.buscaForm.value.recebido) {
+      notas2 = notas2.filter(x => x.recebido == this.buscaForm.value.recebido);
+    }
+
+    // notas2 = this.notas.filter(x => x.condominio == this.buscaForm.value.condominio && 
+    //                             x.recebido == this.buscaForm.value.recebido);
+    // console.log( "notas2 ",notas2)
+    notas2 = notas2.filter((el, i, a) => i === a.indexOf(el))
+    // console.log( "notas2noDups ",notas2)
+    this.dataSource = new MatTableDataSource(notas2);
+    this.dataSourceTemp = new MatTableDataSource(notas2);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
 }

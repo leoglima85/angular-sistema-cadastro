@@ -37,3 +37,12 @@
   .teste.ativo{
     background-color: aqua;
   }
+
+  .filtros{
+    display: flex;
+    align-items: center;
+  }
+
+  .filtro-opcao{
+    padding: 5px;
+  }

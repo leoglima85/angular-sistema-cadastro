@@ -1,5 +1,60 @@
 
   <h1> Controle Diário</h1>
+  
+<form #fgBusca="ngForm" [formGroup]="buscaForm">
+  <div class="filtros">
+    <div class="filtro-opcao">
+      <mat-form-field >
+        <mat-label>Condomínio</mat-label>
+        <mat-select formControlName="condominio" name="condominio">
+          <mat-option [value]=""> * </mat-option>
+          <mat-option *ngFor="let opt of listaCondominios" [value]="opt.nome">{{ opt.nome }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="filtro-opcao">
+      <mat-form-field >
+        <mat-label>Serviço</mat-label>
+        <mat-select formControlName="servico" name="servico">
+          <mat-option [value]=""> * </mat-option>
+          <mat-option *ngFor="let opt of listaServicos" [value]="opt.nome">{{ opt.nome }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="filtro-opcao">
+      <mat-form-field >
+        <mat-label>Fornecedor</mat-label>
+        <mat-select formControlName="fornecedor" name="fornecedor">
+          <mat-option [value]=""> * </mat-option>
+          <mat-option *ngFor="let opt of listaFornecedores" [value]="opt.nome">{{ opt.nome }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="filtro-opcao">
+      <mat-form-field>
+        <mat-label>Mês</mat-label>
+        <mat-select  formControlName="mes" name="mes">
+          <mat-option [value]=""> * </mat-option>
+          <mat-option *ngFor="let opt of meses" [value]="opt.codigo">{{ opt.mes }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="filtro-opcao">
+      <mat-form-field >
+        <mat-label>Recebido</mat-label>
+        <mat-select formControlName="recebido" name="recebido">
+          <mat-option [value]=""> * </mat-option>
+          <mat-option value="sim">Sim</mat-option>
+          <mat-option value="nao">Não</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-raised-button color="primary" (click)="filtros()"> Filtrar </button>
+    </div>
+  </div>
+</form>
+
 
 <mat-form-field appearance="standard">
   <mat-label>Filter</mat-label>
@@ -52,7 +107,7 @@
 
     <ng-container matColumnDef="nota">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Cadastrar </th>
-      <td mat-cell *matCellDef="let row"> <button (click)="teste(row)" mat-raised-button color="primary">*</button> </td>
+      <td mat-cell *matCellDef="let row"> <button (click)="setRecebido(row)" mat-raised-button color="primary">*</button> </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

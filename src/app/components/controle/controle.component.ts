@@ -39,7 +39,6 @@ export class ControleComponent implements OnInit {
       servico: [''],
       mes: [''],
       recebido: [''],
-
     });
   }
 
@@ -54,7 +53,6 @@ export class ControleComponent implements OnInit {
     this.listaFornecedores = this.fs.listaFornecedores;
     this.listaContratos = this.fs.listaContratos
     this.notas = this.fs.listaNotas
-
     let busca = false
     let mes = new Date().getMonth() + 1
     let mesAnterior = mes - 1
@@ -85,9 +83,7 @@ export class ControleComponent implements OnInit {
           })
         }
       } else {
-        // console.log("doc Mensal")
         if (mes > 1 && mes < 11) {
-          // console.log(">1<11.", mes)
           busca = false
           this.notas.find(nota => {
             if (nota.contrato === doc.numeroContrato && (mesAnterior) == nota.competencia)
@@ -168,7 +164,6 @@ export class ControleComponent implements OnInit {
           mesAnterior = 12
           mesSeguinte1 = 2
           mesSeguinte2 = 3
-          // console.log("1.", mes)
           busca = false
           this.notas.find(nota => {
             if (nota.contrato === doc.numeroContrato && (mesAnterior) == nota.competencia)
@@ -413,8 +408,6 @@ export class ControleComponent implements OnInit {
     // this.load()
     setTimeout(() => {
       // this.dataSource = new MatTableDataSource(this.notas);
-      // this.dataSource.paginator = this.paginator;
-      // this.dataSource.sort = this.sort;
     }, 3000)
 
 
@@ -425,19 +418,12 @@ export class ControleComponent implements OnInit {
   }
 
   async setRecebido(row: any) {
-    // console.log("teste",row)
-    // const dialogConfig = new MatDialogConfig();
-    // dialogConfig.disableClose = true;
-    // dialogConfig.autoFocus = true;
-    // this.dialog.open(DialogComponent, dialogConfig);
-
     if (row.recebido == "sim") {
       row.recebido = "nao"
     } else {
       row.recebido = "sim"
     }
     await this.fs.atualizaNotaDoc("Nota", row.notaID, row)
-    // await this.ngOnInit()
   }
 
   applyFilter(event: Event) {
@@ -455,8 +441,6 @@ export class ControleComponent implements OnInit {
   }
 
   filtros() {
-    // console.log(this.buscaForm.value)
-    // console.log(this.listaCondominios)
     let notas2 = this.notas
     if (this.buscaForm.value.condominio) {
       notas2 = notas2.filter(x => x.condominio == this.buscaForm.value.condominio);
@@ -473,12 +457,7 @@ export class ControleComponent implements OnInit {
     if (this.buscaForm.value.recebido) {
       notas2 = notas2.filter(x => x.recebido == this.buscaForm.value.recebido);
     }
-
-    // notas2 = this.notas.filter(x => x.condominio == this.buscaForm.value.condominio && 
-    //                             x.recebido == this.buscaForm.value.recebido);
-    // console.log( "notas2 ",notas2)
     notas2 = notas2.filter((el, i, a) => i === a.indexOf(el))
-    // console.log( "notas2noDups ",notas2)
     this.dataSource = new MatTableDataSource(notas2);
     this.dataSourceTemp = new MatTableDataSource(notas2);
     this.dataSource.paginator = this.paginator;

@@ -49,7 +49,7 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div>
+    <div class="filtro-opcao">
       <button mat-raised-button color="primary" (click)="filtros()"> Filtrar </button>
     </div>
   </div>
@@ -57,7 +57,7 @@
 
 
 <mat-form-field appearance="standard">
-  <mat-label>Filter</mat-label>
+  <mat-label>Pesquisar</mat-label>
   <input matInput (keyup)="applyFilter($event)" #input>
 </mat-form-field>
 

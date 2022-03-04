@@ -25,24 +25,23 @@ export class ControleComponent implements OnInit {
   listaFornecedores: any[] = [];
   buscaForm: FormGroup;
   notas: any[] = [];
-  meses = [{mes:'Janeiro', codigo: 1},{mes:'Fevereiro', codigo: 2},{mes:'Março', codigo: 3},
-          {mes:'Abril', codigo: 4},{mes:'Maio', codigo: 5},{mes:'Junho', codigo: 6},
-          {mes:'Julho', codigo: 7},{mes:'Agosto', codigo: 8},{mes:'Setembro', codigo: 91},
-          {mes:'Outubro', codigo: 10},{mes:'Novembro', codigo: 11},{mes:'Dezembro', codigo: 12},]
+  meses = [{ mes: 'Janeiro', codigo: 1 }, { mes: 'Fevereiro', codigo: 2 }, { mes: 'Março', codigo: 3 },
+  { mes: 'Abril', codigo: 4 }, { mes: 'Maio', codigo: 5 }, { mes: 'Junho', codigo: 6 },
+  { mes: 'Julho', codigo: 7 }, { mes: 'Agosto', codigo: 8 }, { mes: 'Setembro', codigo: 91 },
+  { mes: 'Outubro', codigo: 10 }, { mes: 'Novembro', codigo: 11 }, { mes: 'Dezembro', codigo: 12 },]
 
   constructor(private fs: FirestoreService,
-              private dialog: MatDialog,
-              private fb: FormBuilder,) 
-    {
-      this.buscaForm = this.fb.group({
-        condominio:  [''],
-        fornecedor: [''],
-        servico:  [''],
-        mes:  [''],
-        recebido:  [''],
-        
-      });
-    }
+    private dialog: MatDialog,
+    private fb: FormBuilder,) {
+    this.buscaForm = this.fb.group({
+      condominio: [''],
+      fornecedor: [''],
+      servico: [''],
+      mes: [''],
+      recebido: [''],
+
+    });
+  }
 
   async ngOnInit(): Promise<void> {
     await this.fs.getContratosDocs()
@@ -55,7 +54,7 @@ export class ControleComponent implements OnInit {
     this.listaFornecedores = this.fs.listaFornecedores;
     this.listaContratos = this.fs.listaContratos
     this.notas = this.fs.listaNotas
-    
+
     let busca = false
     let mes = new Date().getMonth() + 1
     let mesAnterior = mes - 1
@@ -76,6 +75,7 @@ export class ControleComponent implements OnInit {
           this.fs.addNotaDoc({
             contrato: doc.numeroContrato,
             condominio: doc.condominio,
+            fornecedor: doc.fornecedor,
             servico: doc.nome,
             competencia: doc.dataVencimento,
             dataVencimento: `${doc.dataVencimento}/${doc.dataVencimento}/${ano}`,
@@ -97,6 +97,7 @@ export class ControleComponent implements OnInit {
             this.fs.addNotaDoc({
               contrato: doc.numeroContrato,
               condominio: doc.condominio,
+              fornecedor: doc.fornecedor,
               servico: doc.nome,
               competencia: mesAnterior,
               dataVencimento: `${doc.dataVencimento}/${mesAnterior}/${ano}`,
@@ -115,6 +116,7 @@ export class ControleComponent implements OnInit {
             this.fs.addNotaDoc({
               contrato: doc.numeroContrato,
               condominio: doc.condominio,
+              fornecedor: doc.fornecedor,
               servico: doc.nome,
               competencia: mes,
               dataVencimento: `${doc.dataVencimento}/${mes}/${ano}`,
@@ -133,6 +135,7 @@ export class ControleComponent implements OnInit {
             this.fs.addNotaDoc({
               contrato: doc.numeroContrato,
               condominio: doc.condominio,
+              fornecedor: doc.fornecedor,
               servico: doc.nome,
               competencia: mesSeguinte1,
               dataVencimento: `${doc.dataVencimento}/${mesSeguinte1}/${ano}`,
@@ -151,6 +154,7 @@ export class ControleComponent implements OnInit {
             this.fs.addNotaDoc({
               contrato: doc.numeroContrato,
               condominio: doc.condominio,
+              fornecedor: doc.fornecedor,
               servico: doc.nome,
               competencia: mesSeguinte2,
               dataVencimento: `${doc.dataVencimento}/${mesSeguinte2}/${ano}`,
@@ -174,6 +178,7 @@ export class ControleComponent implements OnInit {
             this.fs.addNotaDoc({
               contrato: doc.numeroContrato,
               condominio: doc.condominio,
+              fornecedor: doc.fornecedor,
               servico: doc.nome,
               competencia: mesAnterior,
               dataVencimento: `${doc.dataVencimento}/${mesAnterior}/${anoAnterior}`,
@@ -192,6 +197,7 @@ export class ControleComponent implements OnInit {
             this.fs.addNotaDoc({
               contrato: doc.numeroContrato,
               condominio: doc.condominio,
+              fornecedor: doc.fornecedor,
               servico: doc.nome,
               competencia: mes,
               dataVencimento: `${doc.dataVencimento}/${mes}/${ano}`,
@@ -210,6 +216,7 @@ export class ControleComponent implements OnInit {
             this.fs.addNotaDoc({
               contrato: doc.numeroContrato,
               condominio: doc.condominio,
+              fornecedor: doc.fornecedor,
               servico: doc.nome,
               competencia: mesSeguinte1,
               dataVencimento: `${doc.dataVencimento}/${mesSeguinte1}/${ano}`,
@@ -228,6 +235,7 @@ export class ControleComponent implements OnInit {
             this.fs.addNotaDoc({
               contrato: doc.numeroContrato,
               condominio: doc.condominio,
+              fornecedor: doc.fornecedor,
               servico: doc.nome,
               competencia: mesSeguinte2,
               dataVencimento: `${doc.dataVencimento}/${mesSeguinte2}/${ano}`,
@@ -249,6 +257,7 @@ export class ControleComponent implements OnInit {
             this.fs.addNotaDoc({
               contrato: doc.numeroContrato,
               condominio: doc.condominio,
+              fornecedor: doc.fornecedor,
               servico: doc.nome,
               competencia: mesAnterior,
               dataVencimento: `${doc.dataVencimento}/${mesAnterior}/${ano}`,
@@ -267,6 +276,7 @@ export class ControleComponent implements OnInit {
             this.fs.addNotaDoc({
               contrato: doc.numeroContrato,
               condominio: doc.condominio,
+              fornecedor: doc.fornecedor,
               servico: doc.nome,
               competencia: mes,
               dataVencimento: `${doc.dataVencimento}/${mes}/${ano}`,
@@ -285,6 +295,7 @@ export class ControleComponent implements OnInit {
             this.fs.addNotaDoc({
               contrato: doc.numeroContrato,
               condominio: doc.condominio,
+              fornecedor: doc.fornecedor,
               servico: doc.nome,
               competencia: mesSeguinte1,
               dataVencimento: `${doc.dataVencimento}/${mesSeguinte1}/${ano}`,
@@ -303,6 +314,7 @@ export class ControleComponent implements OnInit {
             this.fs.addNotaDoc({
               contrato: doc.numeroContrato,
               condominio: doc.condominio,
+              fornecedor: doc.fornecedor,
               servico: doc.nome,
               competencia: mesSeguinte2,
               dataVencimento: `${doc.dataVencimento}/${mesSeguinte2}/${anoSeguinte}`,
@@ -325,6 +337,7 @@ export class ControleComponent implements OnInit {
             this.fs.addNotaDoc({
               contrato: doc.numeroContrato,
               condominio: doc.condominio,
+              fornecedor: doc.fornecedor,
               servico: doc.nome,
               competencia: mesAnterior,
               dataVencimento: `${doc.dataVencimento}/${mesAnterior}/${ano}`,
@@ -343,6 +356,7 @@ export class ControleComponent implements OnInit {
             this.fs.addNotaDoc({
               contrato: doc.numeroContrato,
               condominio: doc.condominio,
+              fornecedor: doc.fornecedor,
               servico: doc.nome,
               competencia: mes,
               dataVencimento: `${doc.dataVencimento}/${mes}/${ano}`,
@@ -361,6 +375,7 @@ export class ControleComponent implements OnInit {
             this.fs.addNotaDoc({
               contrato: doc.numeroContrato,
               condominio: doc.condominio,
+              fornecedor: doc.fornecedor,
               servico: doc.nome,
               competencia: mesSeguinte1,
               dataVencimento: `${doc.dataVencimento}/${mesSeguinte1}/${anoSeguinte}`,
@@ -380,6 +395,7 @@ export class ControleComponent implements OnInit {
             this.fs.addNotaDoc({
               contrato: doc.numeroContrato,
               condominio: doc.condominio,
+              fornecedor: doc.fornecedor,
               servico: doc.nome,
               competencia: mesSeguinte2,
               dataVencimento: `${doc.dataVencimento}/${mesSeguinte2}/${anoSeguinte}`,
@@ -438,7 +454,7 @@ export class ControleComponent implements OnInit {
     });
   }
 
-  filtros(){
+  filtros() {
     // console.log(this.buscaForm.value)
     // console.log(this.listaCondominios)
     let notas2 = this.notas
@@ -452,7 +468,7 @@ export class ControleComponent implements OnInit {
       notas2 = notas2.filter(x => x.fornecedor == this.buscaForm.value.fornecedor);
     }
     if (this.buscaForm.value.mes) {
-      notas2 = notas2.filter(x => x.mes == this.buscaForm.value.mes);
+      notas2 = notas2.filter(x => x.competencia == this.buscaForm.value.mes);
     }
     if (this.buscaForm.value.recebido) {
       notas2 = notas2.filter(x => x.recebido == this.buscaForm.value.recebido);

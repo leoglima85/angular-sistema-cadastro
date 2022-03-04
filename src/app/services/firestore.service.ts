@@ -637,6 +637,7 @@ export class FirestoreService {
     lista.forEach(async doc => {
       doc.condominio = await this.getCondominioNome(doc.condominio);
       doc.servico = await this.getServicoNomeByID(doc.servico);
+      doc.fornecedor = await this.getFornecedorNomeByID(doc.fornecedor);
     })
     this.listaNotas = lista;
     // console.log("Notas",lista)

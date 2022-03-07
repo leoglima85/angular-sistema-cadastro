@@ -445,7 +445,7 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field class="example-full-width " appearance="fill">
-      <mat-label>Fornecedores</mat-label>
+      <mat-label>Fornecedor</mat-label>
       <mat-select [(ngModel)]="docInfos.fornecedor" name="fornecedor" required>
         <mat-option *ngFor="let opt of listaFornecedores" [value]="opt.fornecedorID">
           {{ opt.nome }}

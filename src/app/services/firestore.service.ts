@@ -28,7 +28,7 @@ export class FirestoreService {
   tipo = '';
   public perfil = '';
   genericoTemp: any[] = [];
-  public itens: Generico[] = [];
+  public itens: any[] = [];
   public listaCondominios: any[] = [];
   public listaCargos: any[] = [];
   public listaBancos: any[] = [];
@@ -365,6 +365,8 @@ export class FirestoreService {
   async addNotaDoc(dados : any) {
         // console.log("dados: ",dados)
         await addDoc(collection(this.db, 'Nota'), dados);
+        // dados.servico = await this.getServicoNomeByID(dados.servico);
+        // dados.fornecedor = await this.getFornecedorNomeByID(dados.fornecedor);
         await addDoc(collection(this.db, 'Log'), {
           usuarioID: this.fas.uid,
           usuarioNome: this.fas.userName,
@@ -416,14 +418,14 @@ export class FirestoreService {
       item.id = doc.id;
       this.itens.push(item);
     });
-    //console.log("lista no get:",this.itens)
+    // console.log("lista no get:",this.itens)
 
     this.itens.forEach(async (item) => {
       if (opt == "Condominio") {
         let temp = await this.getContratoDocs(item.id);
         if (temp.length > 0) {
           item.contratos = temp;
-          item.contratos.forEach(async (res) => {
+          item.contratos.forEach(async (res: { servico: string; nome: string; fornecedor: string; }) => {
             res.servico = await this.getServicoNomeByID(res.nome);
             res.fornecedor = await this.getFornecedorNomeByID(res.fornecedor);
           });
@@ -446,6 +448,7 @@ export class FirestoreService {
       }
       if (opt == 'Contrato') {
         item.nome = await this.getServicoNomeByID(item.nome);
+        item.fornecedor = await this.getFornecedorNomeByID(item.fornecedor);
       }
     });
     //console.log("itens: ",this.itens)
@@ -651,18 +654,25 @@ export class FirestoreService {
       lista.push({ ...doc.data(), data: doc.data().data.toDate() });
     });
     this.listaLogs = lista;
+    // console.log("logs",lista)
     this.listaLogs.forEach(async (item) => {
-      if (item.registro.condominio) {
-        item.registro.condominio = await this.getCondominioNome(
-          item.registro.condominio
-        );
-      }
+      // if (item.registro.condominio) {
+      //   item.registro.condominio = await this.getCondominioNome(
+      //     item.registro.condominio
+      //   );
+      // }
       if (item.registro.cargo) {
         item.registro.cargo = await this.getCargoNome(item.registro.cargo);
       }
       if (item.registro.banco) {
         item.registro.banco = await this.getBancoNome(item.registro.banco);
       }
+      // if (item.registro.fornecedor) {
+      //   item.registro.fornecedor = await this.getFornecedorNomeByID(item.registro.fornecedor);
+      // }
+      // if (item.registro.servico) {
+      //   item.registro.servico = await this.getServicoNomeByID(item.registro.servico);
+      // }
       if (item.registro.servicosPrestados) {
         item.registro.servicosPrestados = await this.getServicoNome(
           item.registro.servicosPrestados
@@ -683,9 +693,6 @@ export class FirestoreService {
         tabela: base,
         registro: dados,
       });
-      
-      
-    
   }
   
   async atualizaDoc(base: string, id: string, dados: any) {

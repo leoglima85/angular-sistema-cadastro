@@ -82,7 +82,7 @@ export class LogEventosComponent implements OnInit {
   async ngOnInit() {
     await this.fs.getLogsDocs();
     this.listaLogs = this.fs.listaLogs;
-    //console.log(this.listaLogs)
+    // console.log(this.listaLogs)
     this.dataSource = new MatTableDataSource(this.listaLogs);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

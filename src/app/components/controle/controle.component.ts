@@ -53,6 +53,7 @@ export class ControleComponent implements OnInit {
     this.listaFornecedores = this.fs.listaFornecedores;
     this.listaContratos = this.fs.listaContratos
     this.notas = this.fs.listaNotas
+    // console.log("tamanho notas: ", this.notas.length)
     let busca = false
     let mes = new Date().getMonth() + 1
     let mesAnterior = mes - 1
@@ -69,7 +70,7 @@ export class ControleComponent implements OnInit {
             busca = true
         })
         if (!busca) {
-          console.log("cadastrar nota anual ", busca)
+          // console.log("cadastrar nota anual ", busca)
           this.fs.addNotaDoc({
             contrato: doc.numeroContrato,
             condominio: doc.condominio,
@@ -84,6 +85,7 @@ export class ControleComponent implements OnInit {
         }
       } else {
         if (mes > 1 && mes < 11) {
+          // console.log("> 1 && mes < 11")
           busca = false
           this.notas.find(nota => {
             if (nota.contrato === doc.numeroContrato && (mesAnterior) == nota.competencia)
@@ -241,6 +243,7 @@ export class ControleComponent implements OnInit {
 
           }
         } else if (mes == 11) {
+          // console.log("= 11")
           mesSeguinte2 = 1
           // console.log("11.", mes)
           busca = false
@@ -320,6 +323,7 @@ export class ControleComponent implements OnInit {
 
           }
         } else if (mes == 12) {
+          // console.log("= 12")
           mesSeguinte1 = 1
           mesSeguinte2 = 2
           // console.log("12.", mes)
@@ -408,7 +412,7 @@ export class ControleComponent implements OnInit {
     // this.load()
     setTimeout(() => {
       // this.dataSource = new MatTableDataSource(this.notas);
-    }, 3000)
+    }, 1000)
 
 
   }
@@ -423,6 +427,7 @@ export class ControleComponent implements OnInit {
     } else {
       row.recebido = "sim"
     }
+    // console.log("row: ",row)
     await this.fs.atualizaNotaDoc("Nota", row.notaID, row)
   }
 

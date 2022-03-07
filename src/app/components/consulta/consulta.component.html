@@ -70,6 +70,11 @@
               <div class="example-element-admissao" *ngIf="element.nascimento"><b> Nascimento:</b> {{element.nascimento | mask:"00/00/0000"}}</div>
               <div class="example-element-cargo" *ngIf="element.cargo"><b> Cargo:</b> {{element.cargo}} </div>
               <div class="example-element-apelido" *ngIf="element.apelido"><b> Apelido:</b> {{element.apelido}} </div>
+              <div class="example-element-apelido" *ngIf="element.numeroContrato"><b> Número Contrato:</b> {{element.numeroContrato}} </div>
+              <div class="example-element-apelido" *ngIf="element.periodicidade"><b> Periodicidade:</b> {{element.periodicidade}} </div>
+              <div class="example-element-apelido" *ngIf="element.dataVencimento"><b> Vencimento:</b> {{element.dataVencimento}} </div>
+              <div class="example-element-apelido" *ngIf="element.fornecedor"><b> Fornecedor:</b> {{element.fornecedor}} </div>
+              
               <div class="example-element-tabela" *ngIf="element.contratos"><b> Contratos:</b>
                 <table class="tabela-contratos">
                   <tr >

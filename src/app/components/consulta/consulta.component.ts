@@ -77,10 +77,12 @@ export class ConsultaComponent implements OnInit, AfterViewInit {
 
   async filtrar(opt: string) {
     await this.fs.getConsultaDocs(opt);
-    this.dataSource2 = new MatTableDataSource(this.fs.itens);
-    this.dataSourceTemp = new MatTableDataSource(this.fs.itens);
-    this.dataSource2.paginator = this.paginator;
-    this.dataSource2.sort = this.sort;
+    setTimeout(() => {
+      this.dataSource2 = new MatTableDataSource(this.fs.itens);
+      this.dataSourceTemp = new MatTableDataSource(this.fs.itens);
+      this.dataSource2.paginator = this.paginator;
+      this.dataSource2.sort = this.sort;
+    }, 1000)
   }
 
   openDialog(base: string, id: string) {

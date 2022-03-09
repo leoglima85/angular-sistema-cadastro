@@ -5,7 +5,9 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ExtrasService } from 'src/app/services/extras.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { CadastroNotaComponent } from '../cadastro-nota/cadastro-nota.component';
 import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
@@ -32,7 +34,8 @@ export class ControleComponent implements OnInit {
 
   constructor(private fs: FirestoreService,
     private dialog: MatDialog,
-    private fb: FormBuilder,) {
+    private fb: FormBuilder,
+    private es: ExtrasService) {
     this.buscaForm = this.fb.group({
       condominio: [''],
       fornecedor: [''],
@@ -422,6 +425,14 @@ export class ControleComponent implements OnInit {
   }
 
   async setRecebido(row: any) {
+    // this.es.addNota(row)
+    this.dialog.open(CadastroNotaComponent);
+    
+    ExtrasService.notaCriada.emit(row);
+
+
+
+
     if (row.recebido == "sim") {
       row.recebido = "nao"
     } else {

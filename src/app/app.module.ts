@@ -51,6 +51,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { NgxMaskModule } from 'ngx-mask';
+import { CadastroNotaComponent } from './components/cadastro-nota/cadastro-nota.component';
 
 
 @NgModule({
@@ -71,6 +72,7 @@ import { NgxMaskModule } from 'ngx-mask';
     DialogComponent,
     ReciboComponent,
     ControleComponent,
+    CadastroNotaComponent,
 
   ],
   imports: [

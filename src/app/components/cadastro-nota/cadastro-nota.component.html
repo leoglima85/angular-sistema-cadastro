@@ -1,36 +1,89 @@
-<p>Cadastro de Nota</p>
-<form #fcadcontra="ngForm" [formGroup]="cadastroNotaForm" class="example-form">
-    <mat-form-field class="example-full-width contratoNumero" appearance="fill">
+<form *ngIf="dados.notaID" #fcadcontra="ngForm" [formGroup]="cadastroNotaForm" class="example-form">
+    <h1 class="titulo">Cadastro de Nota</h1>
+    <mat-form-field class="condominio" appearance="fill">
         <mat-label>Condominio</mat-label>
-        <input matInput formControlName="condominio" name="condominio">
+        <input matInput readonly formControlName="condominio" name="condominio">
     </mat-form-field>
-    <mat-form-field class="example-full-width contratoNumero" appearance="fill">
+    <mat-form-field class="contratoNumero" appearance="fill">
         <mat-label>Número do Contrato</mat-label>
-        <input matInput formControlName="numeroContrato" name="numeroContrato">
+        <input matInput readonly formControlName="contrato" name="contrato">
     </mat-form-field>
-    <mat-form-field class="example-full-width contratoNumero" appearance="fill">
+    <mat-form-field class="servico" appearance="fill">
         <mat-label>Serviço</mat-label>
-        <input matInput formControlName="servico" name="servico">
+        <input matInput readonly formControlName="servico" name="servico">
     </mat-form-field>
-    <mat-form-field class="example-full-width contratoNumero" appearance="fill">
+    <mat-form-field class="fornecedor" appearance="fill">
         <mat-label>Fornecedor</mat-label>
-        <input matInput formControlName="fornecedor" name="fornecedor">
+        <input matInput readonly formControlName="fornecedor" name="fornecedor">
     </mat-form-field>
-    <mat-form-field class="example-full-width contratoNumero" appearance="fill">
+    <mat-form-field class="competencia" appearance="fill">
         <mat-label>Competência</mat-label>
-        <input matInput formControlName="competencia" name="competencia">
+        <input matInput readonly formControlName="competencia" name="competencia">
     </mat-form-field>
-    <mat-form-field class="example-full-width contratoNumero" appearance="fill">
+    <mat-form-field class="dataVencimento" appearance="fill">
         <mat-label>Data de Vencimento</mat-label>
         <input matInput formControlName="dataVencimento" name="dataVencimento">
     </mat-form-field>
-    <mat-form-field class="example-full-width contratoNumero" appearance="fill">
+    <mat-form-field class="valor" appearance="fill">
         <mat-label>Valor</mat-label>
-        <input matInput formControlName="valor" name="valor">
+        <input type="number" matInput formControlName="valor" name="valor">
     </mat-form-field>
-    <mat-form-field class="example-full-width" appearance="fill">
+    <mat-form-field class="observacao" appearance="fill">
         <mat-label>Observação </mat-label>
-        <input matInput formControlName="observacao" name="observacao">
+        <input matInput formControlName="obs" name="obs">
     </mat-form-field>
-    <button (click)="teste()">teste</button>
+    <div class="botoes">
+        <div class="botao-salvar">
+            <button class="botoes" mat-raised-button color="primary" (click)="salvar()">Recebido</button>
+        </div>
+    </div>
 </form>
+<!-- ********************************************************************************************************** -->
+<form *ngIf="!dados.notaID" #fcadcontraAvul="ngForm" [formGroup]="cadastroNotaAvulsaForm" class="example-form">
+    <h1 class="titulo">Cadastro de Nota Avulsa</h1>
+    <mat-form-field class="condominio" appearance="fill">
+        <mat-label>Condominio</mat-label>
+        <mat-select formControlName="condominio" name="condominio">
+            <mat-option *ngFor="let opt of listaCondominios" [value]="opt.condominioID">{{ opt.nome }}</mat-option>
+          </mat-select>
+    </mat-form-field>
+    <mat-form-field class="contratoNumero" appearance="fill">
+        <mat-label>Número do Contrato</mat-label>
+        <mat-select formControlName="contrato" name="contrato">
+            <mat-option *ngFor="let opt of listaContratos" [value]="opt.numeroContrato">{{ opt.numeroContrato }}</mat-option>
+          </mat-select>
+    </mat-form-field>
+    <mat-form-field class="servico" appearance="fill">
+        <mat-label>Serviço</mat-label>
+        <mat-select formControlName="servico" name="servico">
+            <mat-option *ngFor="let opt of listaServicos" [value]="opt.servicoID">{{ opt.nome }}</mat-option>
+          </mat-select>
+    </mat-form-field>
+    <mat-form-field class="fornecedor" appearance="fill">
+        <mat-label>Fornecedor</mat-label>
+        <mat-select formControlName="fornecedor" name="fornecedor">
+            <mat-option *ngFor="let opt of listaFornecedores" [value]="opt.fornecedorID">{{ opt.nome }}</mat-option>
+          </mat-select>
+    </mat-form-field>
+    <mat-form-field class="competencia" appearance="fill">
+        <mat-label>Competência</mat-label>
+        <input matInput formControlName="competencia" name="competencia">
+    </mat-form-field>
+    <mat-form-field class="dataVencimento" appearance="fill">
+        <mat-label>Data de Vencimento</mat-label>
+        <input matInput formControlName="dataVencimento" name="dataVencimento">
+    </mat-form-field>
+    <mat-form-field class="valor" appearance="fill">
+        <mat-label>Valor</mat-label>
+        <input  type="number" matInput formControlName="valor" name="valor" >
+    </mat-form-field>
+    <mat-form-field class="observacao" appearance="fill">
+        <mat-label>Observação </mat-label>
+        <input matInput formControlName="obs" name="obs">
+    </mat-form-field>
+    <div class="botoes">
+        <div class="botao-salvar">
+            <button class="botoes" mat-raised-button color="primary" (click)="cadNotaAvulsa()">Recebido</button>
+        </div>
+    </div>
+

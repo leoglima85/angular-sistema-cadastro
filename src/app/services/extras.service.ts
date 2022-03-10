@@ -5,14 +5,9 @@ import { EventEmitter, Injectable } from '@angular/core';
 })
 export class ExtrasService {
 
-  emitirCadastrarNota = new EventEmitter<string>();
   static notaCriada = new EventEmitter<string>();
+  static fecharDialog = new EventEmitter<string>();
 
-  constructor() { console.log("Extras Service")}
-
-  addNota(dados : any){
-    console.log("Extras Service - addNota: ",dados);
-    // this.emitirCadastrarNota.emit("dados");
-    ExtrasService.notaCriada.emit(dados);
-  }
+  constructor() {}
+  
 }

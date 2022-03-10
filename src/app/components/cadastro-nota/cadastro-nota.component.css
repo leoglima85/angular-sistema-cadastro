@@ -1,0 +1,58 @@
+.titulo{
+    text-align: center;
+}
+
+.condominio{
+    width: 37%;
+    padding-right: 2%;
+}
+
+.numeroContrato{
+    width: 30%;
+    padding-right: 2%;
+}
+
+.servico{
+    width: 30%;
+    padding-left: 2%;
+}
+
+.fornecedor{
+    width: 30%;
+    padding-right: 10px;
+}
+
+.competencia{
+    width: 20%;
+    padding-right: 10px;
+}
+
+.dataVencimento{
+    width: 15%;
+    padding-right: 10px;
+}
+
+.valor{
+    width: 23%;
+    padding-right: 5px;
+}
+
+.observacao{
+    width: 91%;
+}
+
+.botoes{
+    display: flex;
+}
+
+.botao-cancelar{
+    padding-left: 15px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}

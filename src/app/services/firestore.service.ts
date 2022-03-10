@@ -634,6 +634,7 @@ export class FirestoreService {
     const lista: any[] = [];
     const q = query(collection(this.db, 'Nota'));
     const querySnapshot = await getDocs(q);
+    // console.log("docs: ",querySnapshot.docs)
     querySnapshot.forEach((doc) => {
       lista.push({ ...doc.data(), notaID: doc.id });
     });
@@ -683,7 +684,13 @@ export class FirestoreService {
 
   async atualizaNotaDoc(base: string, id: string, dados: any) {
       // console.log("dados: ",dados)
-      await updateDoc(doc(this.db, base, id), {recebido:dados.recebido});
+      await updateDoc(doc(this.db, base, id), 
+      {
+        recebido:'sim',
+        dataVencimento: dados.dataVencimento,
+        valor: dados.valor,
+        obs: dados.obs
+      });
 
       await addDoc(collection(this.db, 'Log'), {
         usuarioID: this.fas.uid,

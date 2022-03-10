@@ -56,7 +56,7 @@ export class ControleComponent implements OnInit {
     this.listaFornecedores = this.fs.listaFornecedores;
     this.listaContratos = this.fs.listaContratos
     this.notas = this.fs.listaNotas
-    // console.log("tamanho notas: ", this.notas.length)
+    // console.log("tamanho notas: ", this.notas)
     let busca = false
     let mes = new Date().getMonth() + 1
     let mesAnterior = mes - 1
@@ -427,19 +427,28 @@ export class ControleComponent implements OnInit {
   async setRecebido(row: any) {
     // this.es.addNota(row)
     this.dialog.open(CadastroNotaComponent);
-    
     ExtrasService.notaCriada.emit(row);
+    ExtrasService.fecharDialog.subscribe(()=> 
+    {
+      this.closeDialog()
+      this.ngOnInit()
+      setTimeout(() => {
+        this.filtros()
+        // console.log("filtros")
+      }, 2000);
+    });
 
-
-
-
-    if (row.recebido == "sim") {
-      row.recebido = "nao"
-    } else {
-      row.recebido = "sim"
-    }
+    // if (row.recebido == "sim") {
+    //   row.recebido = "nao"
+    // } else {
+    //   row.recebido = "sim"
+    // }
     // console.log("row: ",row)
-    await this.fs.atualizaNotaDoc("Nota", row.notaID, row)
+    //await this.fs.atualizaNotaDoc("Nota", row.notaID, row)
+  }
+
+  closeDialog(){
+    this.dialog.closeAll()
   }
 
   applyFilter(event: Event) {
@@ -478,6 +487,32 @@ export class ControleComponent implements OnInit {
     this.dataSourceTemp = new MatTableDataSource(notas2);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  cadastraNota(){
+    // let obj : any = {
+    //   condominio:'',
+    //   contrato:'',
+    //   servico:'',
+    //   fornecedor:'',
+    //   competencia:'',
+    //   dataVencimento:'',
+    //   valor:'',
+    //   obs:'',
+    //   notaID:'',
+    //  }
+    ExtrasService.notaCriada.emit();
+    ExtrasService.fecharDialog.subscribe(()=> 
+    {
+      this.closeDialog()
+      this.ngOnInit()
+      setTimeout(() => {
+        this.filtros()
+        // console.log("filtros")
+      }, 2000);
+    });
+
+    this.dialog.open(CadastroNotaComponent);
   }
 
 }

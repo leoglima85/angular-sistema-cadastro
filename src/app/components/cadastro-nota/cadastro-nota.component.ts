@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExtrasService } from 'src/app/services/extras.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 
@@ -28,13 +28,13 @@ export class CadastroNotaComponent implements OnInit {
       nota => this.dados = nota //console.log(" const notaCriada: ", nota)//
     );
     this.cadastroNotaAvulsaForm = this.fb.group({
-      condominio: ['', []],
+      condominio: ['', [Validators.required]],
       contrato: ['', []],
-      servico: ['', []],
-      fornecedor: ['', []],
-      competencia: ['', []],
-      dataVencimento: ['', []],
-      valor: ['', []],
+      servico: ['', [Validators.required]],
+      fornecedor: ['', [Validators.required]],
+      competencia: ['', [Validators.required]],
+      dataVencimento: ['', [Validators.required]],
+      valor: ['', [Validators.required]],
       recebido: ['sim',[]],
       obs: ['', []],
     });

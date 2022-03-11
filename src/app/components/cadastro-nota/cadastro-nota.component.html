@@ -34,7 +34,8 @@
     </mat-form-field>
     <div class="botoes">
         <div class="botao-salvar">
-            <button class="botoes" mat-raised-button color="primary" (click)="salvar()">Recebido</button>
+            <button class="botoes" mat-raised-button color="primary" 
+            (click)="salvar()" >Recebido</button>
         </div>
     </div>
 </form>
@@ -83,7 +84,8 @@
     </mat-form-field>
     <div class="botoes">
         <div class="botao-salvar">
-            <button class="botoes" mat-raised-button color="primary" (click)="cadNotaAvulsa()">Recebido</button>
+            <button class="botoes" mat-raised-button color="primary" 
+            (click)="cadNotaAvulsa()" [disabled]="!fcadcontraAvul.valid">Recebido</button>
         </div>
     </div>
 

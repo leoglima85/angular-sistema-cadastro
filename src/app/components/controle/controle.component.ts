@@ -16,7 +16,7 @@ import { DialogComponent } from '../dialog/dialog.component';
   styleUrls: ['./controle.component.css']
 })
 export class ControleComponent implements OnInit {
-  displayedColumns: string[] = ['contrato', 'condominio', 'servico', 'competencia', 'dataVencimento', 'valor', 'recebido', 'nota'];
+  displayedColumns: string[] = ['contrato', 'condominio', 'servico', 'competencia', 'dataVencimento', 'valor',  'nota'];
   dataSource!: MatTableDataSource<any>;
   dataSourceTemp!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
